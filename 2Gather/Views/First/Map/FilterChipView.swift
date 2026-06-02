@@ -18,16 +18,36 @@ struct FilterChipView: View {
         Button(action: onTap) {
             HStack(spacing: 6) {
                 Image(systemName: icon)
-                    .font(.system(size: 12, weight: .semibold))
+                    .font(.TGfilterChipLabel)
+                    .foregroundStyle(Color.TGprimary)
                 Text(label)
-                    .font(.caption)
-                    .fontWeight(.semibold)
+                    .font(.TGfilterChipLabel)
+                    .foregroundStyle(Color.TGprimary)
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
-            .background(isSelected ? color : Color(.systemGray6))
+            .background(isSelected ? .TGterniary : Color.backgroundPrimary)
+            .shadow(radius: 1)
             .foregroundStyle(isSelected ? .white : .primary)
             .clipShape(Capsule())
         }
     }
+}
+
+#Preview {
+    HStack {
+        FilterChipView(
+            label: "Running",
+            icon: "figure.run",
+            color: .red,
+            isSelected: false
+        ) {}
+        FilterChipView(
+            label: "Running",
+            icon: "figure.run",
+            color: .red,
+            isSelected: true
+        ) {}
+    }.padding().background(.gray)
+
 }
