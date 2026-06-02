@@ -29,7 +29,16 @@ struct MapView: View {
             ZStack(alignment: .top) {
 
                 Map(position: $viewModel.position) {
-                    UserAnnotation()
+                    UserAnnotation {
+                        ZStack {
+                            Circle()
+                                .fill(.yellow)
+                                .strokeBorder(Color.black, lineWidth: 3)
+                                .frame(width: 25, height: 25)
+                                .shadow(color: .black.opacity(0.68), radius: 8)
+                        }
+                        .frame(width: 40, height: 40)
+                    }
 
                     ForEach(displayedEvents, id: \.id) { event in
                         Annotation(
