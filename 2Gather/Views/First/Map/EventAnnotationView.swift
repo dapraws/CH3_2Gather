@@ -12,6 +12,7 @@ struct EventAnnotationView: View {
     var viewModel: MapViewModel
     var isJoined: Bool = false
     var isCompleted: Bool = false
+    var isSelecteds: Bool = false
 
     private var sport: SportCategory {
         SportCategory.from(categories: event.category)
@@ -21,47 +22,33 @@ struct EventAnnotationView: View {
         viewModel.highlightedEventId == event.id
     }
 
-    var body: some View {
-        VStack(spacing: 0) {
-            ZStack {
-                // If completed, show a green ring. If joined, show a blue ring. (No theme colors)
-                Circle()
-                    .stroke(
-                        isCompleted
-                            ? Color.green : (isJoined ? Color.yellow : .clear),
-                        lineWidth: isJoined || isCompleted ? 4 : 0
-                    )
-                    .frame(width: 52, height: 52)
-                    .opacity(
-                        isSelected ? 1 : (isJoined || isCompleted ? 0.8 : 0)
-                    )
-
-                Circle()
-                    .fill(sport.color.opacity(0.25))
-                    .frame(width: 66, height: 66)
-                    .opacity(isSelected ? 1 : 0)
-                    .scaleEffect(isSelected ? 1 : 0.4)
-
-                Circle()
-                    .fill(isCompleted ? Color.green : sport.color)
-                    .frame(width: 44, height: 44)
-                    .shadow(
-                        color: sport.color.opacity(0.45),
-                        radius: isSelected ? 10 : 5
-                    )
-                    .scaleEffect(isSelected ? 1.3 : 1.0)
-
-                Image(systemName: isCompleted ? "checkmark" : sport.icon)
-                    .foregroundStyle(.white)
-                    .font(.system(size: 20, weight: .semibold))
-                    .scaleEffect(isSelected ? 1.3 : 1.0)
-            }
-
-            Image(systemName: "arrowtriangle.down.fill")
-                .font(.system(size: 10))
-                .foregroundStyle(isCompleted ? Color.green : sport.color)
-                .offset(y: isSelected ? -3 : -9)
+    private var pinImage: String {
+        if isCompleted {
+            return "map-pin-completed"
+        } else if isJoined {
+            return "map-pin-joined"
+        } else {
+            return "map-pin-default"
         }
+    }
+
+    private var iconColor: Color {
+        isJoined ? .black : .white
+    }
+
+    var body: some View {
+        ZStack {
+            Image(pinImage)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 60)
+
+            Image(systemName: isCompleted ? "checkmark" : sport.icon)
+                .foregroundStyle(iconColor)
+                .font(.system(size: 20, weight: .semibold))
+                .offset(y: -5)
+        }
+        .scaleEffect(isSelected ? 2.0 : 1.0)
         .animation(
             .spring(response: 0.3, dampingFraction: 0.55),
             value: isSelected
@@ -86,7 +73,8 @@ struct EventAnnotationView: View {
             EventAnnotationView(
                 event: TempData.event4,
                 viewModel: MapViewModel(),
-                isCompleted: true
+                isCompleted: true,
+                isSelecteds: true
             )
         }
     }.ignoresSafeArea()
@@ -110,4 +98,33 @@ struct EventAnnotationView: View {
         viewModel: MapViewModel(),
         isCompleted: true
     )
+}
+
+#Preview("custom annotation") {
+    HStack {
+        ZStack {
+            Image("map-pin-default")
+            Image(systemName: "figure.volleyball")
+                .foregroundStyle(.white)
+                .font(.system(size: 20, weight: .semibold))
+                .offset(y: -5)
+        }
+        ZStack {
+            Image("map-pin-joined")
+            Image(systemName: "figure.volleyball")
+                .foregroundStyle(.black)
+                .font(.system(size: 20, weight: .semibold))
+                .offset(y: -5)
+        }
+        ZStack {
+            Image("map-pin-completed")
+            Image(systemName: "figure.volleyball")
+                .foregroundStyle(.white)
+                .font(.system(size: 20, weight: .semibold))
+                .offset(y: -5)
+        }
+    }
+    .frame(width: .infinity, height: .infinity)
+    .padding()
+    .background(.gray)
 }
