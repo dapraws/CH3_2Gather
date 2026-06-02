@@ -29,10 +29,11 @@ extension Color {
 
 extension Color {
 
+    
     // MARK: Brand
-    static let primary   = Color(hex: "#4A60B2")   // Brown
-    static let secondary = Color(hex: "#FF7606")   // Orange
-    static let terniary    = Color(hex: "#FFDC49")   // Yellow
+    static let TGprimary   = Color(hex: "#301720")   // Brown
+    static let TGsecondary = Color(hex: "#FF7606")   // Orange
+    static let TGterniary    = Color(hex: "#FFDC49")   // Yellow
 
     // MARK: Background
     static let backgroundPrimary   = Color(.systemBackground)
