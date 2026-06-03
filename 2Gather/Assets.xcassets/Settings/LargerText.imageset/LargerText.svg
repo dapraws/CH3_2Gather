@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="219px" height="123px" viewBox="0 0 219 123" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Graphic</title>
+    <g id="Graphic" stroke="none" fill="none" fill-rule="evenodd">
+        <g id="If-we-have-mascot" stroke-width="1" transform="translate(109.0963, 61.2222) rotate(3) translate(-109.0963, -61.2222)translate(3.1452, 6.3488)">
+            <path d="M-9.09494702e-13,16.901336 L150.873445,1.7215451 C162.033754,-0.573848368 170.151505,-0.573848368 175.226698,1.7215451 C180.301891,4.01693858 183.768019,9.07686888 185.625082,16.901336 L193.023816,64.4486967 L211.902241,64.4486967 L193.023816,91.1639705 L113.527544,109.632635 C108.597615,110.083922 104.056559,109.197041 99.904377,106.971991 C95.7521947,104.746942 93.1103974,100.445109 91.9789849,94.0664907 L82.6771581,50.9053014 L24.9185515,64.4486967 L70.5015436,32.9466958 L-9.09494702e-13,16.901336 Z" id="Path" fill="#2F1A1B"></path>
+            <ellipse id="Oval" fill="#FFDC49" cx="125.388911" cy="58.5420715" rx="25.484534" ry="25.5953757"></ellipse>
+            <ellipse id="Oval" fill="#301720" cx="125.0717" cy="54.0099553" rx="22.8453237" ry="22.8653846"></ellipse>
+            <ellipse id="Oval" fill="#FFDC49" cx="167.247154" cy="46.1633492" rx="15.7382035" ry="16.1391187"></ellipse>
+            <ellipse id="Oval" fill="#301720" cx="168.058752" cy="43.2695509" rx="13.3920863" ry="14.1923077"></ellipse>
+            <path d="M82.6771581,50.9053014 C96.9735855,36.3572839 112.388687,26.0638815 128.922462,20.0250941 C145.456238,13.9863067 163.034774,10.8823682 181.65807,10.7132785" id="Path" stroke="#FF7606" stroke-width="15.7061538" stroke-linecap="round"></path>
+        </g>
+        <ellipse id="Oval-3" fill-opacity="0.42" fill="#FFFFFF" cx="123.328104" cy="66.0900938" rx="4.72661871" ry="4.73076923"></ellipse>
+        <ellipse id="Oval-3" fill-opacity="0.99" fill="#FFFFFF" cx="130.418032" cy="52.6862476" rx="10.2410072" ry="10.25"></ellipse>
+        <ellipse id="Oval-4" fill-opacity="0.42" fill="#FFFFFF" cx="165.954663" cy="55.6595113" rx="2.36330935" ry="2.36538462"></ellipse>
+        <ellipse id="Oval-4" fill-opacity="0.99" fill="#FFFFFF" cx="166.742433" cy="46.9864344" rx="6.30215827" ry="6.30769231"></ellipse>
+    </g>
+</svg>
