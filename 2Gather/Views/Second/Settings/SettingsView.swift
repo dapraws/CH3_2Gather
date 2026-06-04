@@ -11,7 +11,6 @@ struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
     
     @AppStorage("isDarkMode") private var isDarkMode: Bool = false
-    
     @AppStorage("username") private var username: String = "PhoenixWry"
     @AppStorage("email") private var email: String = "hanshw33@gmail.com"
     @AppStorage("profileImageData") private var profileImageData: Data = Data()
@@ -55,25 +54,24 @@ struct SettingsView: View {
                 Section {
                     NavigationLink(destination: Profile()) {
                         HStack(spacing: 16) {
-                            // Foto Profil Dinamis
                             if let image = profileImage {
                                 Image(uiImage: image)
                                     .resizable()
                                     .scaledToFill()
-                                    .frame(width: 60, height: 60)
+                                    .frame(width: 78, height: 78)
                                     .clipShape(Circle())
                             } else {
-                                Image("ProfilImage") // Fallback asset
+                                Image("ProfilImage")
                                     .resizable()
                                     .scaledToFill()
-                                    .frame(width: 60, height: 60)
+                                    .frame(width: 78, height: 78)
                                     .clipShape(Circle())
                             }
                             
                             VStack(alignment: .leading, spacing: 4) {
                                 Text(username)
                                     .font(.title3)
-                                    .fontWeight(.bold)
+                                    .fontWeight(.semibold)
                                     .foregroundColor(.primary)
                                 
                                 Text(email)
