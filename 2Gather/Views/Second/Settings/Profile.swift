@@ -56,7 +56,7 @@ struct Profile: View {
                         Image("ProfilImage")
                             .resizable()
                             .scaledToFill()
-                            .frame(width: 140, height: 140)
+                            .frame(width: 145, height: 145)
                             .foregroundColor(.gray)
                         
                         Button(action: {
