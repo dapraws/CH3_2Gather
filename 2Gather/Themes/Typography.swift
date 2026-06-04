@@ -14,7 +14,7 @@ extension Font {
     // MARK: Display
     static let displayXL: Font = .system(size: 64, weight: .black, design: .rounded)
     static let displayL:  Font = .system(size: 48, weight: .black, design: .rounded)
-    static let displayM:  Font = .system(size: 36, weight: .bold,  design: .rounded)
+    static let displayM:  Font = .system(size: 30, weight: .bold,  design: .rounded)
 
     // MARK: Heading
     static let headingL: Font = .system(size: 24, weight: .bold)
