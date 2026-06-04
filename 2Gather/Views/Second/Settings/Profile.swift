@@ -10,7 +10,13 @@ import SwiftUI
 struct Profile: View {
     @Environment(\.dismiss) private var dismiss
     @AppStorage("username") private var username: String = "PhoenixWry"
-    @AppStorage("email") private var email: String = "hanshw33@gmail.com"
+        @AppStorage("email") private var email: String = "hanshw33@gmail.com"
+        @AppStorage("selectedSports") private var selectedSportsString: String = "running"
+    
+        private var sportsCount: Int {
+            if selectedSportsString.isEmpty { return 0 }
+            return selectedSportsString.split(separator: ",").count
+        }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -50,7 +56,7 @@ struct Profile: View {
                         Image("ProfilImage")
                             .resizable()
                             .scaledToFill()
-                            .frame(width: 140, height: 140)
+                            .frame(width: 145, height: 145)
                             .foregroundColor(.gray)
                         
                         Button(action: {
@@ -78,9 +84,9 @@ struct Profile: View {
                         
                         Divider()
                             .padding(.leading, 16)
-                        
-                        NavigationLink(destination: Text("Sports Preferences View")) {
-                            ProfileDataRow(title: "Sports preferences", value: "4", showArrow: true)
+                                        
+                        NavigationLink(destination: SportsPreferencesView()) {
+                        ProfileDataRow(title: "Sports preferences", value: "\(sportsCount)", showArrow: true)
                         }
                         .buttonStyle(.plain)
                     }
