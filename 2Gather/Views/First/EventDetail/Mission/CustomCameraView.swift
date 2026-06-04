@@ -5,7 +5,6 @@
 //  Created by Muhammad Darrel Prawira on 26/05/26.
 //
 
-
 import SwiftUI
 
 struct CustomCameraView: View {
@@ -30,17 +29,20 @@ struct CustomCameraView: View {
                             .font(.system(size: 18, weight: .semibold))
                             .foregroundColor(.white)
                             .frame(width: 44, height: 44)
-                            .background(Color.white.opacity(0.2), in: Circle())
+                            .background(Color.TGprimary.opacity(0.3), in: Circle())
                     }
 
                     Spacer()
 
                     Button(action: viewModel.toggleFlash) {
-                        Image(systemName: viewModel.isFlashOn ? "bolt.fill" : "bolt.slash")
-                            .font(.system(size: 18, weight: .semibold))
-                            .foregroundColor(viewModel.isFlashOn ? .yellow : .white)
-                            .frame(width: 44, height: 44)
-                            .background(Color.white.opacity(0.2), in: Circle())
+                        Image(
+                            systemName: viewModel.isFlashOn
+                                ? "bolt.fill" : "bolt.slash"
+                        )
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundColor(viewModel.isFlashOn ? .yellow : .white)
+                        .frame(width: 44, height: 44)
+                        .background(Color.TGprimary.opacity(0.3), in: Circle())
                     }
                 }
                 .padding(.horizontal, 20)
@@ -50,21 +52,21 @@ struct CustomCameraView: View {
 
                 // ── Bottom bar ───────────────────────────
                 ZStack {
-                    RoundedRectangle(cornerRadius: 40)
-                        .fill(.ultraThinMaterial)
-                        .frame(height: 110)
-                        .padding(.horizontal, 24)
+                    Rectangle()
+                        .fill(Color.white.opacity(0))
+                        .frame(height: 169)
+                        .opacity(1)
 
                     HStack(spacing: 0) {
 
                         // Gallery button
                         Button(action: { showGallery = true }) {
                             ZStack {
-                                RoundedRectangle(cornerRadius: 12)
-                                    .fill(Color.white.opacity(0.15))
+                                Circle()
+                                    .fill(Color.TGprimary)
                                     .frame(width: 54, height: 54)
-                                Image(systemName: "photo.on.rectangle")
-                                    .font(.system(size: 22))
+                                Image(systemName: "photo.stack")
+                                    .font(.system(size: 22, weight: .medium))
                                     .foregroundColor(.white)
                             }
                         }
@@ -74,11 +76,15 @@ struct CustomCameraView: View {
                         Button(action: viewModel.takePic) {
                             ZStack {
                                 Circle()
-                                    .fill(Color.white)
-                                    .frame(width: 72, height: 72)
+                                    .fill(Color.TGprimary)
+                                    .frame(width: 102, height: 102)
                                 Circle()
-                                    .stroke(Color.white.opacity(0.5), lineWidth: 4)
+                                    .fill(Color.TGterniary)
                                     .frame(width: 88, height: 88)
+
+                                Image(systemName: "camera.fill").font(
+                                    .system(size: 46, weight: .semibold)
+                                ).foregroundColor(Color.TGprimary)
                             }
                         }
                         .frame(maxWidth: .infinity)
@@ -86,11 +92,10 @@ struct CustomCameraView: View {
                         // Flip camera button
                         Button(action: viewModel.flipCamera) {
                             ZStack {
-                                Circle()
-                                    .fill(Color.white.opacity(0.15))
+                                Circle().fill(Color.TGprimary)
                                     .frame(width: 54, height: 54)
                                 Image(systemName: "arrow.triangle.2.circlepath.camera")
-                                    .font(.system(size: 22))
+                                    .font(.system(size: 22, weight: .medium))
                                     .foregroundColor(.white)
                             }
                         }
@@ -98,7 +103,7 @@ struct CustomCameraView: View {
                     }
                     .padding(.horizontal, 36)
                 }
-                .padding(.bottom, 40)
+                .background(Color.TGprimary.opacity(0.3))
             }
         }
         .onAppear {
@@ -128,23 +133,22 @@ struct CustomCameraView: View {
     ZStack {
         LinearGradient(
             colors: [
-                Color(red: 0.1, green: 0.15, blue: 0.2),
-                Color(red: 0.05, green: 0.08, blue: 0.12)
+                .gray
             ],
             startPoint: .top,
             endPoint: .bottom
         )
         .ignoresSafeArea()
 
-        VStack {
-            
+        VStack(alignment: .center) {
+
             // ── Top bar ──────────────────────────────
             HStack {
                 Image(systemName: "xmark")
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundColor(.white)
                     .frame(width: 44, height: 44)
-                    .background(Color.white.opacity(0.2), in: Circle())
+                    .background(Color.TGprimary.opacity(0.3), in: Circle())
 
                 Spacer()
 
@@ -152,7 +156,7 @@ struct CustomCameraView: View {
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundColor(.white)
                     .frame(width: 44, height: 44)
-                    .background(Color.white.opacity(0.2), in: Circle())
+                    .background(Color.TGprimary.opacity(0.3), in: Circle())
             }
             .padding(.horizontal, 20)
             .padding(.top, 16)
@@ -161,45 +165,53 @@ struct CustomCameraView: View {
 
             // ── Bottom bar ───────────────────────────
             ZStack {
-                RoundedRectangle(cornerRadius: 40)
-                    .fill(.ultraThinMaterial)
-                    .frame(height: 110)
-                    .padding(.horizontal, 24)
+                Rectangle()
+                    .fill(Color.white.opacity(0))
+                    .frame(height: 169)
+                    .opacity(1)
 
                 HStack(spacing: 0) {
-                    
+
                     // Gallery button
                     ZStack {
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(Color.white.opacity(0.15))
+                        Circle()
+                            .fill(Color.TGprimary)
                             .frame(width: 54, height: 54)
-                        Image(systemName: "photo.on.rectangle")
-                            .font(.system(size: 22))
+                        Image(systemName: "photo.stack")
+                            .font(.system(size: 22, weight: .medium))
                             .foregroundColor(.white)
                     }
                     .frame(maxWidth: .infinity)
 
                     // Shutter button
                     ZStack {
-                        Circle().fill(Color.white).frame(width: 72, height: 72)
-                        Circle().stroke(Color.white.opacity(0.5), lineWidth: 4)
+                        Circle()
+                            .fill(Color.TGprimary)
+                            .frame(width: 102, height: 102)
+                        Circle()
+                            .fill(Color.TGterniary)
                             .frame(width: 88, height: 88)
+
+                        Image(systemName: "camera.fill").font(
+                            .system(size: 46, weight: .semibold)
+                        ).foregroundColor(Color.TGprimary)
                     }
                     .frame(maxWidth: .infinity)
 
                     // Flip camera button
                     ZStack {
-                        Circle().fill(Color.white.opacity(0.15))
+                        Circle().fill(Color.TGprimary)
                             .frame(width: 54, height: 54)
                         Image(systemName: "arrow.triangle.2.circlepath.camera")
-                            .font(.system(size: 22))
+                            .font(.system(size: 22, weight: .medium))
                             .foregroundColor(.white)
                     }
                     .frame(maxWidth: .infinity)
                 }
                 .padding(.horizontal, 36)
             }
-            .padding(.bottom, 20)
+            .background(Color.TGprimary.opacity(0.3))
+            .ignoresSafeArea()
         }
     }
 }
