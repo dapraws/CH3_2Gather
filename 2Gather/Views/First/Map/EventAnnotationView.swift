@@ -41,14 +41,14 @@ struct EventAnnotationView: View {
             Image(pinImage)
                 .resizable()
                 .scaledToFit()
-                .frame(width: 60)
+                .frame(width: 40)
 
             Image(systemName: isCompleted ? "checkmark" : sport.icon)
                 .foregroundStyle(iconColor)
-                .font(.system(size: 20, weight: .semibold))
+                .font(.system(size: 15, weight: .semibold))
                 .offset(y: -5)
         }
-        .scaleEffect(isSelected ? 2.0 : 1.0)
+        .scaleEffect(isSelected ? 1.5 : 1.0)
         .animation(
             .spring(response: 0.3, dampingFraction: 0.55),
             value: isSelected
