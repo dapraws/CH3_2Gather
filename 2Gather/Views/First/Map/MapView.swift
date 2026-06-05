@@ -113,7 +113,15 @@ struct MapView: View {
                     }
                     .padding(.horizontal)
                 }
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle("Explore")
                 .padding(.top, -5)
+                .searchable(
+                    text: $viewModel.searchText,
+                    placement: .navigationBarDrawer(displayMode: .always),
+                    prompt: "Search events..."
+                )
+
             }
             .overlay(alignment: .bottomTrailing) {
                 Button {
@@ -128,31 +136,12 @@ struct MapView: View {
                 }
                 .padding(.trailing, 16)
                 .padding(.bottom, 0)
-
-                .navigationTitle("Explore")
-                //            .toolbar {
-                ////                ToolbarItem(placement: .principal) {
-                ////                    Image(colorScheme == .dark ? "logo-dark" : "logo-light")
-                ////                        .resizable().frame(
-                ////                            width: 120,
-                ////                            height: 40
-                ////                        )
-                ////                }
-                //            }
-                .navigationBarTitleDisplayMode(.large)
-                .searchable(
-                    text: $viewModel.searchText,
-                    placement: .navigationBarDrawer(displayMode: .always),
-                    prompt: "Search events..."
-                )
                 .ignoresSafeArea(edges: .top)
                 .onChange(of: viewModel.searchText) { _, _ in
                     viewModel.zoomToFit(events: displayedEvents)
                 }
             }
             .onAppear {
-                viewModel.locationManager.requestPermission()
-                viewModel.locationManager.startUpdating()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     viewModel.centerOnUser()
                 }
