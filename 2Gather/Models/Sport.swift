@@ -1,0 +1,25 @@
+//
+//  Sport.swift
+//  2Gather
+//
+//  Created by Muhammad Darrel Prawira on 05/06/26.
+//
+
+import Foundation
+
+struct Sport: Identifiable, Codable, Hashable {
+    let id: String
+    let icon: String
+    let name: String
+}
+
+enum SportsCatalog {
+    static let all: [Sport] = [
+        Sport(id: "futsal", icon: "figure.soccer", name: "Futsal"),
+        Sport(id: "badminton", icon: "figure.badminton", name: "Badminton"),
+        Sport(id: "basketball", icon: "figure.basketball", name: "Basketball"),
+        Sport(id: "running", icon: "figure.run", name: "Running"),
+        Sport(id: "cycling", icon: "figure.outdoor.cycle", name: "Cycling"),
+        Sport(id: "tennis", icon: "figure.tennis", name: "Tennis")
+    ]
+}
