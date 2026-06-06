@@ -8,7 +8,7 @@
 import Flow
 import SwiftUI
 
-struct SportPreferencesView: View {
+struct PreferencesView: View {
     let sports: [String]
     @Binding var selectedSports: Set<String>
 
@@ -110,7 +110,7 @@ struct SportTag: View {
 }
 
 #Preview {
-    SportPreferencesView(
+    PreferencesView(
         sports: SportsCatalog.all.map { $0.name },
         selectedSports: .constant([]),
         onToggleSport: { _ in },
