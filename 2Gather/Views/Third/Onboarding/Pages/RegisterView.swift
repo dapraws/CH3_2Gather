@@ -19,7 +19,7 @@ struct RegisterView: View {
     let onSuccess: () -> Void
 
     var body: some View {
-        ZStack{
+        ZStack {
             Rectangle().fill(.white)
             VStack(alignment: .leading, spacing: 16) {
                 Image(.mascotLogo)
@@ -27,8 +27,8 @@ struct RegisterView: View {
                     .font(.displayM)
                     .foregroundColor(.TGprimary)
                 CustomTextField(
-                    placeholder: "Name",
-                    text: $viewModel.registerName,
+                    placeholder: "Username",
+                    text: $viewModel.registerUsername,
                     icon: "person.crop.circle"
                 )
 

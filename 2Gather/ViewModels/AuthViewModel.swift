@@ -14,7 +14,7 @@ final class AuthViewModel: ObservableObject {
     @Published var loginEmail: String = ""
     @Published var loginPassword: String = ""
 
-    @Published var registerName: String = ""
+    @Published var registerUsername: String = ""
     @Published var registerEmail: String = ""
     @Published var registerPassword: String = ""
 
@@ -57,7 +57,7 @@ final class AuthViewModel: ObservableObject {
 
         do {
             let account = try authService.register(
-                name: registerName.trimmingCharacters(in: .whitespacesAndNewlines),
+                username: registerUsername.trimmingCharacters(in: .whitespacesAndNewlines),
                 email: registerEmail.trimmingCharacters(in: .whitespacesAndNewlines),
                 password: registerPassword,
                 modelContext: modelContext
