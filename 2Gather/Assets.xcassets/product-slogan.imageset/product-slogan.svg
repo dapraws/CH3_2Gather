@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="370px" height="97px" viewBox="0 0 370 97" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Product</title>
+    <defs>
+        <path d="M266,0 L266,73 L273,73 L273,97 L97,97 L97,73 L104,73 L104,0 L266,0 Z" id="path-1"></path>
+    </defs>
+    <g id="Product" stroke="none" fill="none" xlink:href="#path-1" fill-rule="evenodd" stroke-width="1">
+        <g id="Group" transform="translate(92, 0)">
+            <text id="2Gather" font-family="SFPro-BlackItalic, SF Pro" font-size="71" font-style="italic" font-weight="700" letter-spacing="-17.1913043">
+                <tspan x="12.2651346" y="68" fill="#FF7606">2</tspan>
+                <tspan x="40.6622092" y="68" font-size="46" letter-spacing="-4.4" fill="#301720">Gather</tspan>
+            </text>
+            <text id="Together,-We-are-fit" font-family="SFPro-Medium, SF Pro" font-size="20" font-weight="400" fill="#301720">
+                <tspan x="5.94134649" y="92">Together, We are fit</tspan>
+            </text>
+        </g>
+    </g>
+</svg>
