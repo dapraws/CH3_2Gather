@@ -5,149 +5,95 @@
 //  Created by RyanMFDR on 03/06/26.
 //
 
+import SwiftData
 import SwiftUI
 
 struct RegisterView: View {
-    @State private var fullName: String = ""
-    @State private var email: String = ""
-    @State private var password: String = ""
-    @State private var confirmPassword: String = ""
-    @State private var isPasswordVisible: Bool = false
-    @State private var isConfirmPasswordVisible: Bool = false
-    @State private var showAlert: Bool = false
-    @State private var alertMessage: String = ""
-    
-    //Navigate
-    var onContinue: () -> Void = {}
-    var onHaveAccount: () -> Void = {}
-    
-    // MARK: Validation
-    private var isEmailValid: Bool {
-        let regex = /^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$/
-        return email.wholeMatch(of: regex) != nil
-    }
-    
-    private func validate() -> String? {
-            if fullName.trimmingCharacters(in: .whitespaces).isEmpty {
-                return "Please enter your full name."
-            }
-            if email.trimmingCharacters(in: .whitespaces).isEmpty {
-                return "Please enter your email."
-            }
-            if !isEmailValid {
-                return "Please enter a valid email address."
-            }
-            if password.isEmpty {
-                return "Please enter a password."
-            }
-            if confirmPassword.isEmpty {
-                return "Please confirm your password."
-            }
-            if password != confirmPassword {
-                return "Passwords do not match."
-            }
-            return nil // all good
-        }
+    @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject private var session: AppSession
+
+    @ObservedObject var viewModel: AuthViewModel
+    @State private var isPasswordVisible = false
+
+    let onTapLogin: () -> Void
+    let onSuccess: () -> Void
 
     var body: some View {
+        ZStack{
+            Rectangle().fill(.white)
+            VStack(alignment: .leading, spacing: 16) {
+                Image(.mascotLogo)
+                Text("Register")
+                    .font(.displayM)
+                    .foregroundColor(.TGprimary)
+                CustomTextField(
+                    placeholder: "Name",
+                    text: $viewModel.registerName,
+                    icon: "person.crop.circle"
+                )
 
-        VStack(alignment: .leading, spacing: 34) {
-            Image(.mascotAppLogo)
-
-            Text("Register")
-                .font(.displayM)
-                .foregroundColor(.TGprimary)
-
-            VStack(alignment: .leading, spacing: 10) {
-                TGTextField(
+                CustomTextField(
                     placeholder: "Email",
-                    text: $email,
+                    text: $viewModel.registerEmail,
                     icon: "envelope"
                 )
-                TGTextField(
-                    placeholder: "Full name",
-                    text: $fullName,
-                    icon: "person"
-                )
-                TGSecureField(
+
+                CustomSecureField(
                     placeholder: "Password",
-                    textPassword:  $password,
+                    textPassword: $viewModel.registerPassword,
                     isVisible: $isPasswordVisible
                 )
-                TGSecureField(
-                    placeholder: "Confirm password",
-                    textPassword: $confirmPassword,
-                    isVisible: $isConfirmPasswordVisible
-                )
-            }
-            VStack(spacing: 10) {
-                //Continue Button
-                Button(action: {
-                    if let error = validate() {
-                        alertMessage = error
-                        showAlert = true
-                    } else {
-                        onContinue()
-                    }
-                }) {
-                    Text("Continue")
-                        .font(.headingS)
-                        .foregroundColor(.TGprimary)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                        .background(Color.TGterniary)
-                        .cornerRadius(30)
-                }
-                .padding(.bottom, 16)
-                .alert("Hold on!", isPresented: $showAlert) {
-                    Button("OK", role: .cancel) {
-                        
-                    }
-                        } message: {
-                            Text(alertMessage)
-                        }
 
-                HStack {
-                    Rectangle()
-                        .frame(height: 1)
-                        .foregroundColor(Color.TGprimary.opacity(0.5))
-                    Text("or")
+                if let error = viewModel.errorMessage {
+                    Text(error)
+                        .foregroundStyle(.red)
                         .font(.footnote)
-                        .foregroundColor(Color.TGprimary.opacity(0.5))
-                    Rectangle()
-                        .frame(height: 1)
-                        .foregroundColor(Color.TGprimary.opacity(0.5))
                 }
-                .padding(.bottom, 16)
 
-                // Have an account
-                Button(action: {
-                    onHaveAccount()
-                }) {
-                    Text("Have an account")
-                        .font(.subheadline)
-                        .foregroundColor(.TGprimary)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                        .background(Color.backgroundPrimary)
-                        .cornerRadius(30)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 30)
-                                .stroke(
-                                    Color.gray.opacity(0.3),
-                                    lineWidth: 1
-                                )
+                VStack(alignment: .center, spacing: 16) {
+                    Button {
+                        let didRegister = viewModel.register(
+                            modelContext: modelContext,
+                            session: session
                         )
+
+                        if didRegister {
+                            onSuccess()
+                        }
+                    } label: {
+                        Text(viewModel.isLoading ? "Loading..." : "Register")
+                            .font(.headingS)
+                            .foregroundColor(.TGprimary)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 15)
+                            .background(Color.TGterniary)
+                            .clipShape(Capsule())
+                    }
+                    .disabled(viewModel.isLoading)
+
+                    Button {
+                        onTapLogin()
+                    } label: {
+                        Text("I already have an account")
+                            .font(.bodyL)
+                            .foregroundColor(.TGsecondary)
+                            .frame(maxWidth: .infinity)
+                            .font(.footnote)
+                            .foregroundStyle(.blue)
+                            .clipShape(Capsule())
+                    }
                 }
-
-            }.padding(.horizontal, 28)
+            }.padding()
         }
-        .ignoresSafeArea(.keyboard)
-        .padding(.horizontal, 40)
-        .padding(.top, 15)
-
     }
 }
+
 #Preview {
-    RegisterView()
+    RegisterView(
+        viewModel: AuthViewModel(authService: AuthService()),
+        onTapLogin: {},
+        onSuccess: {}
+    )
+    .environmentObject(AppSession())
+    .modelContainer(for: Account.self, inMemory: true)
 }

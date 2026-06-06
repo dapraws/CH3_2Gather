@@ -10,10 +10,20 @@ import SwiftUI
 
 @main
 struct TwoGatherApp: App {
+    @StateObject private var session = AppSession()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Group {
+                if session.hasCompletedOnboarding {
+                    ContentView()
+                } else {
+                    OnboardingView()
+                        .environmentObject(session)
+                }
+            }
+            .environmentObject(session)
         }
-        .modelContainer(for: [Event.self, Mission.self, UserEventState.self])
+        .modelContainer(for: [Account.self, Event.self, Mission.self, UserEventState.self])
     }
 }

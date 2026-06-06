@@ -6,139 +6,103 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct OnboardingView: View {
 
-    @State private var selection = 0
+    @StateObject private var authViewModel = AuthViewModel(authService: AuthService())
+    @StateObject private var viewModel = OnboardingViewModel()
+    @EnvironmentObject private var session: AppSession
 
     var body: some View {
-        VStack {
-            //Progress bar
-            if selection > 0 && selection < 4 {
-                VStack {
-                    HStack {
-                        RoundedRectangle(cornerRadius: 4)
-                            .fill(selection >= 1 ? Color.TGsecondary : Color.backgroundSecondary)
-                            .frame(height: 6)
-                        RoundedRectangle(cornerRadius: 4)
-                            .fill(selection >= 2 ? Color.TGsecondary : Color.backgroundSecondary)
-                            .frame(height: 6)
-                        RoundedRectangle(cornerRadius: 4)
-                            .fill(selection >= 3 ? Color.TGsecondary : Color.backgroundSecondary)
-                            .frame(height: 6)
-                    }
-                    // Back button
-                    HStack {
-                        Image(systemName: "chevron.left")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 20, height: 20)
-                            .onTapGesture {
-                                withAnimation { selection -= 1 }
-                            }
-                        Spacer()
-                    }.padding(.bottom, 4)
-                }.padding(.horizontal, 14)
-            }
-
-            // Main content
+        ZStack(alignment: .top) {
             Group {
-                switch selection {
-                case 0:
+                switch viewModel.currentStep {
+                case .welcoming:
                     WelcomingView(
-                        onGetStarted: {
-                            withAnimation { selection = 1 }
-                        },
-                        onSignIn: {
-                            withAnimation { selection = 4 }
-                        }
-                    ).transition(
-                        .asymmetric(
-                            insertion: .move(edge: .trailing),
-                            removal: .move(edge: .leading)
-                        )
+                        onGetStarted: { viewModel.goToRegister() },
+                        onSignIn: { viewModel.goToLogin() }
                     )
-                case 1:
-                    RegisterView(
-                        onContinue: {
-                            withAnimation { selection = 2 }
-                        },
-                        onHaveAccount: {
-                            withAnimation { selection = 4 }
-                        }
-                    )
-                    .transition(
-                        .asymmetric(
-                            insertion: .move(edge: .trailing),
-                            removal: .move(edge: .leading)
-                        )
-                    )
-                case 2:
-                    SportPreferencesView(
-                        sports: [
-                            "Running", "Walking", "Cycling", "Swimming",
-                            "Judo", "Karate", "Taekwondo", "Yoga",
-                            "Pilates", "Gym", "Weightlifting", "CrossFit",
-                            "Climbing", "Surfing", "Skateboarding", "Rowing", "Archery",
-                        ],
-                        
-                        onContinue: {
-                            withAnimation { selection = 3 }
-                        },
-                        onSkip: {
-                            withAnimation { selection = 3 }
-                        }
-                    )
-                    .transition(
-                        .asymmetric(
-                            insertion: .move(edge: .trailing),
-                            removal: .move(edge: .leading)
-                        )
-                    )
-                case 3:
-                    AccessPageView()
-                        .transition(
-                            .asymmetric(
-                                insertion: .move(edge: .trailing),
-                                removal: .move(edge: .leading)
-                            )
-                        )
-                case 4:
+                case .login:
                     LoginView(
-                        onLogin: {
-                            // navigate to main app
+                        viewModel: authViewModel,
+                        onTapRegister: {
+                            authViewModel.clearMessages()
+                            viewModel.goToRegister()
                         },
-                        onRegister: {
-                            withAnimation { selection = 1 }
+                        onSuccess: {
+                            authViewModel.clearMessages()
+                            viewModel.goToSportPreferences()
                         }
                     )
-                    .transition(
-                        .asymmetric(
-                            insertion: .move(edge: .trailing),
-                            removal: .move(edge: .leading)
-                        )
-                    )
-                default:
-                    WelcomingView(
-                        onGetStarted: {
-                            withAnimation { selection = 1 }
+                case .register:
+                    RegisterView(
+                        viewModel: authViewModel,
+                        onTapLogin: {
+                            authViewModel.clearMessages()
+                            viewModel.goToLogin()
                         },
-                        onSignIn: {
-                            withAnimation { selection = 4 }
+                        onSuccess: {
+                            authViewModel.clearMessages()
+                            viewModel.goToSportPreferences()
                         }
                     )
-                    .transition(
-                        .asymmetric(
-                            insertion: .move(edge: .trailing),
-                            removal: .move(edge: .leading)
-                        )
+                case .sportPreferences:
+                    SportPreferencesView(
+                        sports: viewModel.sports,
+                        selectedSports: $viewModel.selectedSports,
+                        onToggleSport: { viewModel.toggleSport($0) },
+                        onContinue: { viewModel.goToPermission() },
+                        onSkip: { viewModel.goToPermission() }
+                    )
+                case .permission:
+                    PermissionView(
+                        onContinue: { session.completeOnboarding() }
                     )
                 }
             }
+        }
+        .overlay(alignment: .top) {
+            if viewModel.currentStep != .welcoming {
+            HStack(spacing: 80) {
+                Button {
+                    viewModel.goBack()
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 26, weight: .semibold))
+                        .foregroundStyle(Color.TGprimary)
+                }
+
+                HStack(spacing: 6) {
+                    ForEach(1...4, id: \.self) { step in
+                        Capsule()
+                            .fill(step <= progressValue(for: viewModel.currentStep)
+                                  ? Color.TGsecondary
+                                  : Color.secondary.opacity(0.3))
+                            .frame(height: 4)
+                    }
+                }
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 16)
+            
+                
+            }
+        }
+    }
+
+    private func progressValue(for step: OnboardingViewModel.Step) -> Int {
+        switch step {
+        case .welcoming:         return 0
+        case .login, .register:  return 1
+        case .sportPreferences:  return 2
+        case .permission:        return 3
         }
     }
 }
 
 #Preview {
     OnboardingView()
+        .environmentObject(AppSession())
+        .modelContainer(for: Account.self, inMemory: true)
 }

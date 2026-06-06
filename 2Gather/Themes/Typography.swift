@@ -28,6 +28,7 @@ extension Font {
     static let bodyXS: Font = .system(size: 11, weight: .regular)
 
     // MARK: Label
+    static let labelXL: Font = .system(size: 17, weight: .medium)
     static let labelL: Font = .system(size: 15, weight: .medium)
     static let labelM: Font = .system(size: 13, weight: .medium)
     static let labelS: Font = .system(size: 11, weight: .medium)

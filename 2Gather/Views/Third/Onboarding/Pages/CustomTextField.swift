@@ -6,8 +6,7 @@
 //
 import SwiftUI
 
-// MARK: - Normal Text
-struct TGTextField: View {
+struct CustomTextField: View {
     let placeholder: String
     @Binding var text: String
     let icon: String
@@ -27,8 +26,7 @@ struct TGTextField: View {
     }
 }
 
-// MARK: - Secure Text
-struct TGSecureField: View {
+struct CustomSecureField: View {
     let placeholder: String
     @Binding var textPassword: String
     @Binding var isVisible: Bool
@@ -64,10 +62,17 @@ struct TGSecureField: View {
 }
 
 #Preview("Text Field") {
-    TGSecureField(
-        placeholder: "Password",
-        textPassword: .constant(""),
-        isVisible: .constant(true)
-    )
+    VStack {
+        CustomTextField(
+            placeholder: "Email",
+            text: .constant(""),
+            icon: "envelope"
+        )
+        CustomSecureField(
+            placeholder: "Password",
+            textPassword: .constant(""),
+            isVisible: .constant(true)
+        )
+    }
     .padding()
 }
