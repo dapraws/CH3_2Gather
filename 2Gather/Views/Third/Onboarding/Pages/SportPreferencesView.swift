@@ -1,37 +1,40 @@
 //
-//  SportPreferences.swift
+//  SportPreferencesView.swift
 //  2Gather
 //
 //  Created by RyanMFDR on 02/06/26.
 //
 
+import Flow
 import SwiftUI
 
 struct SportPreferencesView: View {
     let sports: [String]
+    @Binding var selectedSports: Set<String>
 
-    @State private var selectedSports: Set<String> = []
-    @State private var showError: Bool = false
-
+    var onToggleSport: (String) -> Void = { _ in }
     var onContinue: () -> Void = {}
     var onSkip: () -> Void = {}
 
     var body: some View {
-        VStack {
+        ZStack {
+            Rectangle().fill(.white)
             VStack(spacing: 30) {
                 Text("Tell us more about you!")
                     .font(.displayM)
                     .foregroundColor(.TGprimary)
+                Image(.mascotBasketball)
 
-                SportPreferencesCard(
-                    sports: sports
+                SportPreferencesLayout(
+                    sports: sports,
+                    selectedSports: $selectedSports,
+                    onToggleSport: onToggleSport
                 )
-                Image(.mascotTG2)
-
-                VStack {
-                    Button(action: {
+                Spacer()
+                VStack(spacing: 12) {
+                    Button {
                         onContinue()
-                    }) {
+                    } label: {
                         Text("Continue")
                             .font(.headingS)
                             .foregroundColor(.TGprimary)
@@ -39,43 +42,79 @@ struct SportPreferencesView: View {
                             .padding(.vertical, 16)
                             .background(Color.TGterniary)
                             .cornerRadius(19)
-
                     }
-                    Button(action: {
+
+                    Button {
                         onSkip()
-                    }) {
+                    } label: {
                         Text("Skip")
                             .font(.bodyL)
                             .foregroundColor(.TGsecondary)
                     }
-                }.padding(.horizontal, 30)
-
-            }.padding(.horizontal, 20)
-            Spacer()
+                }
+            }
+            .padding()
+            .padding(.top, 40)
         }
+    }
+}
+
+struct SportPreferencesLayout: View {
+    let sports: [String]
+    @Binding var selectedSports: Set<String>
+    let onToggleSport: (String) -> Void
+
+    var body: some View {
+        HFlow {
+            ForEach(sports, id: \.self) { sport in
+                SportTag(
+                    sport: sport,
+                    isSelected: selectedSports.contains(sport)
+                ) {
+                    onToggleSport(sport)
+                }
+            }
+        }
+    }
+}
+
+struct SportTag: View {
+    let sport: String
+    let isSelected: Bool
+    let onTap: () -> Void
+
+    var body: some View {
+        Button(action: onTap) {
+            Text(sport)
+                .font(.headingS)
+                .foregroundColor(Color.TGprimary)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 10)
+                .background(
+                    RoundedRectangle(cornerRadius: 19)
+                        .fill(
+                            isSelected
+                                ? Color.TGterniary : Color.backgroundPrimary
+                        )
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 19)
+                        .stroke(
+                            isSelected
+                                ? Color.black : Color.TGprimary.opacity(0.3)
+                        )
+                )
+        }
+        .buttonStyle(.plain)
     }
 }
 
 #Preview {
     SportPreferencesView(
-        sports: [
-            "Running",
-            "Walking",
-            "Cycling",
-            "Swimming",
-            "Judo",
-            "Karate",
-            "Taekwondo",
-            "Yoga",
-            "Pilates",
-            "Gym",
-            "Weightlifting",
-            "CrossFit",
-            "Climbing",
-            "Surfing",
-            "Skateboarding",
-            "Rowing",
-            "Archery",
-        ]
+        sports: SportsCatalog.all.map { $0.name },
+        selectedSports: .constant([]),
+        onToggleSport: { _ in },
+        onContinue: {},
+        onSkip: {}
     )
 }

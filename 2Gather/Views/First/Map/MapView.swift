@@ -10,6 +10,7 @@ import SwiftData
 import SwiftUI
 
 struct MapView: View {
+    @Environment(\.colorScheme) var colorScheme
 
     @State private var viewModel = MapViewModel()
     @Namespace private var mapScope
@@ -30,14 +31,7 @@ struct MapView: View {
 
                 Map(position: $viewModel.position) {
                     UserAnnotation {
-                        ZStack {
-                            Circle()
-                                .fill(.yellow)
-                                .strokeBorder(Color.black, lineWidth: 3)
-                                .frame(width: 25, height: 25)
-                                .shadow(color: .black.opacity(0.68), radius: 8)
-                        }
-                        .frame(width: 40, height: 40)
+                        UserAnnotationView()
                     }
 
                     ForEach(displayedEvents, id: \.id) { event in
@@ -79,7 +73,6 @@ struct MapView: View {
                         FilterChipView(
                             label: "Active",
                             icon: "bolt.fill",
-                            color: .blue,
                             isSelected: viewModel.showActiveOnly
                         ) {
                             viewModel.showActiveOnly.toggle()
@@ -91,7 +84,6 @@ struct MapView: View {
                         FilterChipView(
                             label: "All",
                             icon: "square.grid.2x2",
-                            color: .gray,
                             isSelected: viewModel.selectedCategory == nil
                                 && !viewModel.showActiveOnly
                         ) {
@@ -106,7 +98,6 @@ struct MapView: View {
                                 FilterChipView(
                                     label: category.label,
                                     icon: category.icon,
-                                    color: category.color,
                                     isSelected: viewModel.selectedCategory
                                         == category
                                 ) {
@@ -122,7 +113,15 @@ struct MapView: View {
                     }
                     .padding(.horizontal)
                 }
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle("Explore")
                 .padding(.top, -5)
+                .searchable(
+                    text: $viewModel.searchText,
+                    placement: .navigationBarDrawer(displayMode: .always),
+                    prompt: "Search events..."
+                )
+
             }
             .overlay(alignment: .bottomTrailing) {
                 Button {
@@ -130,30 +129,22 @@ struct MapView: View {
                 } label: {
                     Image(systemName: "location.fill")
                         .font(.title3)
-                        .foregroundStyle(.white)
+                        .foregroundStyle(Color.TGprimary)
                         .padding(12)
-                        .background(.blue, in: Circle())
+                        .background(Color.TGterniary, in: Circle())
                         .shadow(radius: 4)
                 }
                 .padding(.trailing, 16)
                 .padding(.bottom, 0)
+                .ignoresSafeArea(edges: .top)
+                .onChange(of: viewModel.searchText) { _, _ in
+                    viewModel.zoomToFit(events: displayedEvents)
+                }
             }
-            .navigationTitle("Explore")
-            .navigationBarTitleDisplayMode(.inline)
-            .searchable(
-                text: $viewModel.searchText,
-                placement: .navigationBarDrawer(displayMode: .always),
-                prompt: "Search events..."
-            )
-            .onChange(of: viewModel.searchText) { _, _ in
-                viewModel.zoomToFit(events: displayedEvents)
-            }
-        }
-        .onAppear {
-            viewModel.locationManager.requestPermission()
-            viewModel.locationManager.startUpdating()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                viewModel.centerOnUser()
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    viewModel.centerOnUser()
+                }
             }
         }
     }

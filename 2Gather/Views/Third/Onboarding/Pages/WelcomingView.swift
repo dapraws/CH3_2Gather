@@ -8,45 +8,37 @@
 import SwiftUI
 
 struct WelcomingView: View {
-    var onGetStarted: () -> Void
-    var onSignIn: () -> Void
-    
+    let onGetStarted: () -> Void
+    let onSignIn: () -> Void
+
     var body: some View {
         VStack {
             Spacer()
-            Image(.mascotTG)
-            Image(.appnameWithSlogan)
-            
+            Image(.mascotRunningLarge)
+            Image(.appSlogan)
             Spacer()
-
-            VStack(spacing:10) {
-                Button {
-                    onGetStarted()
-                } label: {
-                    Text("Let's get started!")
-                        .padding(.horizontal, 42)
-                        .padding(.vertical, 8)
-                        .font(.headingS)
-                        .foregroundStyle(Color.TGprimary)
-                        .background(Color.TGterniary)
-                        .clipShape(Capsule())
-                }
-                Button {
-                    onSignIn()
-                } label: {
-                    Text("I already have an account")
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 8)
-                        .foregroundStyle(Color.TGprimary)
-                        .overlay(RoundedRectangle(cornerRadius: 19).stroke(Color.TGprimary, lineWidth: 1))
-                }
+            Spacer()
+        }
+        .overlay(alignment: .bottom){
+            Button {
+                onGetStarted()
+            } label: {
+                Text("Let's get started!")
+                    .font(.headingS)
+                    .foregroundColor(.TGprimary)
+                    .frame(maxWidth: 250)
+                    .padding(.vertical, 15)
+                    .background(Color.TGterniary)
+                    .clipShape(Capsule())
             }
-            Spacer()
-
+            .padding(.bottom, 50)
         }
     }
 }
 
 #Preview {
-    WelcomingView(onGetStarted: {}, onSignIn: {})
+    WelcomingView(
+        onGetStarted: {},
+        onSignIn: {}
+    )
 }
