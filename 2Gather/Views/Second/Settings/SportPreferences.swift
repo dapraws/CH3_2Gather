@@ -91,17 +91,17 @@ struct SportsPreferencesView: View {
                             .frame(maxWidth: .infinity, alignment: .center)
                             .padding(.top, 40)
                     } else {
-                        FlowLayout(spacing: 10) {
-                            ForEach(filteredSports, id: \.self) { category in
-                                SportChipView(
-                                    label: category.label,
-                                    icon: category.icon,
-                                    isSelected: selectedSports.contains(category)
-                                ) {
-                                    toggleSelection(for: category)
-                                }
-                            }
-                        }
+//                        FlowLayout(spacing: 10) {
+//                            ForEach(filteredSports, id: \.self) { category in
+//                                SportChipView(
+//                                    label: category.label,
+//                                    icon: category.icon,
+//                                    isSelected: selectedSports.contains(category)
+//                                ) {
+//                                    toggleSelection(for: category)
+//                                }
+//                            }
+//                        }
                     }
                     
                     Spacer(minLength: 40)
@@ -171,50 +171,50 @@ struct SportChipView: View {
 }
 
 // MARK: - Custom Component: Flow Layout
-struct FlowLayout: Layout {
-    var spacing: CGFloat = 8
-
-    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
-        let result = FlowResult(in: proposal.width ?? 0, subviews: subviews, spacing: spacing)
-        return result.size
-    }
-
-    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
-        let result = FlowResult(in: bounds.width, subviews: subviews, spacing: spacing)
-        for (index, subview) in subviews.enumerated() {
-            let point = result.frames[index].origin
-            subview.place(at: CGPoint(x: point.x + bounds.minX, y: point.y + bounds.minY), proposal: .unspecified)
-        }
-    }
-
-    struct FlowResult {
-        var frames: [CGRect] = []
-        var size: CGSize = .zero
-
-        init(in maxWidth: CGFloat, subviews: Subviews, spacing: CGFloat) {
-            var currentX: CGFloat = 0
-            var currentY: CGFloat = 0
-            var lineHeight: CGFloat = 0
-            var width: CGFloat = 0
-
-            for subview in subviews {
-                let subviewSize = subview.sizeThatFits(.unspecified)
-                
-                if currentX + subviewSize.width > maxWidth, currentX > 0 {
-                    currentY += lineHeight + spacing
-                    currentX = 0
-                    lineHeight = 0
-                }
-
-                frames.append(CGRect(x: currentX, y: currentY, width: subviewSize.width, height: subviewSize.height))
-                currentX += subviewSize.width + spacing
-                lineHeight = max(lineHeight, subviewSize.height)
-                width = max(width, currentX)
-            }
-            size = CGSize(width: width, height: currentY + lineHeight)
-        }
-    }
-}
+//struct FlowLayout: Layout {
+//    var spacing: CGFloat = 8
+//
+//    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+//        let result = FlowResult(in: proposal.width ?? 0, subviews: subviews, spacing: spacing)
+//        return result.size
+//    }
+//
+//    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+//        let result = FlowResult(in: bounds.width, subviews: subviews, spacing: spacing)
+//        for (index, subview) in subviews.enumerated() {
+//            let point = result.frames[index].origin
+//            subview.place(at: CGPoint(x: point.x + bounds.minX, y: point.y + bounds.minY), proposal: .unspecified)
+//        }
+//    }
+//
+//    struct FlowResult {
+//        var frames: [CGRect] = []
+//        var size: CGSize = .zero
+//
+//        init(in maxWidth: CGFloat, subviews: Subviews, spacing: CGFloat) {
+//            var currentX: CGFloat = 0
+//            var currentY: CGFloat = 0
+//            var lineHeight: CGFloat = 0
+//            var width: CGFloat = 0
+//
+//            for subview in subviews {
+//                let subviewSize = subview.sizeThatFits(.unspecified)
+//                
+//                if currentX + subviewSize.width > maxWidth, currentX > 0 {
+//                    currentY += lineHeight + spacing
+//                    currentX = 0
+//                    lineHeight = 0
+//                }
+//
+//                frames.append(CGRect(x: currentX, y: currentY, width: subviewSize.width, height: subviewSize.height))
+//                currentX += subviewSize.width + spacing
+//                lineHeight = max(lineHeight, subviewSize.height)
+//                width = max(width, currentX)
+//            }
+//            size = CGSize(width: width, height: currentY + lineHeight)
+//        }
+//    }
+//}
 
 #Preview {
     NavigationStack {
