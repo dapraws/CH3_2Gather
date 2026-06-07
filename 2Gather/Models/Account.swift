@@ -16,6 +16,7 @@ final class Account {
     var password: String
     var preferenceSportIDs: [String]
     var createdAt: Date
+    var profilePhoto: String?
     
     init(
         id: UUID = UUID(),
@@ -23,7 +24,8 @@ final class Account {
         username: String,
         password: String,
         preferenceSportIDs: [String] = [],
-        createdAt: Date = .now
+        createdAt: Date = .now,
+        profilePhoto: String? = nil
     ) {
         self.id = id
         self.email = email
@@ -31,5 +33,6 @@ final class Account {
         self.password = password
         self.preferenceSportIDs = preferenceSportIDs
         self.createdAt = createdAt
+        self.profilePhoto = profilePhoto
     }
 }
