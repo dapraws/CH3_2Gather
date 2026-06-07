@@ -64,4 +64,16 @@ extension Color {
     static let warning = Color(.systemOrange)
     static let error   = Color(.systemRed)
     static let info    = Color(.systemBlue)
+
+    // MARK: Sport
+    static let scoreWin      = Color(.systemGreen)
+    static let scoreLoss     = Color(.systemRed)
+    static let scoreDraw     = Color(.systemGray)
+    static let liveIndicator = Color(hex: "#FF3B30")
+    
+    //MARK: Temporal Colors
+    static let TGgradient =  Color(hex: "FFF080")
+    //TO DO:  Change to the variable in Colors once is set
+    static let tempAccent = Color(hex: "B24A4A")
+    
 }

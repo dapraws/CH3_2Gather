@@ -16,35 +16,7 @@ struct MissionSectionView: View {
     var onMissionComplete: (String) -> Void = { _ in }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-
-            if !isJoined {
-                Button {
-                    withAnimation(.spring(response: 0.6, dampingFraction: 0.8))
-                    {
-                        onJoin()
-                    }
-                } label: {
-                    Text("Register for Event")
-                        .fontWeight(.semibold)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                }
-                .buttonStyle(.plain)
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .clipShape(RoundedRectangle(cornerRadius: 12))
-                .transition(
-                    .asymmetric(
-                        insertion: .opacity,
-                        removal: .scale(scale: 0.8).combined(with: .opacity)
-                    )
-                )
-            }
-
-            Divider()
-            Text("Mission")
-                .font(.headline)
+        VStack(alignment: .center, spacing: 12) {
 
             if isJoined {
                 // UNLOCKED
@@ -53,38 +25,74 @@ struct MissionSectionView: View {
                     eventId: eventId,
                     onComplete: { rewardMessage in
                         onMissionComplete(rewardMessage)
-                    }
+                    }, showButton: true
+                    
                 )
                 .transition(.move(edge: .bottom).combined(with: .opacity))
 
             } else {
                 // LOCKED
                 ZStack {
-                    MissionCardView(
-                        mission: $mission,
-                        eventId: eventId,
-                        onComplete: { _ in }
-                    )
-                    .blur(radius: 4)
-                    .allowsHitTesting(false)
 
-                    VStack(spacing: 12) {
+                    VStack(alignment: .center) {
                         Image(systemName: "lock.fill")
-                            .font(.largeTitle)
-                            .foregroundStyle(.secondary)
-                        Text("Join this event to unlock the mission")
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                            .multilineTextAlignment(.center)
+                            .font(.system(size: 64, weight: .bold))
+                        
+                        VStack {
+                            Text("JOIN THE EVENT")
+                            Text("TO GET A QUEST")
+                        }.font(.headingS)
                     }
-                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .foregroundStyle(Color.TGprimary)
+                    .padding(.vertical, 50)
                     .background(
-                        .ultraThinMaterial,
-                        in: RoundedRectangle(cornerRadius: 16)
+                        RoundedRectangle(cornerRadius: 26)
+                            .foregroundStyle(
+                                LinearGradient(
+                                    colors: [.TGgradient, .TGterniary, .TGterniary], startPoint: .top, endPoint: .bottom
+                                )
+                                .shadow(
+                                   .inner(
+                                       color: Color.black.opacity(0.25),
+                                       radius: 2,
+                                       x: 0,
+                                       y: 1
+                                   )
+                               )
+                            )
                     )
                 }
                 .transition(.opacity)
             }
+            
+            if !isJoined {
+                Button {
+                    withAnimation(.spring(response: 0.6, dampingFraction: 0.8))
+                    {
+                        onJoin()
+                    }
+                } label: {
+                    Text("Join")
+//                        .fontWeight(.semibold)
+//                        .frame(maxWidth: .infinity)
+//                        .padding()
+                }.buttonStyle(TGPrimaryButtonStyle())
+
+//                .buttonStyle(.plain)
+//                .background(Color.TGprimary)
+//                .foregroundColor(.white)
+//                .clipShape(RoundedRectangle(cornerRadius: 12))
+//                //.frame(width: 344, height: 50)
+//                .frame(maxWidth: .infinity, maxHeight: 50)
+//                .transition(
+//                    .asymmetric(
+//                        insertion: .opacity,
+//                        removal: .scale(scale: 0.8).combined(with: .opacity)
+//                    )
+//                )
+            }
+
         }
         .animation(.default, value: isJoined)
     }
