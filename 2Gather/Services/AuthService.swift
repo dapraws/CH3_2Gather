@@ -27,12 +27,12 @@ enum AuthError: LocalizedError {
 
 final class AuthService {
     func register(
-        name: String,
+        username: String,
         email: String,
         password: String,
         modelContext: ModelContext
     ) throws -> Account {
-        guard !name.isEmpty, !email.isEmpty, !password.isEmpty else {
+        guard !username.isEmpty, !email.isEmpty, !password.isEmpty else {
             throw AuthError.emptyFields
         }
 
@@ -47,7 +47,7 @@ final class AuthService {
         let newAccount = Account(
             id: UUID(),
             email: email,
-            name: name,
+            username: username,
             password: password
         )
 

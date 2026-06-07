@@ -15,7 +15,7 @@ final class OnboardingViewModel: ObservableObject {
         case welcoming
         case login
         case register
-        case sportPreferences
+        case Preferences
         case permission
     }
 
@@ -40,9 +40,9 @@ final class OnboardingViewModel: ObservableObject {
         currentStep = .register
     }
 
-    func goToSportPreferences() {
+    func goToPreferences() {
         navigationHistory.append(currentStep)
-        currentStep = .sportPreferences
+        currentStep = .Preferences
     }
 
     func goToPermission() {

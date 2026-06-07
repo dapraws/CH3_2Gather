@@ -12,24 +12,27 @@ import SwiftData
 final class Account {
     @Attribute(.unique) var id: UUID
     var email: String
-    var name: String
+    var username: String
     var password: String
     var preferenceSportIDs: [String]
     var createdAt: Date
+    var profilePhoto: String?
     
     init(
         id: UUID = UUID(),
         email: String,
-        name: String,
+        username: String,
         password: String,
         preferenceSportIDs: [String] = [],
-        createdAt: Date = .now
+        createdAt: Date = .now,
+        profilePhoto: String? = nil
     ) {
         self.id = id
         self.email = email
-        self.name = name
+        self.username = username
         self.password = password
         self.preferenceSportIDs = preferenceSportIDs
         self.createdAt = createdAt
+        self.profilePhoto = profilePhoto
     }
 }

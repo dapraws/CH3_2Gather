@@ -32,7 +32,7 @@ struct OnboardingView: View {
                         },
                         onSuccess: {
                             authViewModel.clearMessages()
-                            viewModel.goToSportPreferences()
+                            viewModel.goToPreferences()
                         }
                     )
                 case .register:
@@ -44,11 +44,11 @@ struct OnboardingView: View {
                         },
                         onSuccess: {
                             authViewModel.clearMessages()
-                            viewModel.goToSportPreferences()
+                            viewModel.goToPreferences()
                         }
                     )
-                case .sportPreferences:
-                    SportPreferencesView(
+                case .Preferences:
+                    PreferencesView(
                         sports: viewModel.sports,
                         selectedSports: $viewModel.selectedSports,
                         onToggleSport: { viewModel.toggleSport($0) },
@@ -95,7 +95,7 @@ struct OnboardingView: View {
         switch step {
         case .welcoming:         return 0
         case .login, .register:  return 1
-        case .sportPreferences:  return 2
+        case .Preferences:  return 2
         case .permission:        return 3
         }
     }
