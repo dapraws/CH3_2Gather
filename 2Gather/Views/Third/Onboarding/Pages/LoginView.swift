@@ -5,94 +5,90 @@
 //  Created by RyanMFDR on 04/06/26.
 //
 
+import SwiftData
 import SwiftUI
 
 struct LoginView: View {
-    @State private var email: String = ""
-    @State private var password: String = ""
-    @State private var isPasswordVisible: Bool = false
+    @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject private var session: AppSession
 
-    var onLogin: () -> Void = {}
-    var onRegister: () -> Void = {}
+    @ObservedObject var viewModel: AuthViewModel
+    @State private var isPasswordVisible = false
+
+    let onTapRegister: () -> Void
+    let onSuccess: () -> Void
 
     var body: some View {
-
-        VStack(alignment: .leading, spacing: 34) {
-            Image(.mascotAppLogo)
-
-            Text("Login")
-                .font(.displayM)
-                .foregroundColor(.TGprimary)
-
-            VStack(alignment: .leading, spacing: 10) {
-                TGTextField(
+        ZStack {
+            Rectangle().fill(.white)
+            VStack(alignment: .leading, spacing: 16) {
+                Image(.mascotLogo)
+                Text("Login")
+                    .font(.displayM)
+                    .foregroundColor(.TGprimary)
+                CustomTextField(
                     placeholder: "Email",
-                    text: $email,
+                    text: $viewModel.loginEmail,
                     icon: "envelope"
                 )
-                TGSecureField(
+
+                CustomSecureField(
                     placeholder: "Password",
-                    textPassword: $password,
-                    isVisible: $isPasswordVisible
+                    textPassword: $viewModel.loginPassword,
+                    isVisible: $isPasswordVisible,
                 )
-            }
 
-            VStack(spacing: 10) {
-                // Login Button
-                Button(action: {
-                    onLogin()
-                }) {
-                    Text("Login")
-                        .font(.headingS)
-                        .foregroundColor(.TGprimary)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                        .background(Color.TGterniary)
-                        .cornerRadius(30)
-                }
-                .padding(.bottom, 16)
-
-                HStack {
-                    Rectangle()
-                        .frame(height: 1)
-                        .foregroundColor(Color.TGprimary.opacity(0.5))
-                    Text("or")
+                if let error = viewModel.errorMessage {
+                    Text(error)
+                        .foregroundStyle(.red)
                         .font(.footnote)
-                        .foregroundColor(Color.TGprimary.opacity(0.5))
-                    Rectangle()
-                        .frame(height: 1)
-                        .foregroundColor(Color.TGprimary.opacity(0.5))
                 }
-                .padding(.bottom, 16)
 
-                // Don't have an account
-                Button(action: {
-                    onRegister()
-                }) {
-                    Text("Don't have an account")
-                        .font(.subheadline)
-                        .foregroundColor(.TGprimary)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                        .background(Color.backgroundPrimary)
-                        .cornerRadius(30)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 30)
-                                .stroke(
-                                    Color.gray.opacity(0.3),
-                                    lineWidth: 1
-                                )
+                VStack(alignment: .center, spacing: 16) {
+                    Button {
+                        let didLogin = viewModel.login(
+                            modelContext: modelContext,
+                            session: session
                         )
+
+                        if didLogin {
+                            onSuccess()
+                        }
+                    } label: {
+                        Text(viewModel.isLoading ? "Loading..." : "Login")
+                            .font(.headingS)
+                            .foregroundColor(.TGprimary)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 15)
+                            .background(Color.TGterniary)
+                            .clipShape(Capsule())
+                    }
+                    .disabled(viewModel.isLoading)
+
+                    Button {
+                        onTapRegister()
+                    } label: {
+                        Text("Don't have an account? Register here")
+                            .font(.bodyL)
+                            .foregroundColor(.TGsecondary)
+                            .frame(maxWidth: .infinity)
+                            .font(.footnote)
+                            .foregroundStyle(.blue)
+                            .clipShape(Capsule())
+
+                    }
                 }
-
-            }.padding(.horizontal, 28)
+            }.padding()
         }
-        .padding(.horizontal, 40)
-        .padding(.top, 15)
-
     }
 }
 
 #Preview {
-    LoginView()
+    LoginView(
+        viewModel: AuthViewModel(authService: AuthService()),
+        onTapRegister: {},
+        onSuccess: {}
+    )
+    .environmentObject(AppSession())
+    .modelContainer(for: Account.self, inMemory: true)
 }

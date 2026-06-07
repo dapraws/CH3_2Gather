@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Lottie
+//import Lottie
 
 struct TextSizeView: View {
     @Environment(\.dismiss) private var dismiss

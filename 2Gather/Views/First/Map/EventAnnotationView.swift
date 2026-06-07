@@ -31,6 +31,26 @@ struct EventAnnotationView: View {
             return "map-pin-default"
         }
     }
+    
+    private var iconImage: String {
+        if isCompleted {
+            return "checkmark"
+        } else if isJoined {
+            return "target"
+        } else {
+            return sport.icon
+        }
+    }
+    
+    private var iconSize: CGFloat {
+        if isCompleted {
+            return 18
+        } else if isJoined {
+            return 20
+        } else {
+            return 16
+        }
+    }
 
     private var iconColor: Color {
         isJoined ? .black : .white
@@ -41,14 +61,14 @@ struct EventAnnotationView: View {
             Image(pinImage)
                 .resizable()
                 .scaledToFit()
-                .frame(width: 60)
+                .frame(width: 40)
 
-            Image(systemName: isCompleted ? "checkmark" : sport.icon)
+            Image(systemName: iconImage)
                 .foregroundStyle(iconColor)
-                .font(.system(size: 20, weight: .semibold))
+                .font(.system(size: iconSize, weight: .semibold))
                 .offset(y: -5)
         }
-        .scaleEffect(isSelected ? 2.0 : 1.0)
+        .scaleEffect(isSelected ? 1.5 : 1.0)
         .animation(
             .spring(response: 0.3, dampingFraction: 0.55),
             value: isSelected

@@ -23,19 +23,11 @@ struct ContentView: View {
                 .tabItem {
                     Label("Explore", systemImage: "map")
                 }
+                
         }
+        .tint(.TGsecondary)
         .onAppear {
             seedDataIfNeeded()
-//            // debug
-//            let docs = FileManager.default.urls(
-//                for: .documentDirectory,
-//                in: .userDomainMask
-//            )[0]
-//            let files = try? FileManager.default.contentsOfDirectory(
-//                atPath: docs.path
-//            )
-//            print("📄 Files: \(files ?? [])")
-
         }
     }
 

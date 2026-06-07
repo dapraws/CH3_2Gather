@@ -34,7 +34,18 @@ extension Color {
     static let TGprimary   = Color(hex: "#301720")   // Brown
     static let TGsecondary = Color(hex: "#FF7606")   // Orange
     static let TGterniary    = Color(hex: "#FFDC49")   // Yellow
-
+    
+    /////////////////////////////////////////////////////////////
+    // MARK: Light
+    static let TGLprimary   = Color(hex: "#301720")   // Brown (light)
+    static let TGLsecondary = Color(hex: "#FF7606")   // Orange (light)
+    static let TGLterniary    = Color(hex: "#FFDC49")   // Yellow (light)
+    // MARK: Dark
+    static let TGDprimary   = Color(hex: "#301720")   // Brown (dark)
+    static let TGDsecondary = Color(hex: "#FF7606")   // Orange (dark)
+    static let TGDterniary    = Color(hex: "#FFDC49")   // Yellow (dark)
+    /////////////////////////////////////////////////////////////
+    
     // MARK: Background
     static let backgroundPrimary   = Color(.systemBackground)
     static let backgroundSecondary = Color(.secondarySystemBackground)
@@ -53,10 +64,4 @@ extension Color {
     static let warning = Color(.systemOrange)
     static let error   = Color(.systemRed)
     static let info    = Color(.systemBlue)
-
-    // MARK: Sport
-    static let scoreWin      = Color(.systemGreen)
-    static let scoreLoss     = Color(.systemRed)
-    static let scoreDraw     = Color(.systemGray)
-    static let liveIndicator = Color(hex: "#FF3B30")
 }
