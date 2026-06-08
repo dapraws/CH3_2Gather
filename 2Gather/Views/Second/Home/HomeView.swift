@@ -76,12 +76,7 @@ struct HomeView: View {
                             onExplore: { selectedTab = 1 },
                             onGoToEvent: {
                                 selectedTab = 1
-                                DispatchQueue.main.asyncAfter(
-                                    deadline: .now() + 1.0
-                                ) { mapViewModel.selectAndZoom(event) }
-                                DispatchQueue.main.asyncAfter(
-                                    deadline: .now() + 2.0
-                                ) { selectedEvent = activeEvent }
+                                selectedEvent = event
                             }
                         )
                     }
@@ -89,7 +84,7 @@ struct HomeView: View {
                     stickyTabView
 
                     if homeTab == .completed {
-//                        completedListView
+                        completedListView
                     } else {
                         upcomingListView
                     }
@@ -198,6 +193,7 @@ struct HomeView: View {
                         let proofPath = state.proofImagePath
                     {
                         CompletedEventCardView(
+                            sportIcon: sportIcon(for: event),
                             proofPath: proofPath,
                             date: completedDate(event.date),
                             caption: state.caption
