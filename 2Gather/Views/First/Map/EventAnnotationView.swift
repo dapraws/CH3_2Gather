@@ -24,7 +24,7 @@ struct EventAnnotationView: View {
 
     private var pinImage: String {
         if isCompleted {
-            return "map-pin-completed"
+            return "map-pin-joined"
         } else if isJoined {
             return "map-pin-joined"
         } else {
@@ -53,7 +53,7 @@ struct EventAnnotationView: View {
     }
 
     private var iconColor: Color {
-        isJoined ? .black : .white
+        isJoined || isCompleted ? .black : .white
     }
 
     var body: some View {
