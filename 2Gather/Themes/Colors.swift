@@ -64,4 +64,9 @@ extension Color {
     static let warning = Color(.systemOrange)
     static let error   = Color(.systemRed)
     static let info    = Color(.systemBlue)
+    
+    //MARK: Temporal Colors
+    static let TGgradient =  Color(hex: "FFF080")
+    static let TGred = Color(hex: "B24A4A")
+    
 }

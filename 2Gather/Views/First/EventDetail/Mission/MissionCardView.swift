@@ -12,6 +12,7 @@ struct MissionCardView: View {
     @Binding var mission: Mission
     var eventId: UUID  // pass eventId instead of eventState
     var onComplete: (String) -> Void = { _ in }
+    var showButton: Bool
 
     @Query private var allStates: [UserEventState]
     @State private var viewModel = MissionViewModel()
@@ -28,57 +29,88 @@ struct MissionCardView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text(mission.name).font(.headline)
-            Text(mission.desc).font(.subheadline).foregroundStyle(.secondary)
+            HStack {
+                let completed = eventState?.isCompleted == true
+                Image(systemName: completed ? "checkmark.circle":"target")
+                Text(completed ? "Quest Completed" : "Quest")
+                    
+            }.font(.system(size: 20, weight: .bold))
+            .foregroundStyle(Color.TGprimary)
+            
+            Text(mission.desc)
+                .foregroundStyle(Color.TGprimary)
+                .font(.system(size: 17, weight: .regular))
 
             if eventState?.isCompleted == true {
-                HStack(spacing: 12) {
-                    if let image = savedImage {
-                        Image(uiImage: image)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 60, height: 60)
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
-                    }
-                    VStack(alignment: .leading, spacing: 4) {
-                        Label("Completed", systemImage: "checkmark.circle.fill")
-                            .foregroundStyle(.green)
-                            .font(.subheadline)
-                            .bold()
-                        if let caption = eventState?.caption, !caption.isEmpty {
-                            Text(caption)
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                                .lineLimit(1)
-                        } else {
-                            Text("Tap to view memory")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
+                
+                if let image = savedImage {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(maxWidth: .infinity, maxHeight: 138)
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                        .overlay(alignment: .bottomLeading) {
+                            if let caption = eventState?.caption, !caption.isEmpty {
+                                HStack {
+                                    Text(caption)
+                                        .font(.labelS)
+                                        .foregroundStyle(Color.TGprimary)
+                                        .lineLimit(1)
+                                }
+                                .padding(.horizontal, 14)
+                                .frame(height: 27)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 17.36)
+                                        .fill(.ultraThinMaterial)
+                                        .environment(\.colorScheme, .light)
+                                        .brightness(0.7)
+                                        .saturation(0)
+                                )
+                                .clipShape(RoundedRectangle(cornerRadius: 17.36))
+                                .padding([.leading, .top, .trailing])
+                                .padding(.bottom, 6)
+                            }
                         }
-                    }
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-                .padding(.top, 8)
-                .contentShape(Rectangle())
-                .onTapGesture {
-                    if savedImage != nil { viewModel.showPreview = true }
+                        .onTapGesture {
+                            if savedImage != nil { viewModel.showPreview = true }
+                        }
+
                 }
 
             } else {
-                Button("Complete Mission") {
-                    viewModel.showCamera = true
+                if showButton == true {
+                    Button {
+                        viewModel.showCamera = true
+                    } label: {
+                        HStack {
+                            Image(systemName: "camera.fill")
+                            Text("Snap a photo!")
+                        }
+                    }
+                    .buttonStyle(TGWhiteButtonStyle())
                 }
-                .buttonStyle(.bordered)
-                .padding(.top, 8)
+                
+                
             }
         }
-        .padding()
+        .padding(23)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color(.systemGray6))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .background(
+            RoundedRectangle(cornerRadius: 26)
+                .foregroundStyle(
+                    LinearGradient(
+                        colors: [.TGgradient, .TGterniary], startPoint: .top, endPoint: .bottom
+                    )
+                    .shadow(
+                       .inner(
+                           color: Color.black.opacity(0.25),
+                           radius: 2,
+                           x: 0,
+                           y: 1
+                       )
+                   )
+                )
+        )
         .fullScreenCover(isPresented: $viewModel.showCamera) {
             CustomCameraView(
                 onCapture: { image in viewModel.didCapture(image) },
@@ -114,7 +146,17 @@ struct MissionCardView: View {
 #Preview("Incomplete") {
     MissionCardView(
         mission: .constant(TempData.soloMission1),
-        eventId: UUID()
+        eventId: UUID(),
+        showButton: true
+    )
+    .padding()
+}
+
+#Preview("Complete") {
+    MissionCardView(
+        mission: .constant(TempData.completedMission),
+        eventId: UUID(),
+        showButton: true
     )
     .padding()
 }
