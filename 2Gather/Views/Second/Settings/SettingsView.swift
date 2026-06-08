@@ -22,7 +22,9 @@ struct SettingsView: View {
         NavigationStack {
             List {
                 Section {
-                    NavigationLink(destination: ProfileSettingsView(viewModel: viewModel)) {
+                    NavigationLink(
+                        destination: ProfileSettingsView(viewModel: viewModel)
+                    ) {
                         HStack(spacing: 16) {
                             if let image = viewModel.profileImage {
                                 Image(uiImage: image)
@@ -57,15 +59,11 @@ struct SettingsView: View {
                 ) {
                     NavigationLink(destination: TextSizeView()) {
                         HStack(spacing: 16) {
-                            HStack(alignment: .lastTextBaseline, spacing: 2) {
-                                Text("A").font(
-                                    .system(size: 15, weight: .medium)
-                                )
-                                Text("A").font(
-                                    .system(size: 20, weight: .medium)
-                                )
-                            }
-                            .frame(width: 28, alignment: .center)
+                            Image(systemName: "textformat.size")
+                                .font(.system(size: 22))
+                                .frame(width: 28, alignment: .center)
+
+                                .frame(width: 28, alignment: .center)
                             Text("Text Size")
                         }
                     }
@@ -88,24 +86,24 @@ struct SettingsView: View {
                     header: Text("Tutorial").textCase(.none).font(.subheadline)
                 ) {
                     NavigationLink(destination: Text("Tutorial View")) {
-                        HStack(spacing: 16) {
+                        HStack(spacing: 20) {
                             Image(.mascotRunning)
                                 .resizable()
-                                .scaledToFit()
-                                .frame(width: 50, height: 50)
+                                .frame(width: 102, height: 81)
 
                             VStack(alignment: .leading, spacing: 2) {
                                 Text("Feeling lost?")
-                                    .font(.subheadline)
+                                    .font(.system(size: 14, weight: .semibold))
                                     .fontWeight(.semibold)
                                 Text("I'll help you out!")
-                                    .font(.headline)
+                                    .font(.system(size: 21, weight: .bold))
                                     .fontWeight(.bold)
                             }
                         }
-                        .padding(.vertical, 8)
                     }
-                    .listRowBackground(Color.TGterniary)
+                    .listRowBackground(
+                        Image(.tutorialCard).resizable().scaledToFill()
+                    )
                 }
             }
             .navigationTitle("Settings")
