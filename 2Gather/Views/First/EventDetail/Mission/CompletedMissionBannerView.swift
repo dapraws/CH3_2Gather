@@ -17,7 +17,7 @@ struct CompletedMissionBannerView: View {
     var body: some View {
         ZStack {
             Color.TGterniary
-            Image("completed-cheer")
+            Image(.completedCheer)
                 .resizable()
                 .scaledToFill()
                 .frame(width: 621, height: 621)
@@ -27,14 +27,14 @@ struct CompletedMissionBannerView: View {
                     Image(systemName: sport.icon)
                         .font(.system(size: 30))
                     Text(eventName)
-                        .font(.TGFilterChipLabel)
-                }//.padding(.top, 125)
+                        .font(.system(size: 17, weight: .medium))
+                }
                 
                 Spacer()
                 
                 HStack {
                     Spacer()
-                    VStack (spacing: 3){
+                    VStack (spacing: 30){
                         Button {
                             Void()
                         } label: {
@@ -42,15 +42,14 @@ struct CompletedMissionBannerView: View {
                                 .font(.system(size: 14, weight: .medium))
                         }.buttonStyle(TGShareBannerButtonStyle())
                             .frame(maxWidth: 120, minHeight: 36)
-                            .padding(.bottom)
                         
                         Button {
                             dismiss()
                         } label: {
                             Text("Close")
-                        }.foregroundStyle(Color.TGred)
+                        }.foregroundStyle(Color.TGsecondary)
                             
-                    }.padding(.bottom, 30)
+                    }
                     .font(.system(size: 14, weight: .medium))
                     Spacer()
                 }

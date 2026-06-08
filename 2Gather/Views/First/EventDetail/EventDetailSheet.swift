@@ -112,7 +112,7 @@ struct EventDetailSheet: View {
                                             modelContext.delete(state)
                                             dismiss()
                                         }
-                                    }.foregroundStyle(Color.TGred)
+                                    }.foregroundStyle(Color.TGsecondary)
                                     Spacer()
                                 }
                             }

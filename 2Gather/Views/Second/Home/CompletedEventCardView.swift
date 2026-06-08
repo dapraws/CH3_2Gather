@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CompletedEventCardView: View {
+    var sportIcon: String
     var proofPath: String
     var date: String
     var caption: String?
@@ -39,6 +40,9 @@ struct CompletedEventCardView: View {
             )
 
             VStack(alignment: .leading, spacing: 4) {
+                Image(systemName: sportIcon)
+                    .font(.system(size: 30))
+                    .foregroundColor(.white)
                 Text(date)
                     .font(.headingXXS)
                     .foregroundColor(.white)
@@ -63,11 +67,13 @@ struct CompletedEventCardView: View {
 #Preview {
     VStack(spacing: 12) {
         CompletedEventCardView(
+            sportIcon: "figure.run",
             proofPath: "some-proof.jpg",
             date: "8/6/26",
             caption: "Great ride!"
         )
         CompletedEventCardView(
+            sportIcon: "figure.run",
             proofPath: "some-proof.jpg",
             date: "7/6/26",
             caption: nil

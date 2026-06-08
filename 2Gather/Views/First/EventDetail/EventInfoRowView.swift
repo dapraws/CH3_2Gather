@@ -17,7 +17,7 @@ struct EventInfoRowView: View {
             HStack(spacing: 15) {
                 HStack(spacing: spacingValue) {
                     Image(systemName: "clock")
-                        .foregroundStyle(Color.TGred)
+                        .foregroundStyle(Color.TGsecondary)
                         .bold()
                     Text(event.formattedTime)
                         .lineLimit(1)
@@ -26,7 +26,7 @@ struct EventInfoRowView: View {
                 
                 HStack(spacing: spacingValue) {
                     Image(systemName: "calendar")
-                        .foregroundStyle(Color.TGred)
+                        .foregroundStyle(Color.TGsecondary)
                         .bold()
                     Text(event.formattedDate)
                         .lineLimit(1)
@@ -35,9 +35,9 @@ struct EventInfoRowView: View {
                 
                 HStack(spacing: spacingValue) {
                     Image(systemName: "mappin")
-                        .foregroundStyle(Color.TGred)
+                        .foregroundStyle(Color.TGsecondary)
                         .bold()
-                    Text(event.venueName).font(.subheadline)
+                    Text(event.venueName)
                         .lineLimit(1)
                         .font(.bodyL)
                 }
