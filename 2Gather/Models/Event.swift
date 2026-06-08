@@ -50,15 +50,17 @@ class Event {
 
     var formattedDate: String {
         let formatter = DateFormatter()
-        formatter.dateStyle = .full
+        formatter.dateStyle = .medium
         formatter.timeStyle = .none
+        formatter.dateFormat = "d MMM"
         return formatter.string(from: date)
     }
 
     var formattedTime: String {
         let formatter = DateFormatter()
-        formatter.dateStyle = .none
-        formatter.timeStyle = .short
+        //formatter.dateStyle = .none
+        //formatter.timeStyle = .medium
+        formatter.dateFormat = "HH:mm"
         return formatter.string(from: date)
     }
 }
