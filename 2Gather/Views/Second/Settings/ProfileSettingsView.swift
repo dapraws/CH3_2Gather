@@ -13,7 +13,7 @@ struct ProfileSettingsView: View {
     @EnvironmentObject private var session: AppSession
     @Environment(\.modelContext) private var modelContext
     @Query private var accounts: [Account]
-    var vm: SettingsViewModel
+    var viewModel: SettingsViewModel
 
     private var account: Account? {
         accounts.first { $0.id.uuidString == session.loggedInUserId }
@@ -26,7 +26,7 @@ struct ProfileSettingsView: View {
             VStack(spacing: 0) {
                 VStack(spacing: 36) {
                     VStack(spacing: 16) {
-                        if let image = vm.profileImage {
+                        if let image = viewModel.profileImage {
                             Image(uiImage: image)
                                 .resizable()
                                 .scaledToFill()
@@ -41,8 +41,8 @@ struct ProfileSettingsView: View {
 
                         PhotosPicker(
                             selection: Binding(
-                                get: { vm.selectedPhotoItem },
-                                set: { vm.selectedPhotoItem = $0 }
+                                get: { viewModel.selectedPhotoItem },
+                                set: { viewModel.selectedPhotoItem = $0 }
                             ),
                             matching: .images
                         ) {
@@ -80,7 +80,7 @@ struct ProfileSettingsView: View {
                         Divider().padding(.leading, 16)
 
                         NavigationLink(
-                            destination: PreferencesSettingsView(vm: vm)
+                            destination: PreferencesSettingsView(viewModel: viewModel)
                         ) {
                             ProfileDataRow(
                                 title: "Sports preferences",
@@ -100,15 +100,15 @@ struct ProfileSettingsView: View {
             .background(Color(UIColor.systemGroupedBackground))
             .navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.inline)
-            .onChange(of: vm.selectedPhotoItem) { _, newItem in
-                vm.handlePhotoSelection(
+            .onChange(of: viewModel.selectedPhotoItem) { _, newItem in
+                viewModel.handlePhotoSelection(
                     item: newItem,
                     account: account,
                     modelContext: modelContext
                 )
             }
             .onAppear {
-                vm.loadProfileImage(from: account?.profilePhoto)
+                viewModel.loadProfileImage(from: account?.profilePhoto)
             }
         }
     }
@@ -157,7 +157,7 @@ struct ProfileDataRow: View {
 
 #Preview {
     NavigationStack {
-        ProfileSettingsView(vm: SettingsViewModel())
+        ProfileSettingsView(viewModel: SettingsViewModel())
             .environmentObject(AppSession())
     }
 }

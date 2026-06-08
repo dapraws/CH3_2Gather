@@ -20,6 +20,7 @@ extension Font {
     static let headingL: Font = .system(size: 24, weight: .bold)
     static let headingM: Font = .system(size: 20, weight: .semibold)
     static let headingS: Font = .system(size: 17, weight: .semibold)
+    static let headingXXS: Font = .system(size: 11, weight: .bold)
 
     // MARK: Body
     static let bodyL:  Font = .system(size: 17, weight: .regular)

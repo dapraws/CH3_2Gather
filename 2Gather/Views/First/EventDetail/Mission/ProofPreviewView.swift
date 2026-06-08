@@ -19,7 +19,6 @@ struct ProofPreviewView: View {
         ZStack {
             Color.black.ignoresSafeArea()
 
-            // Full screen photo
             Image(uiImage: image)
                 .resizable()
                 .background()
@@ -27,14 +26,13 @@ struct ProofPreviewView: View {
                 .ignoresSafeArea()
 
             VStack {
-                // Top bar — retake button
                 HStack {
                     Button(action: onRetake) {
                         Image(systemName: "arrow.uturn.left")
                             .font(.system(size: 18, weight: .semibold))
                             .foregroundColor(.white)
                             .frame(width: 44, height: 44)
-                            .background(Color.white.opacity(0.2), in: Circle())
+                            .background(Color.TGprimary.opacity(0.3), in: Circle())
                     }
                     Spacer()
                 }
@@ -43,21 +41,20 @@ struct ProofPreviewView: View {
 
                 Spacer()
 
-                // Bottom bar — caption + send
                 HStack(spacing: 12) {
                     TextField("Add a caption...", text: $caption)
                         .focused($captionFocused)
                         .padding(.horizontal, 16)
                         .padding(.vertical, 10)
-                        .background(.ultraThinMaterial, in: Capsule())
+                        .background(Color.TGprimary, in: Capsule())
                         .foregroundColor(.white)
 
                     Button(action: { onSend(caption) }) {
                         Image(systemName: "paperplane.fill")
                             .font(.system(size: 20, weight: .semibold))
-                            .foregroundColor(.white)
-                            .frame(width: 52, height: 52)
-                            .background(Color.blue, in: Circle())
+                            .foregroundColor(.TGprimary)
+                            .frame(width: 44, height: 44)
+                            .background(Color.TGterniary, in: Circle())
                     }
                 }
                 .padding(.horizontal, 20)
