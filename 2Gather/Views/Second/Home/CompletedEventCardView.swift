@@ -1,5 +1,5 @@
 //
-//  CompletedCard.swift
+//  CompletedEventCardView.swift
 //  2Gather
 //
 //  Created by RyanMFDR on 07/06/26.
@@ -8,37 +8,40 @@
 import SwiftUI
 
 struct CompletedEventCardView: View {
-    var sportIcon: String = "figure.outdoor.cycle"
-    var date: String = "2/6/26"
-    var caption: String? = nil
+    var proofPath: String
+    var date: String
+    var caption: String?
+
+    private var proofImage: UIImage? {
+        PhotoStorage.loadProofImage(named: proofPath)
+    }
 
     var body: some View {
         ZStack(alignment: .bottomLeading) {
-            Image(systemName: "photo")
-                .resizable()
-                .scaledToFill()
-                .frame(maxWidth: .infinity)
-                .frame(height: 160)
-                .clipped()
+            if let image = proofImage {
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 160)
+                    .clipped()
+            } else {
+                Rectangle()
+                    .fill(Color.backgroundSecondary)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 160)
+            }
 
             LinearGradient(
-                gradient: Gradient(colors: [
-                    Color.black.opacity(0.55),
-                    Color.clear,
-                ]),
+                gradient: Gradient(colors: [Color.black.opacity(0.55), Color.clear]),
                 startPoint: .bottom,
                 endPoint: .top
             )
 
             VStack(alignment: .leading, spacing: 4) {
-                VStack(spacing: 6) {
-                    Image(systemName: sportIcon)
-                        .font(.system(size: 30))
-                        .foregroundColor(.white)
-                    Text(date)
-                        .font(.headingXXS)
-                        .foregroundColor(.white)
-                }
+                Text(date)
+                    .font(.headingXXS)
+                    .foregroundColor(.white)
                 Rectangle().fill(.white.opacity(0))
                 if let caption = caption {
                     Text(caption)
@@ -46,10 +49,7 @@ struct CompletedEventCardView: View {
                         .foregroundColor(.primary)
                         .padding(.horizontal, 12)
                         .padding(.vertical, 9)
-                        .background(
-                            Capsule()
-                                .fill(.thinMaterial)
-                        )
+                        .background(Capsule().fill(.thinMaterial))
                 }
             }
             .padding()
@@ -63,10 +63,16 @@ struct CompletedEventCardView: View {
 #Preview {
     VStack(spacing: 12) {
         CompletedEventCardView(
-            sportIcon: "figure.outdoor.cycle",
-            date: "2/6/26",
-            caption: "Very cute! AAAAAAA"
+            proofPath: "some-proof.jpg",
+            date: "8/6/26",
+            caption: "Great ride!"
+        )
+        CompletedEventCardView(
+            proofPath: "some-proof.jpg",
+            date: "7/6/26",
+            caption: nil
         )
     }
     .padding()
+    .background(Color(.systemGroupedBackground))
 }

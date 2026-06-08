@@ -8,22 +8,25 @@
 import SwiftUI
 
 struct StatsRowView: View {
+    var questsCompleted: Int = 0
+    var favoriteSportIcon: String = "figure.outdoor.cycle"
+    var sportsTried: Int = 0
+
     var body: some View {
         HStack(spacing: 0) {
-            statItem(value: "15", label: "quests\ncompleted")
+            statItem(value: "\(questsCompleted)", label: "quests\ncompleted")
 
             Rectangle()
                 .fill(Color.TGprimary)
                 .frame(width: 1, height: 35)
 
-            statItem(icon: "figure.outdoor.cycle", label: "#1\nfavorite")
+            statItem(icon: favoriteSportIcon, label: "#1\nfavorite")
 
             Rectangle()
                 .fill(Color.TGprimary)
                 .frame(width: 1, height: 35)
 
-
-            statItem(value: "2", label: "sports\ntried")
+            statItem(value: "\(sportsTried)", label: "sports\ntried")
         }
         .padding(.horizontal, 0)
     }
@@ -53,5 +56,5 @@ private func statItem(
 }
 
 #Preview {
-    StatsRowView()
+    StatsRowView(questsCompleted: 15, sportsTried: 3)
 }
