@@ -7,59 +7,54 @@
 
 import SwiftUI
 
-struct CompletedEventCard: View {
-    var image: Image = Image(systemName: "photo")
+struct CompletedEventCardView: View {
     var sportIcon: String = "figure.outdoor.cycle"
     var date: String = "2/6/26"
-    var note: String? = nil
+    var caption: String? = nil
 
     var body: some View {
         ZStack(alignment: .bottomLeading) {
-            // Background image
-            image
+            Image(systemName: "photo")
                 .resizable()
                 .scaledToFill()
                 .frame(maxWidth: .infinity)
                 .frame(height: 160)
                 .clipped()
 
-            // Gradient overlay for readability
             LinearGradient(
                 gradient: Gradient(colors: [
                     Color.black.opacity(0.55),
-                    Color.clear
+                    Color.clear,
                 ]),
                 startPoint: .bottom,
                 endPoint: .top
             )
 
             VStack(alignment: .leading, spacing: 4) {
-                // Sport icon + date
-                HStack(spacing: 6) {
+                VStack(spacing: 6) {
                     Image(systemName: sportIcon)
-                        .font(.system(size: 14, weight: .semibold))
+                        .font(.system(size: 30))
                         .foregroundColor(.white)
                     Text(date)
-                        .font(.system(size: 13, weight: .semibold))
+                        .font(.headingXXS)
                         .foregroundColor(.white)
                 }
-
-                // Optional note pill
-                if let note = note {
-                    Text(note)
+                Rectangle().fill(.white.opacity(0))
+                if let caption = caption {
+                    Text(caption)
                         .font(.system(size: 12, weight: .medium))
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 5)
+                        .foregroundColor(.primary)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 9)
                         .background(
                             Capsule()
-                                .fill(Color.black.opacity(0.45))
+                                .fill(.thinMaterial)
                         )
                 }
             }
-            .padding(.horizontal, 12)
-            .padding(.bottom, 12)
+            .padding()
         }
+        .frame(height: 160)
         .cornerRadius(16)
         .clipped()
     }
@@ -67,16 +62,10 @@ struct CompletedEventCard: View {
 
 #Preview {
     VStack(spacing: 12) {
-        CompletedEventCard(
-            image: Image(systemName: "photo"),
+        CompletedEventCardView(
             sportIcon: "figure.outdoor.cycle",
             date: "2/6/26",
-            note: "Very cute! AAAAAAA"
-        )
-        CompletedEventCard(
-            image: Image(systemName: "photo"),
-            sportIcon: "figure.outdoor.cycle",
-            date: "2/6/26"
+            caption: "Very cute! AAAAAAA"
         )
     }
     .padding()
