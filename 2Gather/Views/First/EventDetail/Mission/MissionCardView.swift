@@ -86,15 +86,8 @@ struct MissionCardView: View {
                             Image(systemName: "camera.fill")
                             Text("Snap a photo!")
                         }
-    //                    .frame(maxWidth: .infinity)
-    //                    .padding()
                     }
                     .buttonStyle(TGWhiteButtonStyle())
-    //                .background(.white)
-    //                .foregroundColor(Color.TGprimary)
-    //                .clipShape(RoundedRectangle(cornerRadius: 12))
-    //                .padding(.top, 8)
-    //                .font(.headingS)
                 }
                 
                 
@@ -102,8 +95,6 @@ struct MissionCardView: View {
         }
         .padding(23)
         .frame(maxWidth: .infinity, alignment: .leading)
-//        .background(Color.TGterniary)
-//        .clipShape(RoundedRectangle(cornerRadius: 26))
         .background(
             RoundedRectangle(cornerRadius: 26)
                 .foregroundStyle(

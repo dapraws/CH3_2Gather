@@ -17,16 +17,16 @@ struct EventInfoRowView: View {
             HStack(spacing: 15) {
                 HStack(spacing: spacingValue) {
                     Image(systemName: "clock")
-                        .foregroundStyle(Color.tempAccent)
+                        .foregroundStyle(Color.TGred)
                         .bold()
-                    Text(event.formattedTime+"-12:00") //TO DO: remove hardcoded value 
+                    Text(event.formattedTime)
                         .lineLimit(1)
                         .font(.bodyL)
                 }
                 
                 HStack(spacing: spacingValue) {
                     Image(systemName: "calendar")
-                        .foregroundStyle(Color.tempAccent)
+                        .foregroundStyle(Color.TGred)
                         .bold()
                     Text(event.formattedDate)
                         .lineLimit(1)
@@ -35,7 +35,7 @@ struct EventInfoRowView: View {
                 
                 HStack(spacing: spacingValue) {
                     Image(systemName: "mappin")
-                        .foregroundStyle(Color.tempAccent)
+                        .foregroundStyle(Color.TGred)
                         .bold()
                     Text(event.venueName).font(.subheadline)
                         .lineLimit(1)

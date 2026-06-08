@@ -27,7 +27,7 @@ struct CompletedMissionBannerView: View {
                     Image(systemName: sport.icon)
                         .font(.system(size: 30))
                     Text(eventName)
-                        .font(.TGfilterChipLabel)
+                        .font(.TGFilterChipLabel)
                 }//.padding(.top, 125)
                 
                 Spacer()
@@ -48,7 +48,7 @@ struct CompletedMissionBannerView: View {
                             dismiss()
                         } label: {
                             Text("Close")
-                        }.foregroundStyle(Color.tempAccent)
+                        }.foregroundStyle(Color.TGred)
                             
                     }.padding(.bottom, 30)
                     .font(.system(size: 14, weight: .medium))

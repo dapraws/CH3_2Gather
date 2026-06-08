@@ -74,23 +74,7 @@ struct MissionSectionView: View {
                     }
                 } label: {
                     Text("Join")
-//                        .fontWeight(.semibold)
-//                        .frame(maxWidth: .infinity)
-//                        .padding()
                 }.buttonStyle(TGPrimaryButtonStyle())
-
-//                .buttonStyle(.plain)
-//                .background(Color.TGprimary)
-//                .foregroundColor(.white)
-//                .clipShape(RoundedRectangle(cornerRadius: 12))
-//                //.frame(width: 344, height: 50)
-//                .frame(maxWidth: .infinity, maxHeight: 50)
-//                .transition(
-//                    .asymmetric(
-//                        insertion: .opacity,
-//                        removal: .scale(scale: 0.8).combined(with: .opacity)
-//                    )
-//                )
             }
 
         }

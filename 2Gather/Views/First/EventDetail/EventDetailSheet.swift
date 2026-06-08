@@ -32,7 +32,6 @@ struct EventDetailSheet: View {
     }
 
     private var isJoined: Bool {
-        //currentUserState == nil
         currentUserState != nil
     }
     
@@ -95,7 +94,6 @@ struct EventDetailSheet: View {
                                     modelContext.insert(newState)
                                     
                                     showFullScreenView = true
-                                    //print("test")
                                 },
                                 onMissionComplete: { message in
                                     if let state = currentUserState {
@@ -114,7 +112,7 @@ struct EventDetailSheet: View {
                                             modelContext.delete(state)
                                             dismiss()
                                         }
-                                    }.foregroundStyle(Color.tempAccent)
+                                    }.foregroundStyle(Color.TGred)
                                     Spacer()
                                 }
                             }
@@ -142,41 +140,6 @@ struct EventDetailSheet: View {
             .fullScreenCover(isPresented: $showFullScreenView) {
                 MissionBannerFullScreenView(mission: $viewModel.mission, event: event)
             }
-            /*
-            .navigationTitle(event.name)
-            .toolbarTitleDisplayMode(.inline)
-            .toolbar() {
-                
-                ToolbarItem(placement: .principal) {
-                    HStack{
-                        Text(event.name)
-                            .font(.title)
-                            .bold()
-                            .lineLimit(2)
-                        Spacer()
-                        
-                    }
-                }
-                
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        Void()
-                    } label: {
-                        Image(systemName: "square.and.arrow.up")
-                    }
-                    
-                }
-                ToolbarSpacer(placement: .topBarTrailing)
-                ToolbarItemGroup(placement: .topBarTrailing) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: "xmark")
-                    }
-                        
-                }
-            }
-           */
         }
         
     }
