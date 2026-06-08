@@ -12,7 +12,7 @@ struct SettingsView: View {
     @EnvironmentObject private var session: AppSession
     @Environment(\.modelContext) private var modelContext
     @Query private var accounts: [Account]
-    @State private var vm = SettingsViewModel()
+    @State private var viewModel = SettingsViewModel()
 
     private var account: Account? {
         accounts.first { $0.id.uuidString == session.loggedInUserId }
@@ -22,7 +22,7 @@ struct SettingsView: View {
         NavigationStack {
             List {
                 Section {
-                    NavigationLink(destination: ProfileSettingsView(vm: vm)) {
+                    NavigationLink(destination: ProfileSettingsView(viewModel: viewModel)) {
                         HStack(spacing: 16) {
                             if let image = vm.profileImage {
                                 Image(uiImage: image)
@@ -77,8 +77,8 @@ struct SettingsView: View {
                         Toggle(
                             "Dark Mode",
                             isOn: Binding(
-                                get: { vm.isDarkMode },
-                                set: { vm.isDarkMode = $0 }
+                                get: { viewModel.isDarkMode },
+                                set: { viewModel.isDarkMode = $0 }
                             )
                         )
                     }
@@ -111,7 +111,7 @@ struct SettingsView: View {
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
-                vm.loadProfileImage(from: account?.profilePhoto)
+                viewModel.loadProfileImage(from: account?.profilePhoto)
             }
         }
     }
