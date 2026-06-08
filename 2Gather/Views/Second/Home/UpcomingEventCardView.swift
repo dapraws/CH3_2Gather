@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct UpcomingEventCard: View {
+struct UpcomingEventCardView: View {
     var sportIcon: String = "figure.run"
     var eventName: String = "Run at Jerman Beach"
     var date: String = "15 May"
@@ -69,8 +69,8 @@ struct UpcomingEventCard: View {
 
 #Preview {
     VStack(spacing: 10) {
-        UpcomingEventCard()
-        UpcomingEventCard(
+        UpcomingEventCardView()
+        UpcomingEventCardView(
             sportIcon: "figure.outdoor.cycle",
             eventName: "Cycling at Sunset",
             date: "20 May",
