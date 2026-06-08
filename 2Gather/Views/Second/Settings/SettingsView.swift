@@ -24,7 +24,7 @@ struct SettingsView: View {
                 Section {
                     NavigationLink(destination: ProfileSettingsView(viewModel: viewModel)) {
                         HStack(spacing: 16) {
-                            if let image = vm.profileImage {
+                            if let image = viewModel.profileImage {
                                 Image(uiImage: image)
                                     .resizable()
                                     .scaledToFill()
