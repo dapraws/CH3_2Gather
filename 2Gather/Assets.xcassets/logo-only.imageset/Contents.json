@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "map-pin.svg",
+      "filename" : "2Gather-light.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,6 +12,7 @@
           "value" : "dark"
         }
       ],
+      "filename" : "2Gather-dark.png",
       "idiom" : "universal",
       "scale" : "1x"
     },

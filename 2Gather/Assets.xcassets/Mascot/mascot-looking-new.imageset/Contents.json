@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "map-pin.svg",
+      "filename" : "mascot-looking-new.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,6 +12,7 @@
           "value" : "dark"
         }
       ],
+      "filename" : "maskot-looking-dark.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },

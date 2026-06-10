@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "map-pin.svg",
+      "filename" : "twoge-walking-light.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,6 +12,7 @@
           "value" : "dark"
         }
       ],
+      "filename" : "twoge-walking-dark2.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
