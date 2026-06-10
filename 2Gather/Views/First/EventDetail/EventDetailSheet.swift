@@ -55,6 +55,7 @@ struct EventDetailSheet: View {
 
                             HStack (alignment: .center) {
                                 Text(event.name)
+                                    .foregroundStyle(Color.TGBrownToWhite)
                                     .font(.headingL)
                                     .bold()
                                 
@@ -67,7 +68,7 @@ struct EventDetailSheet: View {
                                     }
                                         .frame(width: 44, height: 44)
                                         .background(Circle().fill(Color.gray.opacity(0.16)))
-                                        .foregroundStyle(Color.TGprimary)
+                                        .foregroundStyle(Color.TGBrownToWhite)
                                     
                                     
                                     Button {
@@ -77,7 +78,7 @@ struct EventDetailSheet: View {
                                     }.buttonStyle(.plain)
                                         .frame(width: 44, height: 44)
                                         .background(Circle().fill(Color.gray.opacity(0.16)))
-                                        .foregroundStyle(Color.TGprimary)
+                                        .foregroundStyle(Color.TGBrownToWhite)
                                 }
                             }
                             
@@ -112,7 +113,7 @@ struct EventDetailSheet: View {
                                             modelContext.delete(state)
                                             dismiss()
                                         }
-                                    }.foregroundStyle(Color.TGsecondary)
+                                    }.foregroundStyle(Color.TGRedToOrange)
                                     Spacer()
                                 }
                             }
@@ -126,9 +127,7 @@ struct EventDetailSheet: View {
 
             }
             .animation(.spring(duration: 0.3), value: viewModel.showReward)
-            .presentationDetents([.medium, .large])
-            .presentationDragIndicator(.hidden)
-            .presentationBackground(.white)
+            .presentationDetents([.medium])
             .fullScreenCover(isPresented: $viewModel.showReward) {
                 CompletedMissionBannerView(
                     onDismiss: { viewModel.showReward = false },

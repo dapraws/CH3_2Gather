@@ -114,7 +114,14 @@ struct MapView: View {
                     .padding(.horizontal)
                 }
                 .navigationBarTitleDisplayMode(.inline)
-                .navigationTitle("Explore")
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        Image("logo-only")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 32)
+                    }
+                }
                 .padding(.top, -5)
                 .searchable(
                     text: $viewModel.searchText,
@@ -129,9 +136,9 @@ struct MapView: View {
                 } label: {
                     Image(systemName: "location.fill")
                         .font(.title3)
-                        .foregroundStyle(Color.TGprimary)
+                        .foregroundStyle(Color.TGBrown)
                         .padding(12)
-                        .background(Color.TGterniary, in: Circle())
+                        .background(Color.TGYellow, in: Circle())
                         .shadow(radius: 4)
                 }
                 .padding(.trailing, 16)

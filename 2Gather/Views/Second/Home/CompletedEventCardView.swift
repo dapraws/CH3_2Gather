@@ -34,7 +34,7 @@ struct CompletedEventCardView: View {
             }
 
             LinearGradient(
-                gradient: Gradient(colors: [Color.black.opacity(0.55), Color.clear]),
+                gradient: Gradient(colors: [Color.black.opacity(0.5), Color.clear]),
                 startPoint: .bottom,
                 endPoint: .top
             )

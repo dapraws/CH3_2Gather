@@ -28,18 +28,18 @@ struct TodayEventCardView: View {
                 VStack(alignment: .trailing) {
                     Text("Today's Event")
                         .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(.TGprimary.opacity(0.5))
+                        .foregroundColor(.TGBrown.opacity(0.5))
                     Text(event.name)
                         .font(.system(size: 30, weight: .bold))
-                        .foregroundColor(.TGprimary)
+                        .foregroundColor(.TGBrown)
                         .multilineTextAlignment(.trailing)
                     Button(action: onGoToEvent) {
                         Text("Let's do it!")
                             .font(.headingS)
-                            .foregroundColor(.TGterniary)
+                            .foregroundColor(.TGYellow)
                             .padding(.vertical, 10)
                             .padding(.horizontal, 30)
-                            .background(Color.TGprimary)
+                            .background(Color.TGBrown)
                             .clipShape(Capsule())
                     }
                 }
@@ -59,18 +59,18 @@ struct TodayEventCardView: View {
                 VStack(alignment: .trailing) {
                     Text("No event today")
                         .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(.TGprimary.opacity(0.5))
-                    Text("Yuk, explore event!")
+                        .foregroundColor(.TGBrown.opacity(0.5))
+                    Text("Lets explore some event")
                         .font(.system(size: 26, weight: .bold))
-                        .foregroundColor(.TGprimary)
+                        .foregroundColor(.TGBrown)
                         .multilineTextAlignment(.trailing)
                     Button(action: onExplore) {
-                        Text("Explore now")
+                        Text("Explore now!")
                             .font(.headingS)
-                            .foregroundColor(.TGterniary)
+                            .foregroundColor(.TGYellow)
                             .padding(.vertical, 10)
                             .padding(.horizontal, 30)
-                            .background(Color.TGprimary)
+                            .background(Color.TGBrown)
                             .clipShape(Capsule())
                     }
                 }

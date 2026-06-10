@@ -1,5 +1,5 @@
 //
-//  SportPreferences.swift
+//  PreferencesSettingsView.swift
 //  2Gather
 //
 //  Created by Andhika Satria on 03/06/26.
@@ -48,7 +48,7 @@ struct PreferencesSettingsView: View {
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
-            .background(Color(UIColor.systemGray6))
+            .background(Color.TGFWhiteToSGreen)
             .cornerRadius(12)
             .padding(.horizontal, 20)
             .padding(.top, 16)
@@ -67,8 +67,8 @@ struct PreferencesSettingsView: View {
                                 SportTag(
                                     sport: sport.name,
                                     isSelected: selectedSportIDs.contains(
-                                        sport.id
-                                    )
+                                        sport.id),
+                                        isDynamicTheme: true
                                 ) {
                                     viewModel.toggleSport(
                                         sport,
@@ -91,7 +91,7 @@ struct PreferencesSettingsView: View {
                 .padding(.top, 10)
             }
         }
-        .background(Color(UIColor.systemGroupedBackground))
+        .background(Color.TGWhiteToDGreen)
         .navigationTitle("Sports Preferences")
         .navigationBarTitleDisplayMode(.inline)
     }

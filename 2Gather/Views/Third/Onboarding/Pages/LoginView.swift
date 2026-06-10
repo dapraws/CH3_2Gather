@@ -20,12 +20,13 @@ struct LoginView: View {
 
     var body: some View {
         ZStack {
-            Rectangle().fill(.white)
+            Color.TGWhite
+                            .ignoresSafeArea()
             VStack(alignment: .leading, spacing: 16) {
                 Image(.mascotLogo)
                 Text("Login")
                     .font(.displayM)
-                    .foregroundColor(.TGprimary)
+                    .foregroundColor(.TGBrown)
                 CustomTextField(
                     placeholder: "Email",
                     text: $viewModel.loginEmail,
@@ -57,10 +58,10 @@ struct LoginView: View {
                     } label: {
                         Text(viewModel.isLoading ? "Loading..." : "Login")
                             .font(.headingS)
-                            .foregroundColor(.TGprimary)
+                            .foregroundColor(.TGBrown)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 15)
-                            .background(Color.TGterniary)
+                            .background(Color.TGYellow)
                             .clipShape(Capsule())
                     }
                     .disabled(viewModel.isLoading)
@@ -70,10 +71,8 @@ struct LoginView: View {
                     } label: {
                         Text("Don't have an account? Register here")
                             .font(.bodyL)
-                            .foregroundColor(.TGsecondary)
+                            .foregroundColor(.TGBrown)
                             .frame(maxWidth: .infinity)
-                            .font(.footnote)
-                            .foregroundStyle(.blue)
                             .clipShape(Capsule())
 
                     }

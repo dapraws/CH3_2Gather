@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GeoToolbox
 
 struct EventInfoRowView: View {
 
@@ -17,29 +18,32 @@ struct EventInfoRowView: View {
             HStack(spacing: 15) {
                 HStack(spacing: spacingValue) {
                     Image(systemName: "clock")
-                        .foregroundStyle(Color.TGsecondary)
+                        .foregroundStyle(Color.TGRedToOrange)
                         .bold()
                     Text(event.formattedTime)
                         .lineLimit(1)
                         .font(.bodyL)
+                        .foregroundColor(.TGBrownToWhite)
                 }
                 
                 HStack(spacing: spacingValue) {
                     Image(systemName: "calendar")
-                        .foregroundStyle(Color.TGsecondary)
+                        .foregroundStyle(Color.TGRedToOrange)
                         .bold()
                     Text(event.formattedDate)
                         .lineLimit(1)
                         .font(.bodyL)
+                        .foregroundColor(.TGBrownToWhite)
                 }
                 
                 HStack(spacing: spacingValue) {
                     Image(systemName: "mappin")
-                        .foregroundStyle(Color.TGsecondary)
+                        .foregroundStyle(Color.TGRedToOrange)
                         .bold()
                     Text(event.venueName)
                         .lineLimit(1)
                         .font(.bodyL)
+                        .foregroundColor(.TGBrownToWhite)
                 }
             }
         }

@@ -14,17 +14,18 @@ struct CustomTextField: View {
     var body: some View {
         HStack(spacing: 12) {
             Image(systemName: icon)
-                .foregroundColor(.TGprimary.opacity(0.5))
+                .foregroundColor(.gray)
 
             TextField(placeholder, text: $text)
-                .foregroundColor(.TGprimary.opacity(0.5))
+                .foregroundColor(.black.opacity(0.5))
         }
         .padding(.horizontal, 24)
         .padding(.vertical, 24)
-        .background(Color.backgroundSecondary)
+        .background(Color.TGFWhite)
         .clipShape(Capsule())
     }
 }
+
 
 struct CustomSecureField: View {
     let placeholder: String
@@ -39,11 +40,11 @@ struct CustomSecureField: View {
             Group {
                 if isVisible {
                     TextField(placeholder, text: $textPassword)
-                        .foregroundColor(.TGprimary.opacity(0.5))
+                        .foregroundColor(.black.opacity(0.5))
                 } else {
                     //SecureField
                     SecureField(placeholder, text: $textPassword)
-                        .foregroundColor(.TGprimary.opacity(0.5))
+                        .foregroundColor(.black.opacity(0.5))
                 }
             }
 
@@ -51,12 +52,12 @@ struct CustomSecureField: View {
                 isVisible.toggle()
             } label: {
                 Image(systemName: isVisible ? "eye" : "eye.slash")
-                    .foregroundStyle(Color.TGsecondary)
+                    .foregroundStyle(Color.TGOrange)
             }
         }
         .padding(.horizontal, 24)
         .padding(.vertical, 24)
-        .background(Color.backgroundSecondary)
+        .background(Color.TGFWhite)
         .clipShape(Capsule())
     }
 }

@@ -92,18 +92,18 @@ struct HomeView: View {
                 .padding(.horizontal)
                 .padding(.bottom, 20)
             }
-            .background(Color.backgroundPrimary)
+            .background(Color.TGWhiteToDGreen)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text(account?.username ?? "2Gather")
                         .font(.system(size: 17, weight: .bold))
-                        .foregroundColor(.TGprimary)
+                        .foregroundColor(.TGBrownToWhite)
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink(destination: SettingsView()) {
                         Image(systemName: "line.3.horizontal")
-                            .foregroundColor(.TGprimary)
+                            .foregroundColor(.TGBrownToWhite)
                     }
                     .buttonStyle(.plain)
                 }
@@ -138,11 +138,11 @@ struct HomeView: View {
             HStack {
                 Text("Completed")
                     .font(.system(size: 15))
-                    .foregroundStyle(Color.TGprimary.opacity(0.5))
+                    .foregroundStyle(Color.TGMauve)
                     .frame(maxWidth: .infinity)
                 Text("Upcoming")
                     .font(.system(size: 15))
-                    .foregroundStyle(Color.TGprimary.opacity(0.5))
+                    .foregroundStyle(Color.TGMauve)
                     .frame(maxWidth: .infinity)
             }
             .padding(.vertical, 10)
@@ -169,10 +169,10 @@ struct HomeView: View {
         Button(action: action) {
             Text(title)
                 .font(.labelL)
-                .foregroundStyle(isSelected ? Color.TGterniary : Color.clear)
+                .foregroundStyle(isSelected ? Color.TGYellowToBrown : Color.clear)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 7)
-                .background(isSelected ? Color.TGprimary : Color.clear)
+                .background(isSelected ? Color.TGBrownToYellow : Color.clear)
                 .clipShape(Capsule())
         }
         .buttonStyle(.plain)
@@ -180,38 +180,39 @@ struct HomeView: View {
     }
 
     private var completedListView: some View {
-        VStack(spacing: 12) {
-            if completedStates.isEmpty {
-                emptyStateView(
-                    message: "No completed events yet.\nGo finish one!"
-                )
-            } else {
-                ForEach(completedStates) { state in
-                    if let event = events.first(where: {
-                        $0.id == state.eventId
-                    }),
-                        let proofPath = state.proofImagePath
-                    {
-                        CompletedEventCardView(
-                            sportIcon: sportIcon(for: event),
-                            proofPath: proofPath,
-                            date: completedDate(event.date),
-                            caption: state.caption
-                        )
-                        .frame(height: 160)
+            VStack(spacing: 12) {
+                if completedStates.isEmpty {
+                    emptyEventStateView(
+                        title: "Join your first event",
+                        subtitle: "Make your life more interesting"
+                    )
+                } else {
+                    ForEach(completedStates) { state in
+                        if let event = events.first(where: {
+                            $0.id == state.eventId
+                        }),
+                            let proofPath = state.proofImagePath
+                        {
+                            CompletedEventCardView(
+                                sportIcon: sportIcon(for: event),
+                                proofPath: proofPath,
+                                date: completedDate(event.date),
+                                caption: state.caption
+                            )
+                            .frame(height: 160)
+                        }
                     }
                 }
             }
         }
-    }
-
     private var upcomingListView: some View {
-        VStack(spacing: 10) {
-            if upcomingEvents.isEmpty {
-                emptyStateView(
-                    message: "No upcoming events.\nJoin one on the map!"
-                )
-            } else {
+            VStack(spacing: 10) {
+                if upcomingEvents.isEmpty {
+                    emptyEventStateView(
+                        title: "No upcoming events",
+                        subtitle: "Join one on the map"
+                    )
+                } else {
                 ForEach(upcomingEvents) { event in
                     UpcomingEventCardView(
                         sportIcon: sportIcon(for: event),
@@ -228,10 +229,43 @@ struct HomeView: View {
     private func emptyStateView(message: String) -> some View {
         Text(message)
             .font(.system(size: 14))
-            .foregroundStyle(Color.TGprimary.opacity(0.4))
+            .foregroundStyle(Color.TGBrownToYellow.opacity(0.4))
             .multilineTextAlignment(.center)
             .padding(.vertical, 32)
             .frame(maxWidth: .infinity)
+    }
+    
+    private func emptyEventStateView(title: String, subtitle: String) -> some View {
+        VStack(spacing: 16) {
+            Image("mascot-split")
+                .resizable()
+                .scaledToFit()
+                .frame(height: 100)
+            
+            VStack(spacing: 6) {
+                Text(title)
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundColor(.TGBrownToWhite)
+                
+                Text(subtitle)
+                    .font(.system(size: 14))
+                    .foregroundColor(.gray)
+            }
+            .padding(.bottom, 8)
+            
+            Button {
+                withAnimation {
+                    selectedTab = 1
+                }
+            } label: {
+                Text("Explore!")
+                    .font(.system(size: 16, weight: .bold))
+            }
+            .buttonStyle(TGSecondaryButtonStyle())
+            .frame(width: 160)
+        }
+        .padding(.vertical, 40)
+        .frame(maxWidth: .infinity)
     }
 
     private func completedDate(_ date: Date) -> String {

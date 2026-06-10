@@ -7,12 +7,16 @@
 
 import SwiftData
 import SwiftUI
+import Lottie
 
 struct SettingsView: View {
     @EnvironmentObject private var session: AppSession
     @Environment(\.modelContext) private var modelContext
     @Query private var accounts: [Account]
     @State private var viewModel = SettingsViewModel()
+    
+    @AppStorage("isDarkMode") private var isDarkMode = false
+//    @State private var isMascotRunning = false
 
     private var account: Account? {
         accounts.first { $0.id.uuidString == session.loggedInUserId }
@@ -43,61 +47,89 @@ struct SettingsView: View {
                                 Text(account?.username ?? "2Gather")
                                     .font(.title3)
                                     .fontWeight(.semibold)
+                                    .foregroundColor(.TGBrownToWhite)
                                 Text(account?.email ?? "Together, We are fit!")
                                     .font(.subheadline)
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(.TGMauveToGrey)
                             }
                         }
                         .padding(.vertical, 8)
                     }
                 }
-
+                .listRowBackground(Color.TGWhiteToSGreen)
+                
                 Section(
-                    header: Text("Display & Appearance").textCase(.none).font(
-                        .subheadline
-                    )
+                    header: Text("Display & Appearance")
+                        .textCase(.none)
+                        .font(.subheadline)
+                        .foregroundColor(.TGMauveToGrey)
+                
                 ) {
-                    NavigationLink(destination: TextSizeView()) {
+                    NavigationLink(destination: TextSizeSettingsView()) {
                         HStack(spacing: 16) {
                             Image(systemName: "textformat.size")
                                 .font(.system(size: 22))
                                 .frame(width: 28, alignment: .center)
 
-                                .frame(width: 28, alignment: .center)
                             Text("Text Size")
                         }
+                        .foregroundColor(.TGBrownToWhite)
                     }
+                    .listRowBackground(Color.TGWhiteToSGreen)
 
                     HStack(spacing: 16) {
-                        Image(systemName: "circle.lefthalf.filled")
+                        Image(systemName: "circle.righthalf.filled")
                             .font(.system(size: 22))
                             .frame(width: 28, alignment: .center)
                         Toggle(
-                            "Dark Mode",
-                            isOn: Binding(
-                                get: { viewModel.isDarkMode },
-                                set: { viewModel.isDarkMode = $0 }
+                                "Dark Mode",
+                                isOn: Binding(
+                                    get: { viewModel.isDarkMode },
+                                    set: { viewModel.isDarkMode = $0 }
+                                )
                             )
-                        )
+                        .tint(.TGOrange)
                     }
+                    .foregroundColor(.TGBrownToWhite)
                 }
+                .listRowBackground(Color.TGWhiteToSGreen)
 
                 Section(
-                    header: Text("Tutorial").textCase(.none).font(.subheadline)
+                    header: Text("Tutorial").textCase(.none).font(.subheadline).foregroundColor(.TGMauveToGrey)
                 ) {
                     NavigationLink(destination: Text("Tutorial View")) {
                         HStack(spacing: 20) {
-                            Image(.mascotRunning)
-                                .resizable()
+                            
+                            LottieView(animation: .named("animation-mascot-running"))
+                                .playing()
+                                .looping()
+                                .scaleEffect(1.6)
                                 .frame(width: 102, height: 81)
+                                .padding(.leading, 8)
+                                .id(isDarkMode)
+                            
+//                            Image(.mascotRunning)
+                            
+//                            LottieView(animation: .named("animation-mascot-running"))
+//                                .playbackMode(isMascotRunning ? .playing(.fromProgress(0, toProgress: 1, loopMode: .loop)) : .paused)
+//                                .scaleEffect(1.6)
+//                                .frame(width: 102, height: 81)
+//                                .padding(.leading, 10)
+//                                .onLongPressGesture(minimumDuration: .infinity, perform: {
+//                                }, onPressingChanged: { isPressing in
+//                                    withAnimation {
+//                                        isMascotRunning = isPressing
+//                                    }
+//                                })
 
                             VStack(alignment: .leading, spacing: 2) {
                                 Text("Feeling lost?")
                                     .font(.system(size: 14, weight: .semibold))
                                     .fontWeight(.semibold)
+                                    .foregroundColor(.TGBrown)
                                 Text("I'll help you out!")
                                     .font(.system(size: 21, weight: .bold))
-                                    .fontWeight(.bold)
+                                    .foregroundColor(.TGBrown)
                             }
                         }
                     }
@@ -106,6 +138,9 @@ struct SettingsView: View {
                     )
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(Color.TGFWhiteToDGreen)
+            
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
