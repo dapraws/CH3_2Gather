@@ -29,7 +29,7 @@ struct CustomCameraView: View {
                             .font(.system(size: 18, weight: .semibold))
                             .foregroundColor(.white)
                             .frame(width: 44, height: 44)
-                            .background(Color.TGprimary.opacity(0.3), in: Circle())
+                            .background(Color.TGBrown.opacity(0.3), in: Circle())
                     }
 
                     Spacer()
@@ -42,7 +42,7 @@ struct CustomCameraView: View {
                         .font(.system(size: 18, weight: .semibold))
                         .foregroundColor(viewModel.isFlashOn ? .yellow : .white)
                         .frame(width: 44, height: 44)
-                        .background(Color.TGprimary.opacity(0.3), in: Circle())
+                        .background(Color.TGBrown.opacity(0.3), in: Circle())
                     }
                 }
                 .padding(.horizontal, 20)
@@ -63,7 +63,7 @@ struct CustomCameraView: View {
                         Button(action: { showGallery = true }) {
                             ZStack {
                                 Circle()
-                                    .fill(Color.TGprimary)
+                                    .fill(Color.TGBrown)
                                     .frame(width: 54, height: 54)
                                 Image(systemName: "photo.stack")
                                     .font(.system(size: 22, weight: .medium))
@@ -76,15 +76,15 @@ struct CustomCameraView: View {
                         Button(action: viewModel.takePic) {
                             ZStack {
                                 Circle()
-                                    .fill(Color.TGprimary)
+                                    .fill(Color.TGBrown)
                                     .frame(width: 102, height: 102)
                                 Circle()
-                                    .fill(Color.TGterniary)
+                                    .fill(Color.TGYellow)
                                     .frame(width: 88, height: 88)
 
                                 Image(systemName: "camera.fill").font(
                                     .system(size: 46, weight: .semibold)
-                                ).foregroundColor(Color.TGprimary)
+                                ).foregroundColor(Color.TGBrown)
                             }
                         }
                         .frame(maxWidth: .infinity)
@@ -92,7 +92,7 @@ struct CustomCameraView: View {
                         // Flip camera button
                         Button(action: viewModel.flipCamera) {
                             ZStack {
-                                Circle().fill(Color.TGprimary)
+                                Circle().fill(Color.TGBrown)
                                     .frame(width: 54, height: 54)
                                 Image(systemName: "arrow.triangle.2.circlepath.camera")
                                     .font(.system(size: 22, weight: .medium))
@@ -103,7 +103,7 @@ struct CustomCameraView: View {
                     }
                     .padding(.horizontal, 36)
                 }
-                .background(Color.TGprimary.opacity(0.3))
+                .background(Color.TGBrown.opacity(0.3))
             }
         }
         .onAppear {
@@ -148,7 +148,7 @@ struct CustomCameraView: View {
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundColor(.white)
                     .frame(width: 44, height: 44)
-                    .background(Color.TGprimary.opacity(0.3), in: Circle())
+                    .background(Color.TGBrown.opacity(0.3), in: Circle())
 
                 Spacer()
 
@@ -156,7 +156,7 @@ struct CustomCameraView: View {
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundColor(.white)
                     .frame(width: 44, height: 44)
-                    .background(Color.TGprimary.opacity(0.3), in: Circle())
+                    .background(Color.TGBrown.opacity(0.3), in: Circle())
             }
             .padding(.horizontal, 20)
             .padding(.top, 16)
@@ -175,7 +175,7 @@ struct CustomCameraView: View {
                     // Gallery button
                     ZStack {
                         Circle()
-                            .fill(Color.TGprimary)
+                            .fill(Color.TGBrown)
                             .frame(width: 54, height: 54)
                         Image(systemName: "photo.stack")
                             .font(.system(size: 22, weight: .medium))
@@ -186,21 +186,21 @@ struct CustomCameraView: View {
                     // Shutter button
                     ZStack {
                         Circle()
-                            .fill(Color.TGprimary)
+                            .fill(Color.TGBrown)
                             .frame(width: 102, height: 102)
                         Circle()
-                            .fill(Color.TGterniary)
+                            .fill(Color.TGYellow)
                             .frame(width: 88, height: 88)
 
                         Image(systemName: "camera.fill").font(
                             .system(size: 46, weight: .semibold)
-                        ).foregroundColor(Color.TGprimary)
+                        ).foregroundColor(Color.TGBrown)
                     }
                     .frame(maxWidth: .infinity)
 
                     // Flip camera button
                     ZStack {
-                        Circle().fill(Color.TGprimary)
+                        Circle().fill(Color.TGBrown)
                             .frame(width: 54, height: 54)
                         Image(systemName: "arrow.triangle.2.circlepath.camera")
                             .font(.system(size: 22, weight: .medium))
@@ -210,7 +210,7 @@ struct CustomCameraView: View {
                 }
                 .padding(.horizontal, 36)
             }
-            .background(Color.TGprimary.opacity(0.3))
+            .background(Color.TGBrown.opacity(0.3))
             .ignoresSafeArea()
         }
     }

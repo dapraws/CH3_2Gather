@@ -24,9 +24,9 @@ struct EventAnnotationView: View {
 
     private var pinImage: String {
         if isCompleted {
-            return "map-pin-joined"
+            return "map-pin-join"
         } else if isJoined {
-            return "map-pin-joined"
+            return "map-pin-join"
         } else {
             return "map-pin-default"
         }
@@ -130,7 +130,7 @@ struct EventAnnotationView: View {
                 .offset(y: -5)
         }
         ZStack {
-            Image("map-pin-joined")
+            Image("map-pin-join")
             Image(systemName: "figure.volleyball")
                 .foregroundStyle(.black)
                 .font(.system(size: 20, weight: .semibold))

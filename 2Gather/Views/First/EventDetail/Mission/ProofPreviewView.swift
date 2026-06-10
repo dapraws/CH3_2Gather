@@ -32,7 +32,7 @@ struct ProofPreviewView: View {
                             .font(.system(size: 18, weight: .semibold))
                             .foregroundColor(.white)
                             .frame(width: 44, height: 44)
-                            .background(Color.TGprimary.opacity(0.3), in: Circle())
+                            .background(Color.TGWhiteToBrown .opacity(0.3), in: Circle())
                     }
                     Spacer()
                 }
@@ -46,15 +46,15 @@ struct ProofPreviewView: View {
                         .focused($captionFocused)
                         .padding(.horizontal, 16)
                         .padding(.vertical, 10)
-                        .background(Color.TGprimary, in: Capsule())
+                        .background(Color.TGWhiteToBrown , in: Capsule())
                         .foregroundColor(.white)
 
                     Button(action: { onSend(caption) }) {
                         Image(systemName: "paperplane.fill")
                             .font(.system(size: 20, weight: .semibold))
-                            .foregroundColor(.TGprimary)
+                            .foregroundColor(.TGBrown)
                             .frame(width: 44, height: 44)
-                            .background(Color.TGterniary, in: Circle())
+                            .background(Color.TGYellow, in: Circle())
                     }
                 }
                 .padding(.horizontal, 20)

@@ -44,13 +44,13 @@ struct MissionSectionView: View {
                         }.font(.headingS)
                     }
                     .frame(maxWidth: .infinity)
-                    .foregroundStyle(Color.TGprimary)
+                    .foregroundStyle(Color.TGBrown)
                     .padding(.vertical, 50)
                     .background(
                         RoundedRectangle(cornerRadius: 26)
                             .foregroundStyle(
                                 LinearGradient(
-                                    colors: [.TGgradient, .TGterniary, .TGterniary], startPoint: .top, endPoint: .bottom
+                                    colors: [.TGGradient, .TGYellow,. TGYellow], startPoint: .top, endPoint: .bottom
                                 )
                                 .shadow(
                                    .inner(
@@ -74,7 +74,7 @@ struct MissionSectionView: View {
                     }
                 } label: {
                     Text("Join")
-                }.buttonStyle(TGPrimaryButtonStyle())
+                }.buttonStyle(TGSecondaryButtonStyle())
             }
 
         }

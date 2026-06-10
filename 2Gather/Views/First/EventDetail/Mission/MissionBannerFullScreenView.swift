@@ -15,10 +15,10 @@ struct MissionBannerFullScreenView: View {
     
     var body: some View {
         ZStack{
-            Color(hex: "F2F2F2")
+            Color.TGFWhiteToDGreen
             VStack (spacing: 4){
                 ZStack {
-                    Image("map-pin-joined")
+                    Image("map-pin-join")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 90)
@@ -32,6 +32,7 @@ struct MissionBannerFullScreenView: View {
                 
                 Text(event.name).font(.headingL)
                     .padding(.bottom)
+                    .foregroundColor(.TGBrownToYellow)
                 EventInfoRowView(event: event)
                 
                 MissionCardView(mission: $mission, eventId: event.id, showButton: false)
@@ -39,7 +40,10 @@ struct MissionBannerFullScreenView: View {
                 
                 HStack {
                     Image("twoge-walking")
-                    
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width:120)
+    
                     Button {
                         dismiss()
                     } label: {

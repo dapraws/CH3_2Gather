@@ -16,8 +16,8 @@ struct CompletedMissionBannerView: View {
     
     var body: some View {
         ZStack {
-            Color.TGterniary
-            Image(.completedCheer)
+            Color.TGYellow
+            Image(.mascotCheer)
                 .resizable()
                 .scaledToFill()
                 .frame(width: 621, height: 621)
@@ -29,6 +29,7 @@ struct CompletedMissionBannerView: View {
                     Text(eventName)
                         .font(.system(size: 17, weight: .medium))
                 }
+                .foregroundColor(.TGBrown)
                 
                 Spacer()
                 
@@ -47,7 +48,7 @@ struct CompletedMissionBannerView: View {
                             dismiss()
                         } label: {
                             Text("Close")
-                        }.foregroundStyle(Color.TGsecondary)
+                        }.foregroundStyle(Color.TGOrange)
                             
                     }
                     .font(.system(size: 14, weight: .medium))

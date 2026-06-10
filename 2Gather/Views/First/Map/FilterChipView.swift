@@ -21,16 +21,16 @@ struct FilterChipView: View {
             HStack(spacing: 6) {
                 Image(systemName: icon)
                     .font(.TGFilterChipLabel)
-                    .foregroundStyle(isSelected ? Color.TGprimary : Color.primary)
+                    .foregroundStyle(isSelected ? Color.TGBrown : Color.primary)
                 Text(label)
                     .font(.TGFilterChipLabel)
-                    .foregroundStyle(isSelected ? Color.TGprimary : Color.primary)
+                    .foregroundStyle(isSelected ? Color.TGBrown : Color.primary)
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
             .background(
                 isSelected
-                ? Color.TGterniary
+                ? Color.TGYellow
                     : .white.opacity(0)
             )
             .glassEffect()
