@@ -11,6 +11,7 @@ import SwiftUI
 @main
 struct TwoGatherApp: App {
     @StateObject private var session = AppSession()
+    @StateObject private var textSizeManager = TextSizeManager.shared
 
     var body: some Scene {
         WindowGroup {
@@ -23,6 +24,7 @@ struct TwoGatherApp: App {
                 }
             }
             .environmentObject(session)
+            .environmentObject(textSizeManager)
         }
         .modelContainer(for: [Account.self, Event.self, Mission.self, UserEventState.self])
     }
