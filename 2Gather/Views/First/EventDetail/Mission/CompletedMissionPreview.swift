@@ -24,7 +24,7 @@ struct CompletedMissionPreview: View {
                             .font(.system(size: 18, weight: .semibold))
                             .foregroundColor(.white)
                             .frame(width: 44, height: 44)
-                            .background(Color.white.opacity(0.2), in: Circle())
+                            .background(Color.TGBrownToYellow .opacity(0.3), in: Circle())
 
                     }
                     .padding()
@@ -46,7 +46,7 @@ struct CompletedMissionPreview: View {
                         .foregroundColor(.white)
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(Color.white.opacity(0.15))
+                        .background(Color.TGBrownToYellow .opacity(0.3))
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                         .padding(.horizontal)
                 }

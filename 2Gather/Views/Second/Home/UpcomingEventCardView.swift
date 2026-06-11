@@ -18,35 +18,35 @@ struct UpcomingEventCardView: View {
         HStack(spacing: 12) {
             ZStack {
                 Circle()
-                    .fill(Color.TGterniary)
+                    .fill(Color.TGYellow)
                     .frame(width: 42, height: 42)
                 Image(systemName: sportIcon)
                     .font(.system(size: 20))
-                    .foregroundColor(Color.TGprimary)
+                    .foregroundColor(Color.TGBrown)
             }
 
             VStack(alignment: .leading, spacing: 10) {
                 Text(eventName)
                     .font(.headingS)
-                    .foregroundColor(.TGprimary)
+                    .foregroundColor(.TGBrownToWhite)
 
                 HStack(spacing: 14) {
                     HStack(spacing: 4) {
                         Image(systemName: "calendar")
                             .font(.system(size: 20))
-                            .foregroundColor(.TGsecondary)
+                            .foregroundColor(.TGRedToOrange)
                         Text(date)
                             .font(.system(size: 14, weight: .medium))
-                            .foregroundColor(.secondary)
+                            .foregroundColor(.TGMauve)
                     }
                     Spacer()
                     HStack(spacing: 4) {
                         Image(systemName: "clock")
                             .font(.system(size: 20))
-                            .foregroundColor(.TGsecondary)
+                            .foregroundColor(.TGRedToOrange)
                         Text(timeRange)
                             .font(.system(size: 14, weight: .medium))
-                            .foregroundColor(.secondary)
+                            .foregroundColor(.TGMauve)
                     }
                     Spacer()
                 }
@@ -56,7 +56,7 @@ struct UpcomingEventCardView: View {
         .padding(.vertical, 15)
         .background(
             RoundedRectangle(cornerRadius: 20)
-                .fill(Color(.systemBackground))
+                .fill(Color.TGWhiteToDGreen)
                 .stroke(Color(.separator), lineWidth: 1)
         )
         .contentShape(Rectangle())

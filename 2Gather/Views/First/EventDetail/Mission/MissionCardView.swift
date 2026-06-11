@@ -35,10 +35,10 @@ struct MissionCardView: View {
                 Text(completed ? "Quest Completed" : "Quest")
                     
             }.font(.system(size: 20, weight: .bold))
-            .foregroundStyle(Color.TGprimary)
+            .foregroundStyle(Color.TGBrown)
             
             Text(mission.desc)
-                .foregroundStyle(Color.TGprimary)
+                .foregroundStyle(Color.TGBrown)
                 .font(.system(size: 17, weight: .regular))
 
             if eventState?.isCompleted == true {
@@ -54,7 +54,7 @@ struct MissionCardView: View {
                                 HStack {
                                     Text(caption)
                                         .font(.labelS)
-                                        .foregroundStyle(Color.TGprimary)
+                                        .foregroundStyle(Color.TGWhiteToBrown )
                                         .lineLimit(1)
                                 }
                                 .padding(.horizontal, 14)
@@ -99,7 +99,7 @@ struct MissionCardView: View {
             RoundedRectangle(cornerRadius: 26)
                 .foregroundStyle(
                     LinearGradient(
-                        colors: [.TGgradient, .TGterniary], startPoint: .top, endPoint: .bottom
+                        colors: [.TGGradient, .TGYellow], startPoint: .top, endPoint: .bottom
                     )
                     .shadow(
                        .inner(

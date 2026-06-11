@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F3C48B42FDA3917004E3C43 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 1F3C48B32FDA3917004E3C43 /* Lottie */; };
 		1F4C42092FD353DF006ED238 /* Flow in Frameworks */ = {isa = PBXBuildFile; productRef = 1F4C42082FD353DF006ED238 /* Flow */; };
 /* End PBXBuildFile section */
 
@@ -14,22 +15,9 @@
 		1F3094E72FAC8628001A265D /* 2Gather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 2Gather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		1F562F4D2FC8BF0A0070B544 /* Exceptions for "2Gather" folder in "2Gather" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"-Gather-Info.plist",
-			);
-			target = 1F3094E62FAC8628001A265D /* 2Gather */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		1F3094E92FAC8628001A265D /* 2Gather */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				1F562F4D2FC8BF0A0070B544 /* Exceptions for "2Gather" folder in "2Gather" target */,
-			);
 			path = 2Gather;
 			sourceTree = "<group>";
 		};
@@ -41,6 +29,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F4C42092FD353DF006ED238 /* Flow in Frameworks */,
+				1F3C48B42FDA3917004E3C43 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +73,7 @@
 			name = 2Gather;
 			packageProductDependencies = (
 				1F4C42082FD353DF006ED238 /* Flow */,
+				1F3C48B32FDA3917004E3C43 /* Lottie */,
 			);
 			productName = CH3_Group13;
 			productReference = 1F3094E72FAC8628001A265D /* 2Gather.app */;
@@ -115,6 +105,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				1F4C42072FD353DF006ED238 /* XCRemoteSwiftPackageReference "SwiftUI-Flow" */,
+				1F3C48B22FDA3917004E3C43 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 1F3094E82FAC8628001A265D /* Products */;
@@ -277,11 +268,12 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "-Gather-Info.plist";
-				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) uses your camera to capture mission proof photos.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "$(PRODUCT_NAME) uses your location to show nearby events and let you join them.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "2Gather uses your camera to capture mission proof photos.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "2Gather uses your location to show nearby events and let you join them.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -312,11 +304,12 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "-Gather-Info.plist";
-				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) uses your camera to capture mission proof photos.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "$(PRODUCT_NAME) uses your location to show nearby events and let you join them.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "2Gather uses your camera to capture mission proof photos.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "2Gather uses your location to show nearby events and let you join them.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -360,6 +353,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1F3C48B22FDA3917004E3C43 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.6.0;
+			};
+		};
 		1F4C42072FD353DF006ED238 /* XCRemoteSwiftPackageReference "SwiftUI-Flow" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/tevelee/SwiftUI-Flow";
@@ -371,6 +372,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1F3C48B32FDA3917004E3C43 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1F3C48B22FDA3917004E3C43 /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
+		};
 		1F4C42082FD353DF006ED238 /* Flow */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1F4C42072FD353DF006ED238 /* XCRemoteSwiftPackageReference "SwiftUI-Flow" */;

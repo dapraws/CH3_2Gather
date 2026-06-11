@@ -70,14 +70,14 @@ struct OnboardingView: View {
                 } label: {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 26, weight: .semibold))
-                        .foregroundStyle(Color.TGprimary)
+                        .foregroundStyle(Color.black)
                 }
 
                 HStack(spacing: 6) {
                     ForEach(1...4, id: \.self) { step in
                         Capsule()
                             .fill(step <= progressValue(for: viewModel.currentStep)
-                                  ? Color.TGsecondary
+                                  ? Color.TGOrange
                                   : Color.secondary.opacity(0.3))
                             .frame(height: 4)
                     }

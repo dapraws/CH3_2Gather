@@ -17,13 +17,13 @@ struct StatsRowView: View {
             statItem(value: "\(questsCompleted)", label: "quests\ncompleted")
 
             Rectangle()
-                .fill(Color.TGprimary)
+                .fill(Color.TGOrange)
                 .frame(width: 1, height: 35)
 
             statItem(icon: favoriteSportIcon, label: "#1\nfavorite")
 
             Rectangle()
-                .fill(Color.TGprimary)
+                .fill(Color.TGOrange)
                 .frame(width: 1, height: 35)
 
             statItem(value: "\(sportsTried)", label: "sports\ntried")
@@ -41,15 +41,15 @@ private func statItem(
         if let value = value {
             Text(value)
                 .font(.system(size: 30, weight: .bold))
-                .foregroundColor(.TGsecondary)
+                .foregroundColor(.TGOrange)
         } else if let icon = icon {
             Image(systemName: icon)
                 .font(.system(size: 30, weight: .bold))
-                .foregroundColor(.TGsecondary)
+                .foregroundColor(.TGOrange)
         }
         Text(label)
             .font(.system(size: 11))
-            .foregroundColor(.TGprimary)
+            .foregroundColor(.TGBrownToWhite)
             .multilineTextAlignment(.center)
     }
     .frame(maxWidth: .infinity)

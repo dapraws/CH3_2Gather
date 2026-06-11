@@ -15,15 +15,14 @@ struct UserAnnotationView: View {
     var body: some View {
         ZStack {
             Circle()
-                .fill(Color.TGprimary)
+                .fill(Color.TGBrown)
                 .frame(width: 26, height: 26)
                 .shadow(
-                    color: Color.TGprimary.opacity(0.68),
+                    color: Color.TGBrown.opacity(0.68),
                     radius: 8,
-                    y: -5
                 )
             Circle()
-                .fill(Color.TGterniary)
+                .fill(Color.TGYellow)
                 .frame(width: 20, height: 20)
                 .scaleEffect(isBreathing ? 0.85 : 1.0)
                 .animation(

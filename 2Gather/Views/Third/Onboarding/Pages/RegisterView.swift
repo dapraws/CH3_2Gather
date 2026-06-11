@@ -20,12 +20,14 @@ struct RegisterView: View {
 
     var body: some View {
         ZStack {
-            Rectangle().fill(.white)
+            Color.TGWhite
+                .ignoresSafeArea()
+
             VStack(alignment: .leading, spacing: 16) {
                 Image(.mascotLogo)
                 Text("Register")
                     .font(.displayM)
-                    .foregroundColor(.TGprimary)
+                    .foregroundColor(.TGBrown)
                 CustomTextField(
                     placeholder: "Username",
                     text: $viewModel.registerUsername,
@@ -63,10 +65,10 @@ struct RegisterView: View {
                     } label: {
                         Text(viewModel.isLoading ? "Loading..." : "Register")
                             .font(.headingS)
-                            .foregroundColor(.TGprimary)
+                            .foregroundColor(.TGBrown)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 15)
-                            .background(Color.TGterniary)
+                            .background(Color.TGYellow)
                             .clipShape(Capsule())
                     }
                     .disabled(viewModel.isLoading)
@@ -76,10 +78,9 @@ struct RegisterView: View {
                     } label: {
                         Text("I already have an account")
                             .font(.bodyL)
-                            .foregroundColor(.TGsecondary)
+                            .foregroundColor(.TGBrown)
                             .frame(maxWidth: .infinity)
                             .font(.footnote)
-                            .foregroundStyle(.blue)
                             .clipShape(Capsule())
                     }
                 }

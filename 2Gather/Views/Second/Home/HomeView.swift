@@ -11,53 +11,28 @@ import SwiftUI
 struct HomeView: View {
     @Binding var selectedTab: Int
 
+    @Environment(\.modelContext) private var modelContext
     @EnvironmentObject private var session: AppSession
+
     @Query private var accounts: [Account]
     @Query private var userStates: [UserEventState]
     @Query private var events: [Event]
 
-    @State private var homeTab: HomeTab = .completed
-    @State private var selectedEvent: Event? = nil
+    @State private var viewModel = HomeViewModel()
+    @State private var stateToDelete: UserEventState? = nil
+    @State private var showResetConfirm = false
 
     private var account: Account? {
         accounts.first { $0.id.uuidString == session.loggedInUserId }
     }
 
-    private var activeEventIds: Set<UUID> {
-        Set(userStates.map { $0.eventId })
-    }
-
     private var completedStates: [UserEventState] {
-        userStates.filter { $0.isCompleted }
-    }
-
-    private var completedEventIds: Set<UUID> {
-        Set(completedStates.map { $0.eventId })
-    }
-
-    private var activeEvent: Event? {
-        events.first {
-            activeEventIds.contains($0.id) && !completedEventIds.contains($0.id)
-        }
+        viewModel.completedStates(userStates: userStates)
     }
 
     private var upcomingEvents: [Event] {
-        return
-            events
-            .filter {
-                !activeEventIds.contains($0.id)
-            }
+        viewModel.upcomingEvents(events: events, userStates: userStates)
     }
-
-    private var sportsTried: Int {
-        let categories =
-            events
-            .filter { activeEventIds.contains($0.id) }
-            .flatMap { $0.category }
-        return Set(categories).count
-    }
-
-    @State private var mapViewModel = MapViewModel()
 
     var body: some View {
         NavigationStack {
@@ -67,52 +42,113 @@ struct HomeView: View {
 
                     StatsRowView(
                         questsCompleted: completedStates.count,
-                        sportsTried: sportsTried
+                        sportsTried: viewModel.sportsTried(
+                            events: events,
+                            userStates: userStates
+                        )
                     )
 
-                    if let event = activeEvent {
+                    if let event = viewModel.activeEvent(
+                        events: events,
+                        userStates: userStates
+                    ) {
                         TodayEventCardView(
                             event: event,
                             onExplore: { selectedTab = 1 },
                             onGoToEvent: {
                                 selectedTab = 1
-                                selectedEvent = event
+                                viewModel.selectedEvent = event
                             }
                         )
                     }
 
-                    stickyTabView
+                    tabToggleView
 
-                    if homeTab == .completed {
-                        completedListView
+                    if viewModel.homeTab == .completed {
+                        if completedStates.isEmpty {
+                            emptyStateView(
+                                title: "Join your first event",
+                                subtitle: "Make your life more interesting"
+                            )
+                        } else {
+                            VStack(spacing: 12) {
+                                ForEach(completedStates) { state in
+                                    completedCard(for: state)
+                                }
+                            }
+                        }
                     } else {
-                        upcomingListView
+                        if upcomingEvents.isEmpty {
+                            emptyStateView(
+                                title: "No upcoming events",
+                                subtitle: "Join one on the map"
+                            )
+                        } else {
+                            VStack(spacing: 10) {
+                                ForEach(upcomingEvents) { event in
+                                    UpcomingEventCardView(
+                                        sportIcon: viewModel.sportIcon(
+                                            for: event
+                                        ),
+                                        eventName: event.name,
+                                        date: viewModel.upcomingDateString(
+                                            event.date
+                                        ),
+                                        timeRange: event.formattedTime,
+                                        onTap: {
+                                            viewModel.selectedEvent = event
+                                        }
+                                    )
+                                }
+                            }
+                        }
                     }
+
+                    Spacer(minLength: 20)
                 }
                 .padding(.horizontal)
-                .padding(.bottom, 20)
             }
-            .background(Color.backgroundPrimary)
+            .background(Color.TGWhiteToDGreen)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text(account?.username ?? "2Gather")
                         .font(.system(size: 17, weight: .bold))
-                        .foregroundColor(.TGprimary)
+                        .foregroundColor(.TGBrownToWhite)
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink(destination: SettingsView()) {
                         Image(systemName: "line.3.horizontal")
-                            .foregroundColor(.TGprimary)
+                            .foregroundColor(.TGBrownToWhite)
                     }
                     .buttonStyle(.plain)
                 }
             }
-            .sheet(item: $selectedEvent) { event in
+            .sheet(item: $viewModel.selectedEvent) { event in
                 EventDetailSheet(event: event)
+            }
+            .alert("Reset this event?", isPresented: $showResetConfirm) {
+                    Button("Reset", role: .destructive) {
+                    if let state = stateToDelete {
+                        viewModel.resetEventState(
+                            state,
+                            modelContext: modelContext
+                        )
+                    }
+                    stateToDelete = nil
+                }
+                Button("Cancel", role: .cancel) {
+                    stateToDelete = nil
+                }
+            } message: {
+                Text(
+                    "This event will return to Upcoming so you can join it again."
+                )
             }
         }
     }
+
+    // MARK: - Profile Image
 
     private var profileImageView: some View {
         Group {
@@ -133,127 +169,85 @@ struct HomeView: View {
         }
     }
 
-    private var stickyTabView: some View {
-        ZStack {
-            HStack {
-                Text("Completed")
-                    .font(.system(size: 15))
-                    .foregroundStyle(Color.TGprimary.opacity(0.5))
-                    .frame(maxWidth: .infinity)
-                Text("Upcoming")
-                    .font(.system(size: 15))
-                    .foregroundStyle(Color.TGprimary.opacity(0.5))
-                    .frame(maxWidth: .infinity)
-            }
-            .padding(.vertical, 10)
-            .background(Color.backgroundSecondary)
-            .clipShape(Capsule())
+    // MARK: - Tab Toggle
 
-            HStack(spacing: 0) {
-                tabLabel("Completed", isSelected: homeTab == .completed) {
-                    homeTab = .completed
-                }
-                tabLabel("Upcoming", isSelected: homeTab == .upcoming) {
-                    homeTab = .upcoming
-                }
-            }
-            .padding(.horizontal, 5)
+    private var tabToggleView: some View {
+        HStack(spacing: 4) {
+            tabPill("My Events", tab: .completed)
+            tabPill("Upcoming", tab: .upcoming)
         }
+        .padding(4)
+        .background(Color.backgroundSecondary, in: Capsule())
     }
 
-    private func tabLabel(
-        _ title: String,
-        isSelected: Bool,
-        action: @escaping () -> Void
-    ) -> some View {
-        Button(action: action) {
-            Text(title)
-                .font(.labelL)
-                .foregroundStyle(isSelected ? Color.TGterniary : Color.clear)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 7)
-                .background(isSelected ? Color.TGprimary : Color.clear)
-                .clipShape(Capsule())
-        }
-        .buttonStyle(.plain)
-        .animation(.easeInOut(duration: 0.2), value: homeTab)
-    }
-
-    private var completedListView: some View {
-        VStack(spacing: 12) {
-            if completedStates.isEmpty {
-                emptyStateView(
-                    message: "No completed events yet.\nGo finish one!"
-                )
-            } else {
-                ForEach(completedStates) { state in
-                    if let event = events.first(where: {
-                        $0.id == state.eventId
-                    }),
-                        let proofPath = state.proofImagePath
-                    {
-                        CompletedEventCardView(
-                            sportIcon: sportIcon(for: event),
-                            proofPath: proofPath,
-                            date: completedDate(event.date),
-                            caption: state.caption
-                        )
-                        .frame(height: 160)
-                    }
-                }
-            }
-        }
-    }
-
-    private var upcomingListView: some View {
-        VStack(spacing: 10) {
-            if upcomingEvents.isEmpty {
-                emptyStateView(
-                    message: "No upcoming events.\nJoin one on the map!"
-                )
-            } else {
-                ForEach(upcomingEvents) { event in
-                    UpcomingEventCardView(
-                        sportIcon: sportIcon(for: event),
-                        eventName: event.name,
-                        date: upcomingDate(event.date),
-                        timeRange: event.formattedTime,
-                        onTap: { selectedEvent = event }
-                    )
-                }
-            }
-        }
-    }
-
-    private func emptyStateView(message: String) -> some View {
-        Text(message)
-            .font(.system(size: 14))
-            .foregroundStyle(Color.TGprimary.opacity(0.4))
-            .multilineTextAlignment(.center)
-            .padding(.vertical, 32)
+    private func tabPill(_ label: String, tab: HomeTab) -> some View {
+        let isSelected = viewModel.homeTab == tab
+        return Text(label)
+            .font(.labelL)
+            .foregroundStyle(isSelected ? Color.TGYellowToBrown : Color.TGMauve)
             .frame(maxWidth: .infinity)
-    }
-
-    private func completedDate(_ date: Date) -> String {
-        let f = DateFormatter()
-        f.dateFormat = "d/M/yy"
-        return f.string(from: date)
-    }
-
-    private func upcomingDate(_ date: Date) -> String {
-        let f = DateFormatter()
-        f.dateFormat = "d MMM"
-        return f.string(from: date)
-    }
-
-    private func sportIcon(for event: Event) -> String {
-        for category in event.category {
-            if let sport = SportsCatalog.all.first(where: { $0.id == category })
-            {
-                return sport.icon
+            .padding(.vertical, 8)
+            .background(
+                isSelected ? Color.TGBrownToYellow : Color.clear,
+                in: Capsule()
+            )
+            .contentShape(Capsule())
+            .onTapGesture {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    viewModel.homeTab = tab
+                }
             }
+    }
+
+    // MARK: - Completed Card
+
+    @ViewBuilder
+    private func completedCard(for state: UserEventState) -> some View {
+        let eventId = state.eventId
+        let matchedEvent: Event? = events.first { $0.id == eventId }
+        if let event = matchedEvent, let proofPath = state.proofImagePath {
+            CompletedEventCardView(
+                sportIcon: viewModel.sportIcon(for: event),
+                proofPath: proofPath,
+                date: viewModel.completedDateString(event.date),
+                caption: state.caption,
+                onDeleteTapped: {
+                    stateToDelete = state
+                    showResetConfirm = true
+                }
+            )
+            .frame(height: 160)
+            .clipped()
         }
-        return "figure.run"
+    }
+
+    // MARK: - Empty State
+
+    private func emptyStateView(title: String, subtitle: String) -> some View {
+        VStack(spacing: 16) {
+            Image("mascot-split")
+                .resizable()
+                .scaledToFit()
+                .frame(height: 100)
+            VStack(spacing: 6) {
+                Text(title)
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundColor(.TGBrownToWhite)
+                Text(subtitle)
+                    .font(.system(size: 14))
+                    .foregroundColor(.gray)
+            }
+            Button {
+                withAnimation { selectedTab = 1 }
+            } label: {
+                Text("Explore!")
+                    .font(.system(size: 16, weight: .bold))
+            }
+            .buttonStyle(TGSecondaryButtonStyle())
+            .frame(width: 160)
+        }
+        .padding(.vertical, 40)
+        .frame(maxWidth: .infinity)
     }
 }
 
@@ -262,6 +256,8 @@ enum HomeTab {
 }
 
 #Preview {
-    HomeView(selectedTab: .constant(0))
-        .environmentObject(AppSession())
+    NavigationStack {
+        HomeView(selectedTab: .constant(0))
+    }
+    .environmentObject(AppSession())
 }

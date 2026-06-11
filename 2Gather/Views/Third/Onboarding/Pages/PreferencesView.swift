@@ -1,5 +1,5 @@
 //
-//  SportPreferencesView.swift
+//  PreferencesView.swift
 //  2Gather
 //
 //  Created by RyanMFDR on 02/06/26.
@@ -7,6 +7,7 @@
 
 import Flow
 import SwiftUI
+import Lottie
 
 struct PreferencesView: View {
     let sports: [String]
@@ -18,12 +19,20 @@ struct PreferencesView: View {
 
     var body: some View {
         ZStack {
-            Rectangle().fill(.white)
+            Color.TGWhite
+                .ignoresSafeArea()
+            
             VStack(spacing: 30) {
                 Text("Tell us more about you!")
                     .font(.displayM)
-                    .foregroundColor(.TGprimary)
-                Image(.mascotBasketball)
+                    .foregroundColor(.TGBrown)
+                
+//                Image(.mascotBasketball)
+                
+                LottieView(animation: .named("animation-mascot-basketball"))
+                    .playing()
+                    .looping()
+                    .frame(width: 250, height: 250)
 
                 SportPreferencesLayout(
                     sports: sports,
@@ -37,10 +46,10 @@ struct PreferencesView: View {
                     } label: {
                         Text("Continue")
                             .font(.headingS)
-                            .foregroundColor(.TGprimary)
+                            .foregroundColor(.TGBrown)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 16)
-                            .background(Color.TGterniary)
+                            .background(Color.TGYellow)
                             .cornerRadius(19)
                     }
 
@@ -49,7 +58,7 @@ struct PreferencesView: View {
                     } label: {
                         Text("Skip")
                             .font(.bodyL)
-                            .foregroundColor(.TGsecondary)
+                            .foregroundColor(.TGOrange)
                     }
                 }
             }
@@ -62,6 +71,7 @@ struct PreferencesView: View {
 struct SportPreferencesLayout: View {
     let sports: [String]
     @Binding var selectedSports: Set<String>
+    var isDynamicTheme: Bool = false
     let onToggleSport: (String) -> Void
 
     var body: some View {
@@ -69,7 +79,8 @@ struct SportPreferencesLayout: View {
             ForEach(sports, id: \.self) { sport in
                 SportTag(
                     sport: sport,
-                    isSelected: selectedSports.contains(sport)
+                    isSelected: selectedSports.contains(sport),
+                    isDynamicTheme: isDynamicTheme
                 ) {
                     onToggleSport(sport)
                 }
@@ -81,27 +92,29 @@ struct SportPreferencesLayout: View {
 struct SportTag: View {
     let sport: String
     let isSelected: Bool
+    var isDynamicTheme: Bool = false
     let onTap: () -> Void
 
     var body: some View {
         Button(action: onTap) {
             Text(sport)
                 .font(.headingS)
-                .foregroundColor(Color.TGprimary)
-                .padding(.horizontal, 16)
+                .foregroundColor(
+                    isSelected ? .TGBrown : (isDynamicTheme ? .TGBrownToWhite : .TGBrown)
+                                )
+                .padding(.horizontal, 20)
                 .padding(.vertical, 10)
                 .background(
-                    RoundedRectangle(cornerRadius: 19)
-                        .fill(
-                            isSelected
-                                ? Color.TGterniary : Color.backgroundPrimary
-                        )
-                )
+                    Capsule()
+                                            .fill(
+                                                isSelected ? Color.TGYellow : (isDynamicTheme ? Color.TGWhiteToSGreen : Color.TGWhite)
+                                            )
+                                    )
                 .overlay(
-                    RoundedRectangle(cornerRadius: 19)
+                    Capsule()
                         .stroke(
-                            isSelected
-                                ? Color.black : Color.TGprimary.opacity(0.3)
+                            isSelected ? Color.TGBrown : (isDynamicTheme ? Color.TGBrownToWhite.opacity(0.3) : Color.TGBrown.opacity(0.3)),
+                            lineWidth: 1
                         )
                 )
         }

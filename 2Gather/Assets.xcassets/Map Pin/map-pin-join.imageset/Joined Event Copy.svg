@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="81px" height="99px" viewBox="0 0 81 99" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Joined Event Copy</title>
+    <defs>
+        <path d="M80.9999999,35.9784945 L80.9999999,44.2935073 C79.0505077,58.6435545 65.5880021,76.3819732 40.6438166,97.4995441 C13.5479389,74.5603658 0,55.6084566 0,40.6438166 C0,18.1968565 18.1968565,0 40.6438166,0 C61.5106378,0 78.7046611,15.7251172 80.9999999,35.9784945 Z" id="path-1"></path>
+        <path d="M40.6438166,97.4995441 C67.7396943,74.5603658 81.2876332,55.6084566 81.2876332,40.6438166 C81.2876332,18.1968565 63.0907767,0 40.6438166,0 C18.1968565,0 0,18.1968565 0,40.6438166 C0,55.6084566 13.5479389,74.5603658 40.6438166,97.4995441 Z" id="path-2"></path>
+        <filter x="-30.1%" y="-17.9%" width="160.3%" height="150.3%" filterUnits="objectBoundingBox" id="filter-3">
+            <feOffset dx="0" dy="7" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="7" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.25 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="FINAL-FINAL-VERSION!" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Joined-Event-Copy" transform="translate(0, 0.5)" xlink:href="#path-1">
+            <g id="Group">
+                <g id="Oval">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-2"></use>
+                </g>
+                <circle id="Oval" fill="#FFDC49" cx="40.6438166" cy="40.6438166" r="33.4182492"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

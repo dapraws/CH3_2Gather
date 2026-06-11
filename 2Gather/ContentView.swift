@@ -13,12 +13,14 @@ struct ContentView: View {
     @Query private var events: [Event]
 
     @State private var selectedTab: Int = 0
+    
+    @AppStorage("isDarkMode") private var isDarkMode = false
 
     var body: some View {
         TabView(selection: $selectedTab) {
             HomeView(selectedTab: $selectedTab)
                 .tabItem {
-                    Label("Home", systemImage: "house")
+                    Label("You", systemImage: "person.fill")
                 }
                 .tag(0)
 
@@ -28,7 +30,8 @@ struct ContentView: View {
                 }
                 .tag(1)
         }
-        .tint(.TGsecondary)
+        .tint(.TGOrange)
+        .preferredColorScheme(isDarkMode ? .dark : .light)
         .onAppear {
             seedDataIfNeeded()
         }

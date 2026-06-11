@@ -6,18 +6,38 @@
 //
 
 import SwiftUI
+import Lottie
 
 struct WelcomingView: View {
     let onGetStarted: () -> Void
     let onSignIn: () -> Void
+    
+    @AppStorage("isDarkMode") private var isDarkMode = false
 
     var body: some View {
-        VStack {
-            Spacer()
-            Image(.mascotRunningLarge)
-            Image(.appSlogan)
-            Spacer()
-            Spacer()
+        ZStack {
+            Color.TGWhite
+                .ignoresSafeArea()
+            
+            VStack (spacing:0) {
+                Spacer()
+                
+                LottieView(animation: .named("animation-mascot-running"))
+                    .playing()
+                    .looping()
+                    .resizable()
+                    .frame(width: 300, height: 300)
+                    .padding(-40)
+                    .padding(.trailing, 10)
+                
+                Image(.applightSlogan)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 200)
+                
+                Spacer()
+                Spacer()
+            }
         }
         .overlay(alignment: .bottom){
             Button {
@@ -25,10 +45,10 @@ struct WelcomingView: View {
             } label: {
                 Text("Let's get started!")
                     .font(.headingS)
-                    .foregroundColor(.TGprimary)
-                    .frame(maxWidth: 250)
+                    .foregroundColor(.TGBrown)
+                    .frame(width: 300)
                     .padding(.vertical, 15)
-                    .background(Color.TGterniary)
+                    .background(Color.TGYellow)
                     .clipShape(Capsule())
             }
             .padding(.bottom, 50)
