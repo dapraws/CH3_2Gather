@@ -12,11 +12,11 @@ import Lottie
 struct PreferencesView: View {
     let sports: [String]
     @Binding var selectedSports: Set<String>
-
+    
     var onToggleSport: (String) -> Void = { _ in }
     var onContinue: () -> Void = {}
     var onSkip: () -> Void = {}
-
+    
     var body: some View {
         ZStack {
             Color.TGWhite
@@ -27,13 +27,13 @@ struct PreferencesView: View {
                     .font(.displayM)
                     .foregroundColor(.TGBrown)
                 
-//                Image(.mascotBasketball)
+                //                Image(.mascotBasketball)
                 
                 LottieView(animation: .named("animation-mascot-basketball"))
                     .playing()
                     .looping()
                     .frame(width: 250, height: 250)
-
+                
                 SportPreferencesLayout(
                     sports: sports,
                     selectedSports: $selectedSports,
@@ -52,7 +52,7 @@ struct PreferencesView: View {
                             .background(Color.TGYellow)
                             .cornerRadius(19)
                     }
-
+                    
                     Button {
                         onSkip()
                     } label: {
@@ -73,7 +73,7 @@ struct SportPreferencesLayout: View {
     @Binding var selectedSports: Set<String>
     var isDynamicTheme: Bool = false
     let onToggleSport: (String) -> Void
-
+    
     var body: some View {
         HFlow {
             ForEach(sports, id: \.self) { sport in
@@ -94,22 +94,22 @@ struct SportTag: View {
     let isSelected: Bool
     var isDynamicTheme: Bool = false
     let onTap: () -> Void
-
+    
     var body: some View {
         Button(action: onTap) {
             Text(sport)
-                .font(.headingS)
+                .scaledFont(.headingS) 
                 .foregroundColor(
                     isSelected ? .TGBrown : (isDynamicTheme ? .TGBrownToWhite : .TGBrown)
-                                )
+                )
                 .padding(.horizontal, 20)
                 .padding(.vertical, 10)
                 .background(
                     Capsule()
-                                            .fill(
-                                                isSelected ? Color.TGYellow : (isDynamicTheme ? Color.TGWhiteToSGreen : Color.TGWhite)
-                                            )
-                                    )
+                        .fill(
+                            isSelected ? Color.TGYellow : (isDynamicTheme ? Color.TGWhiteToSGreen : Color.TGWhite)
+                        )
+                )
                 .overlay(
                     Capsule()
                         .stroke(
@@ -130,4 +130,5 @@ struct SportTag: View {
         onContinue: {},
         onSkip: {}
     )
+    .withPreviewEnvironment()
 }

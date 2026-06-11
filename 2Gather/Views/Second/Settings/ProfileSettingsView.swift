@@ -14,23 +14,23 @@ struct ProfileSettingsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var accounts: [Account]
     var viewModel: SettingsViewModel
-
+    
     @Environment(\.dismiss) private var dismiss
-
+    
     private var account: Account? {
         accounts.first { $0.id.uuidString == session.loggedInUserId }
     }
-
+    
     var body: some View {
         ZStack(alignment: .top) {
-
+            
             Color.TGFWhiteToDGreen
                 .ignoresSafeArea()
-
+            
             VStack(spacing: 0) {
                 ScrollView {
                     VStack(spacing: 36) {
-
+                        
                         VStack(spacing: 16) {
                             if let image = viewModel.profileImage {
                                 Image(uiImage: image)
@@ -44,7 +44,7 @@ struct ProfileSettingsView: View {
                                     .frame(width: 145, height: 145)
                                     .clipShape(Circle())
                             }
-
+                            
                             PhotosPicker(
                                 selection: Binding(
                                     get: { viewModel.selectedPhotoItem },
@@ -53,12 +53,12 @@ struct ProfileSettingsView: View {
                                 matching: .images
                             ) {
                                 Text("Edit")
-                                    .font(.headline)
+                                    .scaledFont(.labelL)
                                     .fontWeight(.semibold)
                                     .foregroundColor(.TGOrange)
                             }
                         }
-
+                        
                         VStack(spacing: 0) {
                             ProfileTextFieldRow(
                                 title: "Username",
@@ -70,9 +70,9 @@ struct ProfileSettingsView: View {
                             )
                             .autocorrectionDisabled(true)
                             .textInputAutocapitalization(.never)
-
+                            
                             Divider().padding(.leading, 16)
-
+                            
                             ProfileTextFieldRow(
                                 title: "Email",
                                 placeholder: "Your Email",
@@ -83,9 +83,9 @@ struct ProfileSettingsView: View {
                             )
                             .keyboardType(.emailAddress)
                             .textInputAutocapitalization(.never)
-
+                            
                             Divider().padding(.leading, 16)
-
+                            
                             NavigationLink(
                                 destination: PreferencesSettingsView(
                                     viewModel: viewModel
@@ -103,7 +103,7 @@ struct ProfileSettingsView: View {
                         .background(Color.TGWhiteToSGreen)
                         .cornerRadius(16)
                         .padding(.horizontal, 20)
-
+                        
                     }
                     .padding(.top, 10)
                     .padding(.bottom, 40)
@@ -111,7 +111,7 @@ struct ProfileSettingsView: View {
             }
             .navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.inline)
-
+            
             .onChange(of: viewModel.selectedPhotoItem) { _, newItem in
                 viewModel.handlePhotoSelection(
                     item: newItem,
@@ -128,12 +128,13 @@ struct ProfileSettingsView: View {
         var title: String
         var placeholder: String
         @Binding var text: String
-
+        
         var body: some View {
             HStack {
-                Text(title).foregroundColor(.TGBrownToWhite)
+                Text(title).foregroundColor(.TGBrownToWhite).scaledFont(.bodyL)
                 Spacer()
                 TextField(placeholder, text: $text)
+                    .scaledFont(.bodyL)
                     .multilineTextAlignment(.trailing)
                     .foregroundColor(.gray)
             }
@@ -141,17 +142,17 @@ struct ProfileSettingsView: View {
             .padding(.horizontal, 16)
         }
     }
-
+    
     struct ProfileDataRow: View {
         var title: String
         var value: String
         var showArrow: Bool = false
-
+        
         var body: some View {
             HStack {
-                Text(title).foregroundColor(.TGBrownToWhite)
+                Text(title).foregroundColor(.TGBrownToWhite).scaledFont(.bodyL)
                 Spacer()
-                Text(value).foregroundColor(.gray.opacity(0.5))
+                Text(value).foregroundColor(.gray.opacity(0.5)).scaledFont(.bodyM)   
                 if showArrow {
                     Image(systemName: "chevron.right")
                         .font(.system(size: 14, weight: .semibold))
@@ -171,4 +172,5 @@ struct ProfileSettingsView: View {
         ProfileSettingsView(viewModel: SettingsViewModel())
             .environmentObject(AppSession())
     }
+    .withPreviewEnvironment()
 }

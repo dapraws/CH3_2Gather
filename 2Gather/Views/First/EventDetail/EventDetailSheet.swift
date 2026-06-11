@@ -9,28 +9,28 @@ import SwiftData
 import SwiftUI
 
 struct EventDetailSheet: View {
-
+    
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) var dismiss
     
     @Query private var userStates: [UserEventState]
-
+    
     var event: Event
     @State private var viewModel: EventDetailViewModel
     
     @State private var showFullScreenView = false
-
+    
     init(event: Event) {
         self.event = event
         _viewModel = State(
             initialValue: EventDetailViewModel(mission: event.mission)
         )
     }
-
+    
     private var currentUserState: UserEventState? {
         userStates.first(where: { $0.eventId == event.id })
     }
-
+    
     private var isJoined: Bool {
         currentUserState != nil
     }
@@ -42,21 +42,21 @@ struct EventDetailSheet: View {
     private var sport: SportCategory {
         SportCategory.from(categories: event.category)
     }
-
+    
     var body: some View {
         
         NavigationStack {
-           
+            
             ZStack {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 0) {
-
+                        
                         VStack(alignment: .leading, spacing: 16) {
-
+                            
                             HStack (alignment: .center) {
                                 Text(event.name)
                                     .foregroundStyle(Color.TGBrownToWhite)
-                                    .font(.headingL)
+                                    .scaledFont(.headingL)
                                     .bold()
                                 
                                 Spacer()
@@ -66,9 +66,9 @@ struct EventDetailSheet: View {
                                     } label: {
                                         Image(systemName: "square.and.arrow.up")
                                     }
-                                        .frame(width: 44, height: 44)
-                                        .background(Circle().fill(Color.gray.opacity(0.16)))
-                                        .foregroundStyle(Color.TGBrownToWhite)
+                                    .frame(width: 44, height: 44)
+                                    .background(Circle().fill(Color.gray.opacity(0.16)))
+                                    .foregroundStyle(Color.TGBrownToWhite)
                                     
                                     
                                     Button {
@@ -82,10 +82,10 @@ struct EventDetailSheet: View {
                                 }
                             }
                             
-
+                            
                             EventInfoRowView(event: event)
                                 .padding(.top, 8)
-
+                            
                             MissionSectionView(
                                 mission: $viewModel.mission,
                                 eventId: event.id,
@@ -116,15 +116,16 @@ struct EventDetailSheet: View {
                                     }.foregroundStyle(Color.TGRedToOrange)
                                     Spacer()
                                 }
+                                .scaledFont(.bodyM) 
                             }
-                                
+                            
                         }
                         .padding(.horizontal, 24)
                         .padding(.top, 31)
                         .padding(.bottom, 44)
                     }
                 }
-
+                
             }
             .animation(.spring(duration: 0.3), value: viewModel.showReward)
             .presentationDetents([.medium])
@@ -146,4 +147,5 @@ struct EventDetailSheet: View {
 
 #Preview {
     EventDetailSheet(event: TempData.event1 )
+    .withPreviewEnvironment()
 }

@@ -11,16 +11,16 @@ struct CustomCameraView: View {
     @StateObject private var viewModel = CameraViewModel()
     var onCapture: (UIImage) -> Void = { _ in }
     var onCancel: () -> Void = {}
-
+    
     @State private var showGallery = false
-
+    
     var body: some View {
         ZStack {
             Color.black.ignoresSafeArea()
-
+            
             CameraPreviewLayer(viewModel: viewModel)
                 .ignoresSafeArea()
-
+            
             VStack {
                 // ── Top bar ──────────────────────────────
                 HStack {
@@ -31,13 +31,13 @@ struct CustomCameraView: View {
                             .frame(width: 44, height: 44)
                             .background(Color.TGBrown.opacity(0.3), in: Circle())
                     }
-
+                    
                     Spacer()
-
+                    
                     Button(action: viewModel.toggleFlash) {
                         Image(
                             systemName: viewModel.isFlashOn
-                                ? "bolt.fill" : "bolt.slash"
+                            ? "bolt.fill" : "bolt.slash"
                         )
                         .font(.system(size: 18, weight: .semibold))
                         .foregroundColor(viewModel.isFlashOn ? .yellow : .white)
@@ -47,18 +47,18 @@ struct CustomCameraView: View {
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 16)
-
+                
                 Spacer()
-
+                
                 // ── Bottom bar ───────────────────────────
                 ZStack {
                     Rectangle()
                         .fill(Color.white.opacity(0))
                         .frame(height: 169)
                         .opacity(1)
-
+                    
                     HStack(spacing: 0) {
-
+                        
                         // Gallery button
                         Button(action: { showGallery = true }) {
                             ZStack {
@@ -71,7 +71,7 @@ struct CustomCameraView: View {
                             }
                         }
                         .frame(maxWidth: .infinity)
-
+                        
                         // Shutter button
                         Button(action: viewModel.takePic) {
                             ZStack {
@@ -81,14 +81,14 @@ struct CustomCameraView: View {
                                 Circle()
                                     .fill(Color.TGYellow)
                                     .frame(width: 88, height: 88)
-
+                                
                                 Image(systemName: "camera.fill").font(
                                     .system(size: 46, weight: .semibold)
                                 ).foregroundColor(Color.TGBrown)
                             }
                         }
                         .frame(maxWidth: .infinity)
-
+                        
                         // Flip camera button
                         Button(action: viewModel.flipCamera) {
                             ZStack {
@@ -139,9 +139,9 @@ struct CustomCameraView: View {
             endPoint: .bottom
         )
         .ignoresSafeArea()
-
+        
         VStack(alignment: .center) {
-
+            
             // ── Top bar ──────────────────────────────
             HStack {
                 Image(systemName: "xmark")
@@ -149,9 +149,9 @@ struct CustomCameraView: View {
                     .foregroundColor(.white)
                     .frame(width: 44, height: 44)
                     .background(Color.TGBrown.opacity(0.3), in: Circle())
-
+                
                 Spacer()
-
+                
                 Image(systemName: "bolt.slash")
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundColor(.white)
@@ -160,18 +160,18 @@ struct CustomCameraView: View {
             }
             .padding(.horizontal, 20)
             .padding(.top, 16)
-
+            
             Spacer()
-
+            
             // ── Bottom bar ───────────────────────────
             ZStack {
                 Rectangle()
                     .fill(Color.white.opacity(0))
                     .frame(height: 169)
                     .opacity(1)
-
+                
                 HStack(spacing: 0) {
-
+                    
                     // Gallery button
                     ZStack {
                         Circle()
@@ -182,7 +182,7 @@ struct CustomCameraView: View {
                             .foregroundColor(.white)
                     }
                     .frame(maxWidth: .infinity)
-
+                    
                     // Shutter button
                     ZStack {
                         Circle()
@@ -191,13 +191,13 @@ struct CustomCameraView: View {
                         Circle()
                             .fill(Color.TGYellow)
                             .frame(width: 88, height: 88)
-
+                        
                         Image(systemName: "camera.fill").font(
                             .system(size: 46, weight: .semibold)
                         ).foregroundColor(Color.TGBrown)
                     }
                     .frame(maxWidth: .infinity)
-
+                    
                     // Flip camera button
                     ZStack {
                         Circle().fill(Color.TGBrown)

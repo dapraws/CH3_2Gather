@@ -11,29 +11,29 @@ import SwiftUI
 
 struct MapView: View {
     @Environment(\.colorScheme) var colorScheme
-
+    
     @State private var viewModel = MapViewModel()
     @Namespace private var mapScope
-
+    
     @Query private var userStates: [UserEventState]
-
+    
     private var joinedEventIds: Set<UUID> {
         Set(userStates.map { $0.eventId })
     }
-
+    
     private var displayedEvents: [Event] {
         viewModel.filteredEvents(joinedEventIds: joinedEventIds)
     }
-
+    
     var body: some View {
         NavigationStack {
             ZStack(alignment: .top) {
-
+                
                 Map(position: $viewModel.position) {
                     UserAnnotation {
                         UserAnnotationView()
                     }
-
+                    
                     ForEach(displayedEvents, id: \.id) { event in
                         Annotation(
                             "",
@@ -42,11 +42,11 @@ struct MapView: View {
                                 longitude: event.longitude
                             )
                         ) {
-
+                            
                             let state = userStates.first(where: {
                                 $0.eventId == event.id
                             })
-
+                            
                             EventAnnotationView(
                                 event: event,
                                 viewModel: viewModel,
@@ -66,10 +66,10 @@ struct MapView: View {
                 ) { event in
                     EventDetailSheet(event: event)
                 }
-
+                
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 8) {
-
+                        
                         FilterChipView(
                             label: "Active",
                             icon: "bolt.fill",
@@ -78,20 +78,20 @@ struct MapView: View {
                             viewModel.showActiveOnly.toggle()
                             viewModel.zoomToFit(events: displayedEvents)
                         }
-
+                        
                         Divider().frame(height: 20)
-
+                        
                         FilterChipView(
                             label: "All",
                             icon: "square.grid.2x2",
                             isSelected: viewModel.selectedCategory == nil
-                                && !viewModel.showActiveOnly
+                            && !viewModel.showActiveOnly
                         ) {
                             viewModel.selectedCategory = nil
                             viewModel.showActiveOnly = false
                             viewModel.zoomToFit(events: viewModel.events)
                         }
-
+                        
                         ForEach(SportCategory.allCases, id: \.self) {
                             category in
                             if category != .other {
@@ -99,7 +99,7 @@ struct MapView: View {
                                     label: category.label,
                                     icon: category.icon,
                                     isSelected: viewModel.selectedCategory
-                                        == category
+                                    == category
                                 ) {
                                     if viewModel.selectedCategory == category {
                                         viewModel.selectedCategory = nil
@@ -128,7 +128,7 @@ struct MapView: View {
                     placement: .navigationBarDrawer(displayMode: .always),
                     prompt: "Search events..."
                 )
-
+                
             }
             .overlay(alignment: .bottomTrailing) {
                 Button {
@@ -159,4 +159,5 @@ struct MapView: View {
 
 #Preview {
     MapView()
+    .withPreviewEnvironment()
 }

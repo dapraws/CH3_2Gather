@@ -22,7 +22,7 @@ struct MissionBannerFullScreenView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 90)
-
+                    
                     Image(systemName: "target")
                         .foregroundStyle(.black)
                         .font(.system(size: 40, weight: .regular))
@@ -30,7 +30,7 @@ struct MissionBannerFullScreenView: View {
                 }.shadow(radius: 1, x: 0, y: 1)
                     .padding(.bottom)
                 
-                Text(event.name).font(.headingL)
+                Text(event.name).scaledFont(.headingL)
                     .padding(.bottom)
                     .foregroundColor(.TGBrownToYellow)
                 EventInfoRowView(event: event)
@@ -43,7 +43,7 @@ struct MissionBannerFullScreenView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width:120)
-    
+                    
                     Button {
                         dismiss()
                     } label: {
@@ -61,4 +61,5 @@ struct MissionBannerFullScreenView: View {
 
 #Preview {
     MissionBannerFullScreenView(mission: .constant(TempData.soloMission1), event: TempData.event1 )
+    .withPreviewEnvironment()
 }

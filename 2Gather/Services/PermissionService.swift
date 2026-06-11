@@ -18,21 +18,21 @@ final class PermissionService: NSObject, CLLocationManagerDelegate {
         return manager
     }()
     private var locationCompletion: ((Bool) -> Void)?
-
+    
     func requestLocationPermission(completion: @escaping (Bool) -> Void) {
         self.locationCompletion = completion
         locationManager.requestWhenInUseAuthorization()
     }
-
+    
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         let status = manager.authorizationStatus
         guard status != .notDetermined else { return }
         let granted =
-            status == .authorizedWhenInUse || status == .authorizedAlways
+        status == .authorizedWhenInUse || status == .authorizedAlways
         locationCompletion?(granted)
         locationCompletion = nil
     }
-
+    
     func requestCameraPermission(completion: @escaping (Bool) -> Void) {
         AVCaptureDevice.requestAccess(for: .video) { granted in
             DispatchQueue.main.async {
@@ -40,7 +40,7 @@ final class PermissionService: NSObject, CLLocationManagerDelegate {
             }
         }
     }
-
+    
     func requestPhotoPermission(completion: @escaping (Bool) -> Void) {
         PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
             DispatchQueue.main.async {

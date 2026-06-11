@@ -12,11 +12,11 @@ struct CompletedEventCardView: View {
     var proofPath: String
     var date: String
     var caption: String?
-
+    
     private var proofImage: UIImage? {
         PhotoStorage.loadProofImage(named: proofPath)
     }
-
+    
     var body: some View {
         ZStack(alignment: .bottomLeading) {
             if let image = proofImage {
@@ -32,24 +32,24 @@ struct CompletedEventCardView: View {
                     .frame(maxWidth: .infinity)
                     .frame(height: 160)
             }
-
+            
             LinearGradient(
                 gradient: Gradient(colors: [Color.black.opacity(0.5), Color.clear]),
                 startPoint: .bottom,
                 endPoint: .top
             )
-
+            
             VStack(alignment: .leading, spacing: 4) {
                 Image(systemName: sportIcon)
                     .font(.system(size: 30))
                     .foregroundColor(.white)
                 Text(date)
-                    .font(.headingXXS)
+                    .scaledFont(.headingXXS)
                     .foregroundColor(.white)
                 Rectangle().fill(.white.opacity(0))
                 if let caption = caption {
                     Text(caption)
-                        .font(.system(size: 12, weight: .medium))
+                        .scaledFont(.labelS) 
                         .foregroundColor(.primary)
                         .padding(.horizontal, 12)
                         .padding(.vertical, 9)
@@ -81,4 +81,5 @@ struct CompletedEventCardView: View {
     }
     .padding()
     .background(Color(.systemGroupedBackground))
+    .withPreviewEnvironment()
 }

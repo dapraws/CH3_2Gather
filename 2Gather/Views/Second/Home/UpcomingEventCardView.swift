@@ -13,7 +13,7 @@ struct UpcomingEventCardView: View {
     var date: String = "15 May"
     var timeRange: String = "17:00 - 19:00"
     var onTap: () -> Void = {}
-
+    
     var body: some View {
         HStack(spacing: 12) {
             ZStack {
@@ -24,19 +24,19 @@ struct UpcomingEventCardView: View {
                     .font(.system(size: 20))
                     .foregroundColor(Color.TGBrown)
             }
-
+            
             VStack(alignment: .leading, spacing: 10) {
                 Text(eventName)
-                    .font(.headingS)
+                    .scaledFont(.headingS)
                     .foregroundColor(.TGBrownToWhite)
-
+                
                 HStack(spacing: 14) {
                     HStack(spacing: 4) {
                         Image(systemName: "calendar")
                             .font(.system(size: 20))
                             .foregroundColor(.TGRedToOrange)
                         Text(date)
-                            .font(.system(size: 14, weight: .medium))
+                            .scaledFont(.labelM)
                             .foregroundColor(.TGMauve)
                     }
                     Spacer()
@@ -45,7 +45,7 @@ struct UpcomingEventCardView: View {
                             .font(.system(size: 20))
                             .foregroundColor(.TGRedToOrange)
                         Text(timeRange)
-                            .font(.system(size: 14, weight: .medium))
+                            .scaledFont(.labelM)
                             .foregroundColor(.TGMauve)
                     }
                     Spacer()
@@ -79,4 +79,5 @@ struct UpcomingEventCardView: View {
     }
     .padding()
     .background(Color(.systemGroupedBackground))
+    .withPreviewEnvironment()
 }

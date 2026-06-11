@@ -13,7 +13,7 @@ struct WelcomingView: View {
     let onSignIn: () -> Void
     
     @AppStorage("isDarkMode") private var isDarkMode = false
-
+    
     var body: some View {
         ZStack {
             Color.TGWhite
@@ -61,4 +61,5 @@ struct WelcomingView: View {
         onGetStarted: {},
         onSignIn: {}
     )
+    .withPreviewEnvironment()
 }

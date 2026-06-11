@@ -11,15 +11,15 @@ struct TodayEventCardView: View {
     var event: Event?
     var onExplore: () -> Void = {}
     var onGoToEvent: () -> Void = {}
-
+    
     var body: some View {
         if let event = event {
             activeEventCard(event: event)
         } else {
-//            exploreCard
+            //            exploreCard
         }
     }
-
+    
     private func activeEventCard(event: Event) -> some View {
         ZStack {
             Image(.todayEventCard).resizable()
@@ -27,15 +27,15 @@ struct TodayEventCardView: View {
                 Rectangle().fill(.white.opacity(0))
                 VStack(alignment: .trailing) {
                     Text("Today's Event")
-                        .font(.system(size: 14, weight: .medium))
+                        .scaledFont(.labelM)
                         .foregroundColor(.TGBrown.opacity(0.5))
                     Text(event.name)
-                        .font(.system(size: 30, weight: .bold))
+                        .scaledFont(.displayM)
                         .foregroundColor(.TGBrown)
                         .multilineTextAlignment(.trailing)
                     Button(action: onGoToEvent) {
                         Text("Let's do it!")
-                            .font(.headingS)
+                            .scaledFont(.headingS) 
                             .foregroundColor(.TGYellow)
                             .padding(.vertical, 10)
                             .padding(.horizontal, 30)
@@ -50,7 +50,7 @@ struct TodayEventCardView: View {
         .frame(height: 212)
         .clipShape(RoundedRectangle(cornerRadius: 20))
     }
-
+    
     private var exploreCard: some View {
         ZStack {
             Image(.todayEventCard).resizable()
@@ -58,15 +58,15 @@ struct TodayEventCardView: View {
                 Rectangle().fill(.white.opacity(0))
                 VStack(alignment: .trailing) {
                     Text("No event today")
-                        .font(.system(size: 14, weight: .medium))
+                        .scaledFont(.labelM)
                         .foregroundColor(.TGBrown.opacity(0.5))
                     Text("Lets explore some event")
-                        .font(.system(size: 26, weight: .bold))
+                        .scaledFont(.headingL)
                         .foregroundColor(.TGBrown)
                         .multilineTextAlignment(.trailing)
                     Button(action: onExplore) {
                         Text("Explore now!")
-                            .font(.headingS)
+                            .scaledFont(.headingS)
                             .foregroundColor(.TGYellow)
                             .padding(.vertical, 10)
                             .padding(.horizontal, 30)
@@ -89,4 +89,5 @@ struct TodayEventCardView: View {
         TodayEventCardView(event: nil, onExplore: {}, onGoToEvent: {})
     }
     .padding()
+    .withPreviewEnvironment()
 }

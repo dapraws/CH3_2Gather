@@ -27,7 +27,7 @@ struct UserAnnotationView: View {
                 .scaleEffect(isBreathing ? 0.85 : 1.0)
                 .animation(
                     .easeInOut(duration: 2)
-                        .repeatForever(autoreverses: true),
+                    .repeatForever(autoreverses: true),
                     value: isBreathing
                 )
                 .onAppear {
@@ -35,7 +35,7 @@ struct UserAnnotationView: View {
                 }
         }
         .frame(width: 40, height: 40)
-
+        
     }
 }
 

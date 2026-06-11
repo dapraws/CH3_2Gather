@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct TGWhiteButtonStyle: ButtonStyle {
+    @Environment(\.textSizeMultiplier) var multiplier
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .frame(maxWidth: .infinity)
@@ -16,8 +17,8 @@ struct TGWhiteButtonStyle: ButtonStyle {
             .background(.white)
             .foregroundColor(Color.TGBrown.opacity(configuration.isPressed ? 0.7 : 1.0))
             .clipShape(RoundedRectangle(cornerRadius: 12))
-            .font(.headingS)
-            
+            .font(TGFontStyle.labelL.scaledFont(multiplier: multiplier))
+        
             .scaleEffect(configuration.isPressed ? 0.98 : 1.0)
             .animation(.easeOut(duration: 0.1), value: configuration.isPressed)
     }
@@ -25,8 +26,10 @@ struct TGWhiteButtonStyle: ButtonStyle {
 
 
 struct TGPrimaryButtonStyle: ButtonStyle {
+    @Environment(\.textSizeMultiplier) var multiplier
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
+            .font(TGFontStyle.labelL.scaledFont(multiplier: multiplier))
             .fontWeight(.semibold)
             .frame(maxWidth: .infinity, minHeight: 50)
             .background(Color.TGBrownToYellow.opacity(configuration.isPressed ? 0.8 : 1.0))
@@ -38,9 +41,11 @@ struct TGPrimaryButtonStyle: ButtonStyle {
 }
 
 struct TGSecondaryButtonStyle: ButtonStyle {
+    @Environment(\.textSizeMultiplier) var multiplier
+
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .fontWeight(.semibold)
+            .font(TGFontStyle.labelL.scaledFont(multiplier: multiplier))
             .frame(maxWidth: .infinity, minHeight: 50)
             .background(Color.TGBrownToOrange.opacity(configuration.isPressed ? 0.8 : 1.0))
             .foregroundColor(.TGWhite)
@@ -51,9 +56,10 @@ struct TGSecondaryButtonStyle: ButtonStyle {
 }
 
 struct TGShareBannerButtonStyle: ButtonStyle {
+    @Environment(\.textSizeMultiplier) var multiplier
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.labelM)
+            .font(TGFontStyle.labelL.scaledFont(multiplier: multiplier))
             .frame(maxWidth: .infinity, minHeight: 36)
             .background(Color.TGBrown.opacity(configuration.isPressed ? 0.8 : 1.0))
             .foregroundColor(Color.TGYellow)
@@ -120,7 +126,6 @@ struct TGShareBannerButtonStyle: ButtonStyle {
         
     }
     .padding()
-    // Memberikan warna background sedikit gelap agar tombol putih terlihat kontras
     .frame(maxWidth: .infinity, maxHeight: .infinity)
     .background(Color.black.opacity(0.05))
 }

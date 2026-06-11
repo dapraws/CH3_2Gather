@@ -17,7 +17,7 @@ class CameraViewModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate
     
     private var output = AVCapturePhotoOutput()
     private var isFrontCamera = false
-
+    
     func checkPermissions() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
@@ -32,7 +32,7 @@ class CameraViewModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate
             return
         }
     }
-
+    
     func setup() {
         DispatchQueue.global(qos: .userInitiated).async {
             do {
@@ -56,13 +56,13 @@ class CameraViewModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate
             }
         }
     }
-
+    
     func takePic() {
         let settings = AVCapturePhotoSettings()
         settings.flashMode = isFlashOn ? .on : .off
         output.capturePhoto(with: settings, delegate: self)
     }
-
+    
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let error = error { print(error.localizedDescription); return }
         guard let data = photo.fileDataRepresentation() else { return }

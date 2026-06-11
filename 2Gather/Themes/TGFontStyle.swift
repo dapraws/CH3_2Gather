@@ -18,7 +18,7 @@ enum TGFontStyle {
     case labelXL, labelL, labelM, labelS
     // Special
     case filterChip
-
+    
     var baseSize: CGFloat {
         switch self {
         case .displayXL:  return 64
@@ -39,7 +39,7 @@ enum TGFontStyle {
         case .filterChip: return 14
         }
     }
-
+    
     var weight: Font.Weight {
         switch self {
         case .displayXL, .displayL:              return .black
@@ -49,17 +49,17 @@ enum TGFontStyle {
         case .headingXXS:                        return .bold    // sesuai Typography.swift
         case .bodyL, .bodyM, .bodyS, .bodyXS:    return .regular
         case .labelXL, .labelL, .labelM, .labelS,
-             .filterChip:                        return .medium
+                .filterChip:                        return .medium
         }
     }
-
+    
     var design: Font.Design {
         switch self {
         case .displayXL, .displayL, .displayM: return .rounded
         default:                               return .default
         }
     }
-
+    
     func scaledFont(multiplier: CGFloat) -> Font {
         .system(size: baseSize * multiplier, weight: weight, design: design)
     }

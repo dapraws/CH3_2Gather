@@ -105,15 +105,15 @@ extension Color {
     static let backgroundPrimary   = Color(.systemBackground)
     static let backgroundSecondary = Color(.secondarySystemBackground)
     static let backgroundElevated  = Color(.tertiarySystemBackground)
-
+    
     // MARK: Native Text Colors (Otomatis Dark Mode)
     static let textPrimary   = Color(.label)
     static let textSecondary = Color(.secondaryLabel)
     static let textDisabled  = Color(.tertiaryLabel)
-
+    
     // MARK: Native Border Color (Otomatis Dark Mode)
     static let borderDefault = Color(.separator)
-
+    
     // MARK: Native Status Colors (Otomatis Dark Mode)
     static let success = Color(.systemGreen)
     static let warning = Color(.systemOrange)

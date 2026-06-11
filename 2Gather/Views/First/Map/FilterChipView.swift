@@ -9,21 +9,21 @@ import SwiftUI
 
 struct FilterChipView: View {
     @Environment(\.colorScheme) var colorScheme
-
+    
     var label: String
     var icon: String
     var isSelected: Bool
     var onTap: () -> Void
-
+    
     var body: some View {
         Button(action: onTap) {
-
+            
             HStack(spacing: 6) {
                 Image(systemName: icon)
-                    .font(.TGFilterChipLabel)
+                    .scaledFont(.filterChip)
                     .foregroundStyle(isSelected ? Color.TGBrown : Color.primary)
                 Text(label)
-                    .font(.TGFilterChipLabel)
+                    .scaledFont(.filterChip)
                     .foregroundStyle(isSelected ? Color.TGBrown : Color.primary)
             }
             .padding(.horizontal, 12)
@@ -31,11 +31,11 @@ struct FilterChipView: View {
             .background(
                 isSelected
                 ? Color.TGYellow
-                    : .white.opacity(0)
+                : .white.opacity(0)
             )
             .glassEffect()
             .clipShape(Capsule())
-
+            
         }
     }
 }
@@ -53,5 +53,5 @@ struct FilterChipView: View {
             isSelected: true
         ) {}
     }.padding().background(.gray)
-
+    .withPreviewEnvironment()
 }

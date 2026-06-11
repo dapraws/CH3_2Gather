@@ -11,18 +11,18 @@ import SwiftUI
 struct RegisterView: View {
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject private var session: AppSession
-
+    
     @ObservedObject var viewModel: AuthViewModel
     @State private var isPasswordVisible = false
-
+    
     let onTapLogin: () -> Void
     let onSuccess: () -> Void
-
+    
     var body: some View {
         ZStack {
             Color.TGWhite
                 .ignoresSafeArea()
-
+            
             VStack(alignment: .leading, spacing: 16) {
                 Image(.mascotLogo)
                 Text("Register")
@@ -33,32 +33,32 @@ struct RegisterView: View {
                     text: $viewModel.registerUsername,
                     icon: "person.crop.circle"
                 )
-
+                
                 CustomTextField(
                     placeholder: "Email",
                     text: $viewModel.registerEmail,
                     icon: "envelope"
                 )
-
+                
                 CustomSecureField(
                     placeholder: "Password",
                     textPassword: $viewModel.registerPassword,
                     isVisible: $isPasswordVisible
                 )
-
+                
                 if let error = viewModel.errorMessage {
                     Text(error)
                         .foregroundStyle(.red)
                         .font(.footnote)
                 }
-
+                
                 VStack(alignment: .center, spacing: 16) {
                     Button {
                         let didRegister = viewModel.register(
                             modelContext: modelContext,
                             session: session
                         )
-
+                        
                         if didRegister {
                             onSuccess()
                         }
@@ -72,7 +72,7 @@ struct RegisterView: View {
                             .clipShape(Capsule())
                     }
                     .disabled(viewModel.isLoading)
-
+                    
                     Button {
                         onTapLogin()
                     } label: {
@@ -97,4 +97,5 @@ struct RegisterView: View {
     )
     .environmentObject(AppSession())
     .modelContainer(for: Account.self, inMemory: true)
+    .withPreviewEnvironment()
 }

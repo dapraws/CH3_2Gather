@@ -28,6 +28,6 @@ enum SportsCatalog {
         Sport(id: "dancing", icon: "figure.dance", name: "Dancing"),
         Sport(id: "pilates", icon: "figure.pilates", name: "Pilates"),
         Sport(id: "yoga", icon: "figure.yoga", name: "Yoga")
-
+        
     ]
 }
