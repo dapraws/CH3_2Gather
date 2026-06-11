@@ -100,15 +100,15 @@ struct SettingsView: View {
                     NavigationLink(destination: Text("Tutorial View")) {
                         HStack(spacing: 20) {
                             
-                            LottieView(animation: .named("animation-mascot-running"))
-                                .playing()
-                                .looping()
-                                .scaleEffect(1.6)
-                                .frame(width: 102, height: 81)
-                                .padding(.leading, 8)
-                                .id(isDarkMode)
+//                            LottieView(animation: .named("animation-mascot-running"))
+//                                .playing()
+//                                .looping()
+//                                .scaleEffect(1.6)
+//                                .frame(width: 102, height: 81)
+//                                .padding(.leading, 8)
+//                                .id(isDarkMode)
                             
-                            //                            Image(.mascotRunning)
+                                                        Image(.mascotRunning)
                             
                             //                            LottieView(animation: .named("animation-mascot-running"))
                             //                                .playbackMode(isMascotRunning ? .playing(.fromProgress(0, toProgress: 1, loopMode: .loop)) : .paused)
