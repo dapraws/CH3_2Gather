@@ -236,7 +236,7 @@ struct HomeView: View {
                     .foregroundColor(.TGBrownToWhite)
                 Text(subtitle)
                     .scaledFont(.labelM)
-                    .foregroundColor(.gray)
+                    .foregroundColor(.TGBrown.opacity(0.5))
             }
             Button {
                 withAnimation { selectedTab = 1 }

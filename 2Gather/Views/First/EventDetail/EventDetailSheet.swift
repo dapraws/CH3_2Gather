@@ -8,18 +8,30 @@
 import SwiftData
 import SwiftUI
 
+private enum EventCover: Identifiable {
+    case joinBanner
+    case rewardBanner(message: String)
+
+    var id: String {
+        switch self {
+        case .joinBanner: return "joinBanner"
+        case .rewardBanner(let m): return "reward_\(m)"
+        }
+    }
+}
+
 struct EventDetailSheet: View {
     
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) var dismiss
-    
+
     @Query private var userStates: [UserEventState]
     
     var event: Event
     @State private var viewModel: EventDetailViewModel
-    
-    @State private var showFullScreenView = false
-    
+
+    @State private var activeCover: EventCover? = nil
+
     init(event: Event) {
         self.event = event
         _viewModel = State(
@@ -34,55 +46,52 @@ struct EventDetailSheet: View {
     private var isJoined: Bool {
         currentUserState != nil
     }
-    
+
     private var isCompleted: Bool {
         currentUserState?.isCompleted == true
     }
-    
+
     private var sport: SportCategory {
         SportCategory.from(categories: event.category)
     }
     
     var body: some View {
-        
         NavigationStack {
-            
             ZStack {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 0) {
-                        
                         VStack(alignment: .leading, spacing: 16) {
-                            
-                            HStack (alignment: .center) {
+
+                            HStack(alignment: .center) {
                                 Text(event.name)
                                     .foregroundStyle(Color.TGBrownToWhite)
                                     .scaledFont(.headingL)
                                     .bold()
-                                
+
                                 Spacer()
-                                HStack (spacing: 10) {
+
+                                HStack(spacing: 10) {
                                     Button {
-                                        Void()
+                                        // share placeholder
                                     } label: {
                                         Image(systemName: "square.and.arrow.up")
                                     }
                                     .frame(width: 44, height: 44)
                                     .background(Circle().fill(Color.gray.opacity(0.16)))
                                     .foregroundStyle(Color.TGBrownToWhite)
-                                    
-                                    
+
                                     Button {
                                         dismiss()
                                     } label: {
                                         Image(systemName: "xmark")
-                                    }.buttonStyle(.plain)
-                                        .frame(width: 44, height: 44)
-                                        .background(Circle().fill(Color.gray.opacity(0.16)))
-                                        .foregroundStyle(Color.TGBrownToWhite)
+                                    }
+                                    .buttonStyle(.plain)
+                                    .frame(width: 44, height: 44)
+                                    .background(Circle().fill(Color.gray.opacity(0.16)))
+                                    .foregroundStyle(Color.TGBrownToWhite)
                                 }
                             }
-                            
-                            
+
                             EventInfoRowView(event: event)
                                 .padding(.top, 8)
                             
@@ -93,59 +102,58 @@ struct EventDetailSheet: View {
                                 onJoin: {
                                     let newState = UserEventState(eventId: event.id)
                                     modelContext.insert(newState)
-                                    
-                                    showFullScreenView = true
+                                    activeCover = .joinBanner
                                 },
                                 onMissionComplete: { message in
                                     if let state = currentUserState {
                                         state.isCompleted = true
                                     }
-                                    viewModel.rewardMessage = message
-                                    viewModel.showReward = true
+                                    activeCover = .rewardBanner(message: message)
                                 }
                             )
-                            
+
                             if isJoined && !isCompleted {
                                 HStack {
                                     Spacer()
-                                    Button("Cancel event"){
+                                    Button("Cancel event") {
                                         if let state = currentUserState {
                                             modelContext.delete(state)
                                             dismiss()
                                         }
-                                    }.foregroundStyle(Color.TGRedToOrange)
+                                    }
+                                    .foregroundStyle(Color.TGRedToOrange)
                                     Spacer()
                                 }
                                 .scaledFont(.bodyM) 
                             }
-                            
                         }
                         .padding(.horizontal, 24)
                         .padding(.top, 31)
                         .padding(.bottom, 44)
                     }
                 }
-                
             }
-            .animation(.spring(duration: 0.3), value: viewModel.showReward)
             .presentationDetents([.medium])
-            .fullScreenCover(isPresented: $viewModel.showReward) {
-                CompletedMissionBannerView(
-                    onDismiss: { viewModel.showReward = false },
-                    eventName: event.name,
-                    sport: sport
-                )
-                .transition(.scale.combined(with: .opacity))
-            }
-            .fullScreenCover(isPresented: $showFullScreenView) {
-                MissionBannerFullScreenView(mission: $viewModel.mission, event: event)
+            .fullScreenCover(item: $activeCover) { cover in
+                switch cover {
+                case .joinBanner:
+                    MissionBannerFullScreenView(
+                        mission: $viewModel.mission,
+                        event: event
+                    )
+                case .rewardBanner:
+                    CompletedMissionBannerView(
+                        onDismiss: { activeCover = nil },
+                        eventName: event.name,
+                        sport: sport
+                    )
+                    .transition(.scale.combined(with: .opacity))
+                }
             }
         }
-        
     }
 }
 
 #Preview {
-    EventDetailSheet(event: TempData.event1 )
-    .withPreviewEnvironment()
+    EventDetailSheet(event: TempData.event1)
 }
