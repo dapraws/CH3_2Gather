@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F3C48B42FDA3917004E3C43 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 1F3C48B32FDA3917004E3C43 /* Lottie */; };
 		1F4C42092FD353DF006ED238 /* Flow in Frameworks */ = {isa = PBXBuildFile; productRef = 1F4C42082FD353DF006ED238 /* Flow */; };
-		7A42BF322FD6B01D0076D280 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 7A42BF312FD6B01D0076D280 /* Lottie */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,7 +42,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F4C42092FD353DF006ED238 /* Flow in Frameworks */,
-				7A42BF322FD6B01D0076D280 /* Lottie in Frameworks */,
+				1F3C48B42FDA3917004E3C43 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,7 +86,7 @@
 			name = 2Gather;
 			packageProductDependencies = (
 				1F4C42082FD353DF006ED238 /* Flow */,
-				7A42BF312FD6B01D0076D280 /* Lottie */,
+				1F3C48B32FDA3917004E3C43 /* Lottie */,
 			);
 			productName = CH3_Group13;
 			productReference = 1F3094E72FAC8628001A265D /* 2Gather.app */;
@@ -118,7 +118,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				1F4C42072FD353DF006ED238 /* XCRemoteSwiftPackageReference "SwiftUI-Flow" */,
-				7A42BF302FD6B01D0076D280 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				1F3C48B22FDA3917004E3C43 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 1F3094E82FAC8628001A265D /* Products */;
@@ -364,6 +364,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1F3C48B22FDA3917004E3C43 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.6.0;
+			};
+		};
 		1F4C42072FD353DF006ED238 /* XCRemoteSwiftPackageReference "SwiftUI-Flow" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/tevelee/SwiftUI-Flow";
@@ -372,26 +380,18 @@
 				minimumVersion = 3.2.0;
 			};
 		};
-		7A42BF302FD6B01D0076D280 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.6.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1F3C48B32FDA3917004E3C43 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1F3C48B22FDA3917004E3C43 /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
+		};
 		1F4C42082FD353DF006ED238 /* Flow */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1F4C42072FD353DF006ED238 /* XCRemoteSwiftPackageReference "SwiftUI-Flow" */;
 			productName = Flow;
-		};
-		7A42BF312FD6B01D0076D280 /* Lottie */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7A42BF302FD6B01D0076D280 /* XCRemoteSwiftPackageReference "lottie-ios" */;
-			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
