@@ -8,9 +8,9 @@
 import Foundation
 
 struct TempData {
-
+    
     // Missions
-
+    
     static let soloMission1 = Mission(
         id: UUID(uuidString: "00000000-0000-0000-0000-000000000101")!,
         name: "Snap the Spike",
@@ -18,7 +18,7 @@ struct TempData {
         type: .solo,
         reward: "🏐 Nice shot! You captured the energy of the game!"
     )
-
+    
     static let completedMission: Mission = {
         let m = Mission(
             id: UUID(uuidString: "00000000-0000-0000-0000-000000000102")!,
@@ -30,9 +30,9 @@ struct TempData {
         m.isCompleted = true
         return m
     }()
-
+    
     // Events
-
+    
     static let event1 = Event(
         id: UUID(uuidString: "00000000-0000-0000-0000-000000000001")!,
         name: "Bali Beach Volleyball Open",
@@ -46,7 +46,7 @@ struct TempData {
         photoPath: "volleyball-bali",
         mission: soloMission1
     )
-
+    
     static let event2 = Event(
         id: UUID(uuidString: "00000000-0000-0000-0000-000000000002")!,
         name: "Sunset Run",
@@ -60,7 +60,7 @@ struct TempData {
         photoPath: "run-bali",
         mission: completedMission
     )
-
+    
     static let event3 = Event(
         id: UUID(uuidString: "00000000-0000-0000-0000-000000000003")!,
         name: "Legian Football Kickabout",
@@ -80,7 +80,7 @@ struct TempData {
             reward: "⚽ The game begins with you!"
         )
     )
-
+    
     static let event4 = Event(
         id: UUID(uuidString: "00000000-0000-0000-0000-000000000004")!,
         name: "Kuta Basketball Street Jam",
@@ -100,7 +100,7 @@ struct TempData {
             reward: "🏀 You showed up!"
         )
     )
-
+    
     static let event5 = Event(
         id: UUID(uuidString: "00000000-0000-0000-0000-000000000005")!,
         name: "Kuta Cycling Morning Ride",
@@ -120,7 +120,7 @@ struct TempData {
             reward: "🌅 Early bird gets the view!"
         )
     )
-
+    
     static let event6 = Event(
         id: UUID(uuidString: "00000000-0000-0000-0000-000000000006")!,
         name: "Arjuna Futsal Night",
@@ -140,7 +140,7 @@ struct TempData {
             reward: "📷 Squad goals captured!"
         )
     )
-
+    
     static let event7 = Event(
         id: UUID(uuidString: "00000000-0000-0000-0000-000000000007")!,
         name: "Sunset Yoga at Seminyak",
@@ -160,7 +160,7 @@ struct TempData {
             reward: "🧘 Inner peace unlocked!"
         )
     )
-
+    
     static let event8 = Event(
         id: UUID(uuidString: "00000000-0000-0000-0000-000000000008")!,
         name: "Kuta Latin Dance Social",
@@ -180,7 +180,7 @@ struct TempData {
             reward: "💃 You've got the rhythm!"
         )
     )
-
+    
     static let allEvents: [Event] = [
         event1, event2, event3, event4, event5, event6, event7, event8,
     ]

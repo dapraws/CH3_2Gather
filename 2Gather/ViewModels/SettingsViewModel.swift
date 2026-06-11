@@ -11,17 +11,17 @@ import PhotosUI
 
 @Observable
 final class SettingsViewModel {
-
+    
     var isDarkMode: Bool {
         get { UserDefaults.standard.bool(forKey: "isDarkMode") }
         set { UserDefaults.standard.set(newValue, forKey: "isDarkMode") }
     }
-
+    
     var selectedPhotoItem: PhotosPickerItem? = nil
     var profileImage: UIImage? = nil
-
+    
     var searchText: String = ""
-
+    
     var filteredSports: [Sport] {
         if searchText.isEmpty {
             return SportsCatalog.all
@@ -31,7 +31,7 @@ final class SettingsViewModel {
             }
         }
     }
-
+    
     func loadProfileImage(from path: String?) {
         guard let path else {
             profileImage = nil
@@ -39,16 +39,16 @@ final class SettingsViewModel {
         }
         profileImage = PhotoStorage.loadProfileImage(named: path)
     }
-
+    
     func handlePhotoSelection(item: PhotosPickerItem?, account: Account?, modelContext: ModelContext) {
         guard let item else { return }
-
+        
         Task {
             guard let data = try? await item.loadTransferable(type: Data.self),
                   let image = UIImage(data: data),
                   let account
             else { return }
-
+            
             if let fileName = PhotoStorage.saveProfileImage(image, for: account.id) {
                 await MainActor.run {
                     account.profilePhoto = fileName
@@ -58,10 +58,10 @@ final class SettingsViewModel {
             }
         }
     }
-
+    
     func toggleSport(_ sport: Sport, account: Account?, modelContext: ModelContext) {
         guard let account else { return }
-
+        
         var ids = account.preferenceSportIDs
         if ids.contains(sport.id) {
             ids.removeAll { $0 == sport.id }
@@ -70,7 +70,7 @@ final class SettingsViewModel {
         }
         account.preferenceSportIDs = ids
         try? modelContext.save()
-
+        
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
     }
 }

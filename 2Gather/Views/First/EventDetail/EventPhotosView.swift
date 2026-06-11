@@ -42,8 +42,10 @@ struct EventPhotoView: View {
 
 #Preview("With Photo") {
     EventPhotoView(photoPath: "some_path")
+    .withPreviewEnvironment()
 }
 
 #Preview("No Photo") {
     EventPhotoView(photoPath: nil)
+    .withPreviewEnvironment()
 }

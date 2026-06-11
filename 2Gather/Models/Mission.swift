@@ -17,7 +17,7 @@ class Mission {
     var proofPath: String?
     var isCompleted: Bool
     var reward: String
-
+    
     init(
         id: UUID = UUID(),
         name: String,

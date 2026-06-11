@@ -13,34 +13,34 @@ struct MissionCardView: View {
     var eventId: UUID  // pass eventId instead of eventState
     var onComplete: (String) -> Void = { _ in }
     var showButton: Bool
-
+    
     @Query private var allStates: [UserEventState]
     @State private var viewModel = MissionViewModel()
-
+    
     // Now we can safely look up the right state reactively
     private var eventState: UserEventState? {
         allStates.first(where: { $0.eventId == eventId })
     }
-
+    
     private var savedImage: UIImage? {
         guard let path = eventState?.proofImagePath else { return nil }
         return PhotoStorage.loadProofImage(named: path)
     }
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 let completed = eventState?.isCompleted == true
                 Image(systemName: completed ? "checkmark.circle":"target")
                 Text(completed ? "Quest Completed" : "Quest")
-                    
-            }.font(.system(size: 20, weight: .bold))
-            .foregroundStyle(Color.TGBrown)
+                
+            }.scaledFont(.headingM)
+                .foregroundStyle(Color.TGBrown)
             
             Text(mission.desc)
                 .foregroundStyle(Color.TGBrown)
-                .font(.system(size: 17, weight: .regular))
-
+                .scaledFont(.bodyL)
+            
             if eventState?.isCompleted == true {
                 
                 if let image = savedImage {
@@ -74,9 +74,9 @@ struct MissionCardView: View {
                         .onTapGesture {
                             if savedImage != nil { viewModel.showPreview = true }
                         }
-
+                    
                 }
-
+                
             } else {
                 if showButton == true {
                     Button {
@@ -102,13 +102,13 @@ struct MissionCardView: View {
                         colors: [.TGGradient, .TGYellow], startPoint: .top, endPoint: .bottom
                     )
                     .shadow(
-                       .inner(
-                           color: Color.black.opacity(0.25),
-                           radius: 2,
-                           x: 0,
-                           y: 1
-                       )
-                   )
+                        .inner(
+                            color: Color.black.opacity(0.25),
+                            radius: 2,
+                            x: 0,
+                            y: 1
+                        )
+                    )
                 )
         )
         .fullScreenCover(isPresented: $viewModel.showCamera) {
@@ -159,4 +159,5 @@ struct MissionCardView: View {
         showButton: true
     )
     .padding()
+    .withPreviewEnvironment()
 }

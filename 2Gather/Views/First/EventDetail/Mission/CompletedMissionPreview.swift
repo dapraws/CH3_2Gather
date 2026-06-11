@@ -11,7 +11,7 @@ struct CompletedMissionPreview: View {
     var image: UIImage
     var caption: String?
     var onDismiss: () -> Void
-
+    
     var body: some View {
         ZStack {
             Color.black.ignoresSafeArea()
@@ -25,24 +25,24 @@ struct CompletedMissionPreview: View {
                             .foregroundColor(.white)
                             .frame(width: 44, height: 44)
                             .background(Color.TGBrownToYellow .opacity(0.3), in: Circle())
-
+                        
                     }
                     .padding()
                 }
                 Spacer()
             }
             .zIndex(1)
-
+            
             ZStack(alignment: .bottom) {
                 Image(uiImage: image)
                     .resizable()
                     .background()
                     .scaledToFit()
                     .ignoresSafeArea()
-
+                
                 if let caption = caption, !caption.isEmpty {
                     Text(caption)
-                        .font(.body)
+                        .scaledFont(.bodyL)
                         .foregroundColor(.white)
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -77,4 +77,5 @@ struct CompletedMissionPreview: View {
         caption: "Caught the perfect spike! 🏐",
         onDismiss: {}
     )
+    .withPreviewEnvironment()
 }

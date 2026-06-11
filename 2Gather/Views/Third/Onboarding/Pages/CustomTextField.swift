@@ -10,12 +10,12 @@ struct CustomTextField: View {
     let placeholder: String
     @Binding var text: String
     let icon: String
-
+    
     var body: some View {
         HStack(spacing: 12) {
             Image(systemName: icon)
                 .foregroundColor(.gray)
-
+            
             TextField(placeholder, text: $text)
                 .foregroundColor(.black.opacity(0.5))
         }
@@ -31,12 +31,12 @@ struct CustomSecureField: View {
     let placeholder: String
     @Binding var textPassword: String
     @Binding var isVisible: Bool
-
+    
     var body: some View {
         HStack(spacing: 8) {
             Image(systemName: "lock")
                 .foregroundColor(.gray)
-
+            
             Group {
                 if isVisible {
                     TextField(placeholder, text: $textPassword)
@@ -47,7 +47,7 @@ struct CustomSecureField: View {
                         .foregroundColor(.black.opacity(0.5))
                 }
             }
-
+            
             Button {
                 isVisible.toggle()
             } label: {
@@ -76,4 +76,5 @@ struct CustomSecureField: View {
         )
     }
     .padding()
+    .withPreviewEnvironment()
 }

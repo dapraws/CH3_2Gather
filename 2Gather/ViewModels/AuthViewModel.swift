@@ -13,27 +13,27 @@ import SwiftUI
 final class AuthViewModel: ObservableObject {
     @Published var loginEmail: String = ""
     @Published var loginPassword: String = ""
-
+    
     @Published var registerUsername: String = ""
     @Published var registerEmail: String = ""
     @Published var registerPassword: String = ""
-
+    
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
-
+    
     private let authService: AuthService
-
+    
     init(authService: AuthService) {
         self.authService = authService
     }
-
+    
     @discardableResult
     func login(modelContext: ModelContext, session: AppSession) -> Bool {
         isLoading = true
         errorMessage = nil
-
+        
         defer { isLoading = false }
-
+        
         do {
             let account = try authService.login(
                 email: loginEmail.trimmingCharacters(in: .whitespacesAndNewlines),
@@ -47,14 +47,14 @@ final class AuthViewModel: ObservableObject {
             return false
         }
     }
-
+    
     @discardableResult
     func register(modelContext: ModelContext, session: AppSession) -> Bool {
         isLoading = true
         errorMessage = nil
-
+        
         defer { isLoading = false }
-
+        
         do {
             let account = try authService.register(
                 username: registerUsername.trimmingCharacters(in: .whitespacesAndNewlines),
@@ -69,7 +69,7 @@ final class AuthViewModel: ObservableObject {
             return false
         }
     }
-
+    
     func clearMessages() {
         errorMessage = nil
     }

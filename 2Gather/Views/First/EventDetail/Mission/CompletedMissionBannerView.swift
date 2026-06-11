@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Lottie
 
 struct CompletedMissionBannerView: View {
 
@@ -26,7 +27,7 @@ struct CompletedMissionBannerView: View {
                     Image(systemName: sport.icon)
                         .font(.system(size: 30))
                     Text(eventName)
-                        .font(.system(size: 17, weight: .medium))
+                        .scaledFont(.labelL)
                 }
                 .foregroundColor(.TGBrown)
 
@@ -39,19 +40,17 @@ struct CompletedMissionBannerView: View {
                             // share placeholder
                         } label: {
                             Text("Share")
-                                .font(.system(size: 14, weight: .medium))
-                        }
-                        .buttonStyle(TGShareBannerButtonStyle())
-                        .frame(maxWidth: 120, minHeight: 36)
-
+                        }.buttonStyle(TGShareBannerButtonStyle())
+                            .frame(maxWidth: 120, minHeight: 36)
+                        
                         Button {
                             onDismiss()
                         } label: {
                             Text("Close")
-                        }
-                        .foregroundStyle(Color.TGOrange)
+                            .scaledFont(.labelM)
+                        }.foregroundStyle(Color.TGOrange)
+                        
                     }
-                    .font(.system(size: 14, weight: .medium))
                     Spacer()
                 }
             }

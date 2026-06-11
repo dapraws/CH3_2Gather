@@ -8,27 +8,27 @@
 import SwiftUI
 
 struct MissionRewardPopup: View {
-
+    
     var rewardMessage: String
     var onDismiss: () -> Void = {}
-
+    
     var body: some View {
         VStack(spacing: 24) {
-
+            
             Image(systemName: "star.fill")
                 .font(.system(size: 60))
                 .foregroundStyle(.yellow)
-
+            
             Text("Mission Complete!")
                 .font(.title)
                 .bold()
                 .foregroundStyle(Color(.black))
-
+            
             Text(rewardMessage)
                 .font(.body)
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.gray)
-
+            
             Button("Awesome!", action: onDismiss)
                 .buttonStyle(.borderedProminent)
         }
@@ -47,4 +47,5 @@ struct MissionRewardPopup: View {
     MissionRewardPopup(
         rewardMessage: "🏐 Nice shot! You captured the energy of the game!"
     )
+    .withPreviewEnvironment()
 }

@@ -9,20 +9,20 @@ import SwiftUI
 
 @Observable
 class EventDetailViewModel {
-
+    
     var mission: Mission
     var showReward: Bool = false
     var rewardMessage: String = ""
-
+    
     init(mission: Mission) {
         self.mission = mission
     }
-
+    
     func completeMission(_ message: String) {
         rewardMessage = message
         showReward = true
     }
-
+    
     func dismissReward() {
         showReward = false
     }

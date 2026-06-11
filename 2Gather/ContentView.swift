@@ -11,11 +11,11 @@ import SwiftUI
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var events: [Event]
-
+    
     @State private var selectedTab: Int = 0
     
     @AppStorage("isDarkMode") private var isDarkMode = false
-
+    
     var body: some View {
         TabView(selection: $selectedTab) {
             HomeView(selectedTab: $selectedTab)
@@ -23,7 +23,7 @@ struct ContentView: View {
                     Label("You", systemImage: "person.fill")
                 }
                 .tag(0)
-
+            
             MapView()
                 .tabItem {
                     Label("Explore", systemImage: "map")
@@ -36,7 +36,7 @@ struct ContentView: View {
             seedDataIfNeeded()
         }
     }
-
+    
     private func seedDataIfNeeded() {
         guard events.isEmpty else { return }
         for event in TempData.allEvents {
@@ -47,4 +47,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+    .withPreviewEnvironment()
 }

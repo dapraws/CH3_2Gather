@@ -11,20 +11,20 @@ struct ProofPreviewView: View {
     var image: UIImage
     var onSend: (String) -> Void
     var onRetake: () -> Void
-
+    
     @State private var caption: String = ""
     @FocusState private var captionFocused: Bool
-
+    
     var body: some View {
         ZStack {
             Color.black.ignoresSafeArea()
-
+            
             Image(uiImage: image)
                 .resizable()
                 .background()
                 .scaledToFit()
                 .ignoresSafeArea()
-
+            
             VStack {
                 HStack {
                     Button(action: onRetake) {
@@ -38,17 +38,18 @@ struct ProofPreviewView: View {
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 16)
-
+                
                 Spacer()
-
+                
                 HStack(spacing: 12) {
                     TextField("Add a caption...", text: $caption)
+                        .scaledFont(.bodyL)
                         .focused($captionFocused)
                         .padding(.horizontal, 16)
                         .padding(.vertical, 10)
                         .background(Color.TGWhiteToBrown , in: Capsule())
-                        .foregroundColor(.white)
-
+                        .foregroundColor(.TGBrown)
+                    
                     Button(action: { onSend(caption) }) {
                         Image(systemName: "paperplane.fill")
                             .font(.system(size: 20, weight: .semibold))
@@ -73,4 +74,5 @@ struct ProofPreviewView: View {
         onSend: { caption in print("Sent: \(caption)") },
         onRetake: { print("Retake") }
     )
+    .withPreviewEnvironment()
 }

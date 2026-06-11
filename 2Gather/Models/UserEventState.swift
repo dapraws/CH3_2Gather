@@ -15,7 +15,7 @@ class UserEventState {
     var isCompleted: Bool
     var proofImagePath: String?
     var caption: String?
-
+    
     init(eventId: UUID) {
         self.eventId = eventId
         self.joinedAt = Date()

@@ -8,16 +8,16 @@
 import SwiftUI
 
 struct MissionSectionView: View {
-
+    
     @Binding var mission: Mission
     var eventId: UUID
     var isJoined: Bool
     var onJoin: () -> Void
     var onMissionComplete: (String) -> Void = { _ in }
-
+    
     var body: some View {
         VStack(alignment: .center, spacing: 12) {
-
+            
             if isJoined {
                 // UNLOCKED
                 MissionCardView(
@@ -29,11 +29,11 @@ struct MissionSectionView: View {
                     
                 )
                 .transition(.move(edge: .bottom).combined(with: .opacity))
-
+                
             } else {
                 // LOCKED
                 ZStack {
-
+                    
                     VStack(alignment: .center) {
                         Image(systemName: "lock.fill")
                             .font(.system(size: 64, weight: .bold))
@@ -41,7 +41,7 @@ struct MissionSectionView: View {
                         VStack {
                             Text("JOIN THE EVENT")
                             Text("TO GET A QUEST")
-                        }.font(.headingS)
+                        }.scaledFont(.headingS)
                     }
                     .frame(maxWidth: .infinity)
                     .foregroundStyle(Color.TGBrown)
@@ -53,13 +53,13 @@ struct MissionSectionView: View {
                                     colors: [.TGGradient, .TGYellow,. TGYellow], startPoint: .top, endPoint: .bottom
                                 )
                                 .shadow(
-                                   .inner(
-                                       color: Color.black.opacity(0.25),
-                                       radius: 2,
-                                       x: 0,
-                                       y: 1
-                                   )
-                               )
+                                    .inner(
+                                        color: Color.black.opacity(0.25),
+                                        radius: 2,
+                                        x: 0,
+                                        y: 1
+                                    )
+                                )
                             )
                     )
                 }
@@ -76,7 +76,7 @@ struct MissionSectionView: View {
                     Text("Join")
                 }.buttonStyle(TGSecondaryButtonStyle())
             }
-
+            
         }
         .animation(.default, value: isJoined)
     }
@@ -100,4 +100,5 @@ struct MissionSectionView: View {
         onJoin: {}
     )
     .padding()
+    .withPreviewEnvironment()
 }

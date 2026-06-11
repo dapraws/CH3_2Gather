@@ -9,11 +9,11 @@ import SwiftUI
 import SwiftData
 
 struct OnboardingView: View {
-
+    
     @StateObject private var authViewModel = AuthViewModel(authService: AuthService())
     @StateObject private var viewModel = OnboardingViewModel()
     @EnvironmentObject private var session: AppSession
-
+    
     var body: some View {
         ZStack(alignment: .top) {
             Group {
@@ -64,33 +64,33 @@ struct OnboardingView: View {
         }
         .overlay(alignment: .top) {
             if viewModel.currentStep != .welcoming {
-            HStack(spacing: 80) {
-                Button {
-                    viewModel.goBack()
-                } label: {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 26, weight: .semibold))
-                        .foregroundStyle(Color.black)
-                }
-
-                HStack(spacing: 6) {
-                    ForEach(1...4, id: \.self) { step in
-                        Capsule()
-                            .fill(step <= progressValue(for: viewModel.currentStep)
-                                  ? Color.TGOrange
-                                  : Color.secondary.opacity(0.3))
-                            .frame(height: 4)
+                HStack(spacing: 80) {
+                    Button {
+                        viewModel.goBack()
+                    } label: {
+                        Image(systemName: "chevron.left")
+                            .font(.system(size: 26, weight: .semibold))
+                            .foregroundStyle(Color.black)
+                    }
+                    
+                    HStack(spacing: 6) {
+                        ForEach(1...4, id: \.self) { step in
+                            Capsule()
+                                .fill(step <= progressValue(for: viewModel.currentStep)
+                                      ? Color.TGOrange
+                                      : Color.secondary.opacity(0.3))
+                                .frame(height: 4)
+                        }
                     }
                 }
-            }
-            .padding(.horizontal, 20)
-            .padding(.top, 16)
-            
+                .padding(.horizontal, 20)
+                .padding(.top, 16)
+                
                 
             }
         }
     }
-
+    
     private func progressValue(for step: OnboardingViewModel.Step) -> Int {
         switch step {
         case .welcoming:         return 0
@@ -105,4 +105,5 @@ struct OnboardingView: View {
     OnboardingView()
         .environmentObject(AppSession())
         .modelContainer(for: Account.self, inMemory: true)
+        .withPreviewEnvironment()
 }

@@ -29,7 +29,7 @@ struct HomeView: View {
     private var completedStates: [UserEventState] {
         viewModel.completedStates(userStates: userStates)
     }
-
+    
     private var upcomingEvents: [Event] {
         viewModel.upcomingEvents(events: events, userStates: userStates)
     }
@@ -39,7 +39,7 @@ struct HomeView: View {
             ScrollView {
                 VStack(spacing: 20) {
                     profileImageView
-
+                    
                     StatsRowView(
                         questsCompleted: completedStates.count,
                         sportsTried: viewModel.sportsTried(
@@ -113,7 +113,7 @@ struct HomeView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text(account?.username ?? "2Gather")
-                        .font(.system(size: 17, weight: .bold))
+                        .scaledFont(.headingS)
                         .foregroundColor(.TGBrownToWhite)
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -153,7 +153,7 @@ struct HomeView: View {
     private var profileImageView: some View {
         Group {
             if let path = account?.profilePhoto,
-                let image = PhotoStorage.loadProfileImage(named: path)
+               let image = PhotoStorage.loadProfileImage(named: path)
             {
                 Image(uiImage: image)
                     .resizable()
@@ -231,17 +231,17 @@ struct HomeView: View {
                 .frame(height: 100)
             VStack(spacing: 6) {
                 Text(title)
-                    .font(.system(size: 18, weight: .bold))
+                    .scaledFont(.headingM)
                     .foregroundColor(.TGBrownToWhite)
                 Text(subtitle)
-                    .font(.system(size: 14))
-                    .foregroundColor(.gray)
+                    .scaledFont(.labelM)
+                    .foregroundColor(.TGBrown.opacity(0.5))
             }
             Button {
                 withAnimation { selectedTab = 1 }
             } label: {
                 Text("Explore!")
-                    .font(.system(size: 16, weight: .bold))
+                    .scaledFont(.labelL)
             }
             .buttonStyle(TGSecondaryButtonStyle())
             .frame(width: 160)

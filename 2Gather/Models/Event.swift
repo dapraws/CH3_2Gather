@@ -21,7 +21,7 @@ class Event {
     var longitude: Double
     var photoPath: String?
     @Relationship(deleteRule: .cascade) var mission: Mission
-
+    
     init(
         id: UUID = UUID(),
         name: String,
@@ -47,7 +47,7 @@ class Event {
         self.photoPath = photoPath
         self.mission = mission
     }
-
+    
     var formattedDate: String {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -55,7 +55,7 @@ class Event {
         formatter.dateFormat = "d MMM"
         return formatter.string(from: date)
     }
-
+    
     var formattedTime: String {
         let formatter = DateFormatter()
         //formatter.dateStyle = .none
