@@ -9,7 +9,7 @@ import SwiftUI
 import GeoToolbox
 
 struct EventInfoRowView: View {
-
+    
     var event: Event
     let spacingValue : CGFloat = 4
     var body: some View {
@@ -22,7 +22,7 @@ struct EventInfoRowView: View {
                         .bold()
                     Text(event.formattedTime)
                         .lineLimit(1)
-                        .font(.bodyL)
+                        .scaledFont(.bodyL)
                         .foregroundColor(.TGBrownToWhite)
                 }
                 
@@ -32,7 +32,7 @@ struct EventInfoRowView: View {
                         .bold()
                     Text(event.formattedDate)
                         .lineLimit(1)
-                        .font(.bodyL)
+                        .scaledFont(.bodyL)
                         .foregroundColor(.TGBrownToWhite)
                 }
                 
@@ -42,7 +42,7 @@ struct EventInfoRowView: View {
                         .bold()
                     Text(event.venueName)
                         .lineLimit(1)
-                        .font(.bodyL)
+                        .scaledFont(.bodyL) 
                         .foregroundColor(.TGBrownToWhite)
                 }
             }
@@ -53,4 +53,5 @@ struct EventInfoRowView: View {
 #Preview {
     EventInfoRowView(event: TempData.event1)
         .padding()
+    .withPreviewEnvironment()
 }

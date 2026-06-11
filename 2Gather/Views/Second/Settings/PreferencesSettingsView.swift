@@ -14,15 +14,15 @@ struct PreferencesSettingsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var accounts: [Account]
     var viewModel: SettingsViewModel
-
+    
     private var account: Account? {
         accounts.first { $0.id.uuidString == session.loggedInUserId }
     }
-
+    
     private var selectedSportIDs: Set<String> {
         Set(account?.preferenceSportIDs ?? [])
     }
-
+    
     var body: some View {
         VStack(spacing: 0) {
             HStack {
@@ -35,7 +35,7 @@ struct PreferencesSettingsView: View {
                     )
                 )
                 .autocorrectionDisabled(true)
-
+                
                 if !viewModel.searchText.isEmpty {
                     Button {
                         viewModel.searchText = ""
@@ -53,11 +53,12 @@ struct PreferencesSettingsView: View {
             .padding(.horizontal, 20)
             .padding(.top, 16)
             .padding(.bottom, 24)
-
+            
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
                     if viewModel.filteredSports.isEmpty {
                         Text("No sports found.")
+                            .scaledFont(.bodyM)  
                             .foregroundColor(.gray)
                             .frame(maxWidth: .infinity, alignment: .center)
                             .padding(.top, 40)
@@ -68,7 +69,7 @@ struct PreferencesSettingsView: View {
                                     sport: sport.name,
                                     isSelected: selectedSportIDs.contains(
                                         sport.id),
-                                        isDynamicTheme: true
+                                    isDynamicTheme: true
                                 ) {
                                     viewModel.toggleSport(
                                         sport,
@@ -79,7 +80,7 @@ struct PreferencesSettingsView: View {
                             }
                         }
                     }
-
+                    
                     Image(.mascotBasketball)
                         .resizable()
                         .scaledToFit()
@@ -102,4 +103,5 @@ struct PreferencesSettingsView: View {
         PreferencesSettingsView(viewModel: SettingsViewModel())
             .environmentObject(AppSession())
     }
+    .withPreviewEnvironment()
 }

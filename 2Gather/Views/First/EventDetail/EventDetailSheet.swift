@@ -21,12 +21,12 @@ private enum EventCover: Identifiable {
 }
 
 struct EventDetailSheet: View {
-
+    
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) var dismiss
 
     @Query private var userStates: [UserEventState]
-
+    
     var event: Event
     @State private var viewModel: EventDetailViewModel
 
@@ -38,11 +38,11 @@ struct EventDetailSheet: View {
             initialValue: EventDetailViewModel(mission: event.mission)
         )
     }
-
+    
     private var currentUserState: UserEventState? {
         userStates.first(where: { $0.eventId == event.id })
     }
-
+    
     private var isJoined: Bool {
         currentUserState != nil
     }
@@ -54,7 +54,7 @@ struct EventDetailSheet: View {
     private var sport: SportCategory {
         SportCategory.from(categories: event.category)
     }
-
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -65,7 +65,7 @@ struct EventDetailSheet: View {
                             HStack(alignment: .center) {
                                 Text(event.name)
                                     .foregroundStyle(Color.TGBrownToWhite)
-                                    .font(.headingL)
+                                    .scaledFont(.headingL)
                                     .bold()
 
                                 Spacer()
@@ -94,7 +94,7 @@ struct EventDetailSheet: View {
 
                             EventInfoRowView(event: event)
                                 .padding(.top, 8)
-
+                            
                             MissionSectionView(
                                 mission: $viewModel.mission,
                                 eventId: event.id,
@@ -124,6 +124,7 @@ struct EventDetailSheet: View {
                                     .foregroundStyle(Color.TGRedToOrange)
                                     Spacer()
                                 }
+                                .scaledFont(.bodyM) 
                             }
                         }
                         .padding(.horizontal, 24)

@@ -11,17 +11,17 @@ import SwiftUI
 struct LoginView: View {
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject private var session: AppSession
-
+    
     @ObservedObject var viewModel: AuthViewModel
     @State private var isPasswordVisible = false
-
+    
     let onTapRegister: () -> Void
     let onSuccess: () -> Void
-
+    
     var body: some View {
         ZStack {
             Color.TGWhite
-                            .ignoresSafeArea()
+                .ignoresSafeArea()
             VStack(alignment: .leading, spacing: 16) {
                 Image(.mascotLogo)
                 Text("Login")
@@ -32,26 +32,26 @@ struct LoginView: View {
                     text: $viewModel.loginEmail,
                     icon: "envelope"
                 )
-
+                
                 CustomSecureField(
                     placeholder: "Password",
                     textPassword: $viewModel.loginPassword,
                     isVisible: $isPasswordVisible,
                 )
-
+                
                 if let error = viewModel.errorMessage {
                     Text(error)
                         .foregroundStyle(.red)
                         .font(.footnote)
                 }
-
+                
                 VStack(alignment: .center, spacing: 16) {
                     Button {
                         let didLogin = viewModel.login(
                             modelContext: modelContext,
                             session: session
                         )
-
+                        
                         if didLogin {
                             onSuccess()
                         }
@@ -65,7 +65,7 @@ struct LoginView: View {
                             .clipShape(Capsule())
                     }
                     .disabled(viewModel.isLoading)
-
+                    
                     Button {
                         onTapRegister()
                     } label: {
@@ -74,7 +74,7 @@ struct LoginView: View {
                             .foregroundColor(.TGBrown)
                             .frame(maxWidth: .infinity)
                             .clipShape(Capsule())
-
+                        
                     }
                 }
             }.padding()
@@ -90,4 +90,5 @@ struct LoginView: View {
     )
     .environmentObject(AppSession())
     .modelContainer(for: Account.self, inMemory: true)
+    .withPreviewEnvironment()
 }

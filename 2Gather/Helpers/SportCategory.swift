@@ -16,7 +16,7 @@ enum SportCategory: String, CaseIterable {
     case dancing = "dancing"
     case yoga = "yoga"
     case other = "other"
-
+    
     var label: String {
         switch self {
         case .volleyball: return "Volleyball"
@@ -29,7 +29,7 @@ enum SportCategory: String, CaseIterable {
         case .other: return "Other"
         }
     }
-
+    
     var icon: String {
         switch self {
         case .volleyball: return "figure.volleyball"
@@ -42,7 +42,7 @@ enum SportCategory: String, CaseIterable {
         case .other: return "figure.mixed.cardio"
         }
     }
-
+    
     var color: Color {
         switch self {
         case .volleyball: return .orange
@@ -55,7 +55,7 @@ enum SportCategory: String, CaseIterable {
         case .other: return .gray
         }
     }
-
+    
     // Helper: given a category [String] from Event,
     // returns the first matching SportCategory it finds
     // If none match, returns .other

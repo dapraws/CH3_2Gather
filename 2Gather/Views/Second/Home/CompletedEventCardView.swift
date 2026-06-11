@@ -58,11 +58,11 @@ struct CompletedEventCardView: View {
                     .font(.system(size: 30))
                     .foregroundColor(.white)
                 Text(date)
-                    .font(.headingXXS)
+                    .scaledFont(.headingXXS)
                     .foregroundColor(.white)
                 if let caption {
                     Text(caption)
-                        .font(.system(size: 12, weight: .medium))
+                        .scaledFont(.labelS) 
                         .foregroundColor(.primary)
                         .padding(.horizontal, 12)
                         .padding(.vertical, 9)
@@ -125,4 +125,5 @@ struct CompletedEventCardView: View {
     }
     .padding()
     .background(Color(.systemGroupedBackground))
+    .withPreviewEnvironment()
 }

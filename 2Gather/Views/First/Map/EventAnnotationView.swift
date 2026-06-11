@@ -13,15 +13,15 @@ struct EventAnnotationView: View {
     var isJoined: Bool = false
     var isCompleted: Bool = false
     var isSelecteds: Bool = false
-
+    
     private var sport: SportCategory {
         SportCategory.from(categories: event.category)
     }
-
+    
     private var isSelected: Bool {
         viewModel.highlightedEventId == event.id
     }
-
+    
     private var pinImage: String {
         if isCompleted {
             return "map-pin-join"
@@ -51,18 +51,18 @@ struct EventAnnotationView: View {
             return 16
         }
     }
-
+    
     private var iconColor: Color {
         isJoined || isCompleted ? .black : .white
     }
-
+    
     var body: some View {
         ZStack {
             Image(pinImage)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 40)
-
+            
             Image(systemName: iconImage)
                 .foregroundStyle(iconColor)
                 .font(.system(size: iconSize, weight: .semibold))
@@ -79,7 +79,7 @@ struct EventAnnotationView: View {
 #Preview("All") {
     ZStack {
         Color.gray.opacity(0.4)
-
+        
         HStack {
             EventAnnotationView(
                 event: TempData.event1,

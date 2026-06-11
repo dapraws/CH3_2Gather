@@ -13,15 +13,15 @@ final class PermissionViewModel: ObservableObject {
     @Published var isRequestingPermission = false
     @Published var errorMessage: String?
     private let permissionService: PermissionService
-
+    
     init(permissionService: PermissionService) {
         self.permissionService = permissionService
     }
-
+    
     func requestRequiredPermissions(completion: @escaping () -> Void) {
         isRequestingPermission = true
         errorMessage = nil
-
+        
         permissionService.requestLocationPermission { [weak self] _ in
             self?.permissionService.requestCameraPermission { [weak self] _ in
                 self?.isRequestingPermission = false

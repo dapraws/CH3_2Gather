@@ -10,7 +10,7 @@ import SwiftUI
 
 @Observable
 class MapViewModel {
-
+    
     var events: [Event] = TempData.allEvents
     var selectedEvent: Event? = nil
     var highlightedEventId: UUID? = nil
@@ -18,7 +18,7 @@ class MapViewModel {
     var selectedCategory: SportCategory? = nil
     var showActiveOnly: Bool = false
     var locationManager = LocationManager()
-
+    
     var position: MapCameraPosition = .region(
         MKCoordinateRegion()
     )
@@ -32,17 +32,17 @@ class MapViewModel {
             )
         )
     }
-
+    
     func selectEvent(_ event: Event) {
         highlightedEventId = event.id
         selectedEvent = event
     }
-
+    
     func deselectEvent() {
         highlightedEventId = nil
         selectedEvent = nil
     }
-
+    
     func filteredEvents(joinedEventIds: Set<UUID>) -> [Event] {
         events.filter { event in
             let matchesSearch = searchText.isEmpty || event.name.localizedCaseInsensitiveContains(searchText)
@@ -55,7 +55,7 @@ class MapViewModel {
             }
             
             let matchesActive = showActiveOnly ? joinedEventIds.contains(event.id) : true
-
+            
             return matchesSearch && matchesCategory && matchesActive
         }
     }

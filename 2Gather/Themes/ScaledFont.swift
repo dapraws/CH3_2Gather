@@ -8,15 +8,22 @@
 import SwiftUI
 
 struct ScaledFontModifier: ViewModifier {
-    @EnvironmentObject var textSizeManager: TextSizeManager
+    @Environment(\.textSizeMultiplier) var multiplier
     let style: TGFontStyle
 
     func body(content: Content) -> some View {
-        content.font(
-            style.scaledFont(
-                multiplier: textSizeManager.currentScale.multiplier
-            )
-        )
+        content.font(style.scaledFont(multiplier: multiplier))
+    }
+}
+
+private struct TextSizeMultiplierKey: EnvironmentKey {
+    static let defaultValue: CGFloat = 1.0
+}
+
+extension EnvironmentValues {
+    var textSizeMultiplier: CGFloat {
+        get { self[TextSizeMultiplierKey.self] }
+        set { self[TextSizeMultiplierKey.self] = newValue }
     }
 }
 

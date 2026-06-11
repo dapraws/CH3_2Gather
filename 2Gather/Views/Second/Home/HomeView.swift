@@ -113,7 +113,7 @@ struct HomeView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text(account?.username ?? "2Gather")
-                        .font(.system(size: 17, weight: .bold))
+                        .scaledFont(.headingS)
                         .foregroundColor(.TGBrownToWhite)
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -144,6 +144,7 @@ struct HomeView: View {
                 Text(
                     "This event will return to Upcoming so you can join it again."
                 )
+                .scaledFont(.bodyM)
             }
         }
     }
@@ -173,7 +174,7 @@ struct HomeView: View {
 
     private var tabToggleView: some View {
         HStack(spacing: 4) {
-            tabPill("My Events", tab: .completed)
+            tabPill("Completed", tab: .completed)
             tabPill("Upcoming", tab: .upcoming)
         }
         .padding(4)
@@ -183,7 +184,7 @@ struct HomeView: View {
     private func tabPill(_ label: String, tab: HomeTab) -> some View {
         let isSelected = viewModel.homeTab == tab
         return Text(label)
-            .font(.labelL)
+            .scaledFont(.labelL)
             .foregroundStyle(isSelected ? Color.TGYellowToBrown : Color.TGMauve)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 8)
@@ -231,17 +232,17 @@ struct HomeView: View {
                 .frame(height: 100)
             VStack(spacing: 6) {
                 Text(title)
-                    .font(.system(size: 18, weight: .bold))
+                    .scaledFont(.headingM)
                     .foregroundColor(.TGBrownToWhite)
                 Text(subtitle)
-                    .font(.system(size: 14))
-                    .foregroundColor(.gray)
+                    .scaledFont(.labelM)
+                    .foregroundColor(.TGBrown.opacity(0.5))
             }
             Button {
                 withAnimation { selectedTab = 1 }
             } label: {
                 Text("Explore!")
-                    .font(.system(size: 16, weight: .bold))
+                    .scaledFont(.labelL)
             }
             .buttonStyle(TGSecondaryButtonStyle())
             .frame(width: 160)
@@ -260,4 +261,6 @@ enum HomeTab {
         HomeView(selectedTab: .constant(0))
     }
     .environmentObject(AppSession())
+    .withPreviewEnvironment()
+
 }

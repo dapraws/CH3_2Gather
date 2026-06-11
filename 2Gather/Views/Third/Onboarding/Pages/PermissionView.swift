@@ -12,9 +12,9 @@ struct PermissionView: View {
     @StateObject private var viewModel = PermissionViewModel(
         permissionService: PermissionService()
     )
-
+    
     let onContinue: () -> Void
-
+    
     var body: some View {
         ZStack {
             Color.TGWhite
@@ -31,7 +31,7 @@ struct PermissionView: View {
                     .frame(width: 280, height: 280)
                     .padding(.bottom, -35)
                     .padding(.trailing, 5)
-        
+                
                 VStack(alignment: .leading, spacing: 16) {
                     Text("More, more!!!").font(.displayM)
                         .foregroundColor(.TGBrown)
@@ -59,7 +59,7 @@ struct PermissionView: View {
                 } label: {
                     Text(
                         viewModel.isRequestingPermission
-                            ? "Loading..." : "Enable access"
+                        ? "Loading..." : "Enable access"
                     )
                     .font(.headingS)
                     .foregroundColor(.TGBrown)
@@ -72,7 +72,7 @@ struct PermissionView: View {
             }
             .padding(.bottom, 50)
         }
-
+        
     }
 }
 
@@ -80,4 +80,5 @@ struct PermissionView: View {
     PermissionView(
         onContinue: {}
     )
+    .withPreviewEnvironment()
 }
