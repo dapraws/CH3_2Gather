@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct CompletedMissionBannerView: View {
-    
-    @Environment(\.dismiss) var dismiss
+
     var onDismiss: () -> Void
     var eventName: String
     var sport: SportCategory
-    
+
     var body: some View {
         ZStack {
             Color.TGYellow
@@ -21,48 +20,51 @@ struct CompletedMissionBannerView: View {
                 .resizable()
                 .scaledToFill()
                 .frame(width: 621, height: 621)
-            
+
             VStack {
-                VStack (spacing: 10){
+                VStack(spacing: 10) {
                     Image(systemName: sport.icon)
                         .font(.system(size: 30))
                     Text(eventName)
                         .font(.system(size: 17, weight: .medium))
                 }
                 .foregroundColor(.TGBrown)
-                
+
                 Spacer()
-                
+
                 HStack {
                     Spacer()
-                    VStack (spacing: 30){
+                    VStack(spacing: 30) {
                         Button {
-                            Void()
+                            // share placeholder
                         } label: {
                             Text("Share")
                                 .font(.system(size: 14, weight: .medium))
-                        }.buttonStyle(TGShareBannerButtonStyle())
-                            .frame(maxWidth: 120, minHeight: 36)
-                        
+                        }
+                        .buttonStyle(TGShareBannerButtonStyle())
+                        .frame(maxWidth: 120, minHeight: 36)
+
                         Button {
-                            dismiss()
+                            onDismiss()
                         } label: {
                             Text("Close")
-                        }.foregroundStyle(Color.TGOrange)
-                            
+                        }
+                        .foregroundStyle(Color.TGOrange)
                     }
                     .font(.system(size: 14, weight: .medium))
                     Spacer()
                 }
-                
-                
-            }.padding(.vertical, 125)
+            }
+            .padding(.vertical, 125)
         }
         .ignoresSafeArea()
-        
     }
 }
 
 #Preview {
-    CompletedMissionBannerView(onDismiss: {}, eventName: TempData.event1.name, sport: SportCategory.cycling)
+    CompletedMissionBannerView(
+        onDismiss: {},
+        eventName: TempData.event1.name,
+        sport: SportCategory.cycling
+    )
 }
