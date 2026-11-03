@@ -1,0 +1,17 @@
+# AI assistant files & docs (local only)
+.claude/
+.cursor/
+.codex/
+.gemini/
+.aider*
+.windsurf/
+.cursorrules
+.windsurfrules
+.github/copilot-instructions.md
+CLAUDE.md
+CLAUDE.local.md
+AGENTS.md
+GEMINI.md
+RTK.md
+CONTEXT.md
+docs/

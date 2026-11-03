@@ -1,0 +1,24 @@
+{
+  "originHash" : "5078748e066f87cbf9b0f53a1b313d9debbc4cdc62f8b94230474d70e6f9b567",
+  "pins" : [
+    {
+      "identity" : "lottie-spm",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/airbnb/lottie-spm.git",
+      "state" : {
+        "revision" : "69faaefa7721fba9e434a52c16adf4329c9084db",
+        "version" : "4.6.0"
+      }
+    },
+    {
+      "identity" : "swiftui-flow",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tevelee/SwiftUI-Flow",
+      "state" : {
+        "revision" : "e3a236457b1cc5eadaa42278b77f1490638b963c",
+        "version" : "3.2.0"
+      }
+    }
+  ],
+  "version" : 3
+}

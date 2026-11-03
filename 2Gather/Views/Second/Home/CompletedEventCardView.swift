@@ -22,12 +22,12 @@ struct CompletedEventCardView: View {
     
     var body: some View {
         ZStack(alignment: .bottomLeading) {
-            // Base — fixed size, ini yang define ukuran ZStack
+            
             Color.clear
                 .frame(maxWidth: .infinity)
                 .frame(height: 160)
 
-            // Background image — non-interactive
+            
             if let image = proofImage {
                 Image(uiImage: image)
                     .resizable()
@@ -44,7 +44,7 @@ struct CompletedEventCardView: View {
                     .allowsHitTesting(false)
             }
 
-            // Gradient — non-interactive
+            
             LinearGradient(
                 gradient: Gradient(colors: [Color.black.opacity(0.5), Color.clear]),
                 startPoint: .bottom,
@@ -52,7 +52,7 @@ struct CompletedEventCardView: View {
             )
             .allowsHitTesting(false)
 
-            // Info text — non-interactive
+            
             VStack(alignment: .leading, spacing: 4) {
                 Image(systemName: sportIcon)
                     .font(.system(size: 30))
@@ -72,7 +72,7 @@ struct CompletedEventCardView: View {
             .padding()
             .allowsHitTesting(false)
 
-            // Delete button — satu-satunya yang interactive
+            
             if onDeleteTapped != nil {
                 VStack {
                     HStack {
